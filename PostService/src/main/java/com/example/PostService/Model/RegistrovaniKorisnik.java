@@ -10,26 +10,24 @@ import java.util.Set;
 public class RegistrovaniKorisnik {
 
     @Id
-    @SequenceGenerator(name="seq_registrovanikorisnik", sequenceName = "seq_registrovanikorisnik", initialValue = 1, allocationSize = 1)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_registrovanikorisnik")
     private Integer id;
 
+    @JsonIgnore
+    @OneToMany(mappedBy = "kreator", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private Set<Sadrzaj> posts;
 
-    @OneToMany(mappedBy = "registrovaniKorisnik", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    private Set<Post> posts;
 
-
-    @OneToMany(mappedBy = "registrovaniKorisnik", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "registrovaniKorisnik", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Set<Komentar> komentari;
 
-
-    @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(name = "lajkovali", joinColumns = @JoinColumn(name = "sadrzajlajkovani_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "registrovaniKorisniklajkovan_id", referencedColumnName = "id"))
+    @JsonIgnore
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(name = "lajkovali", joinColumns = @JoinColumn(name = "registrovaniKorisniklajkovan_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "sadrzajlajkovani_id", referencedColumnName = "id"))
     private Set<Sadrzaj> sadrzajlajkovani = new HashSet<Sadrzaj>();
 
-
-    @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(name = "dislajkovali", joinColumns = @JoinColumn(name = "dislajkovan_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "registrovaniKorisnik_id", referencedColumnName = "id"))
+    @JsonIgnore
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(name = "dislajkovali", joinColumns = @JoinColumn(name = "registrovaniKorisnik_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "dislajkovan_id", referencedColumnName = "id"))
     private Set<Sadrzaj> dislajkovan = new HashSet<Sadrzaj>();
 
     public RegistrovaniKorisnik() {
@@ -43,11 +41,11 @@ public class RegistrovaniKorisnik {
         this.id = id;
     }
 
-    public Set<Post> getPosts() {
+    public Set<Sadrzaj> getPosts() {
         return posts;
     }
 
-    public void setPosts(Set<Post> posts) {
+    public void setPosts(Set<Sadrzaj> posts) {
         this.posts = posts;
     }
 

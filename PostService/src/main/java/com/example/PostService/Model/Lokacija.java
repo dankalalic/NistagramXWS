@@ -1,5 +1,7 @@
 package com.example.PostService.Model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.Set;
 
@@ -10,11 +12,11 @@ public class Lokacija {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_post")
     private Integer id;
 
-    @Column
+    @Column(unique = true)
     private String naziv;
 
-
-    @OneToMany(mappedBy = "lokacija", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JsonIgnore
+    @OneToMany(mappedBy = "lokacija", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Set<Sadrzaj> sadrzaj;
 
     public Lokacija() {

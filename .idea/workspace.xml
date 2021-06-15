@@ -3,18 +3,11 @@
   <component name="ChangeListManager">
     <list default="true" id="789d1596-e368-4ece-a01b-9121c7bf6cd7" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Eureka/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/Eureka/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Eureka/.mvn/wrapper/MavenWrapperDownloader.java" beforeDir="false" afterPath="$PROJECT_DIR$/Eureka/.mvn/wrapper/MavenWrapperDownloader.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Eureka/.mvn/wrapper/maven-wrapper.properties" beforeDir="false" afterPath="$PROJECT_DIR$/Eureka/.mvn/wrapper/maven-wrapper.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Eureka/Dockerfile" beforeDir="false" afterPath="$PROJECT_DIR$/Eureka/Dockerfile" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Eureka/mvnw" beforeDir="false" afterPath="$PROJECT_DIR$/Eureka/mvnw" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Eureka/mvnw.cmd" beforeDir="false" afterPath="$PROJECT_DIR$/Eureka/mvnw.cmd" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Eureka/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Eureka/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Eureka/src/main/java/com/example/Eureka/EurekaApplication.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Eureka/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/Eureka/src/main/resources/application.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Eureka/src/test/java/com/tim26/Eureka/EurekaApplicationTests.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Followerservice/src/main/resources/adsDB.mv.db" beforeDir="false" afterPath="$PROJECT_DIR$/Followerservice/src/main/resources/adsDB.mv.db" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/settingsservice/src/main/resources/adsDB.mv.db" beforeDir="false" afterPath="$PROJECT_DIR$/settingsservice/src/main/resources/adsDB.mv.db" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AuthService/src/main/java/com/example/AuthService/security/TokenUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/AuthService/src/main/java/com/example/AuthService/security/TokenUtils.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AuthService/src/main/resources/adsDB.mv.db" beforeDir="false" afterPath="$PROJECT_DIR$/AuthService/src/main/resources/adsDB.mv.db" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AuthService/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/AuthService/src/main/resources/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/PostService/src/main/java/com/example/PostService/Repository/KomentarRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/PostService/src/main/java/com/example/PostService/Repository/KomentarRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docker-compose.yml" beforeDir="false" afterPath="$PROJECT_DIR$/docker-compose.yml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -52,6 +45,7 @@
       <updated>1623668813190</updated>
       <workItem from="1623668816582" duration="450000" />
       <workItem from="1623762112383" duration="707000" />
+      <workItem from="1623779747563" duration="2686000" />
     </task>
     <servers />
   </component>

@@ -1,5 +1,7 @@
 package com.example.PostService.Model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
@@ -11,11 +13,12 @@ public class Tagovi {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_tagovi")
     private Integer id;
 
-    @Column
+    @Column(unique = true)
     private String naziv;
 
-    @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(name = "tagovani", joinColumns = @JoinColumn(name = "sadrzaj_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "tagovi_id", referencedColumnName = "id"))
+    @JsonIgnore
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(name = "tagovani", joinColumns = @JoinColumn(name = "tagovi_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "sadrzaj_id", referencedColumnName = "id"))
     private Set<Sadrzaj> sadrzaj = new HashSet<Sadrzaj>();
 
     public Tagovi() {
