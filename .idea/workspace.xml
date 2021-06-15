@@ -2,18 +2,16 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="789d1596-e368-4ece-a01b-9121c7bf6cd7" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/PostService/src/main/java/com/example/PostService/dto/RegistrovaniKorisnikDto.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Eureka/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/Eureka/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Eureka/.mvn/wrapper/MavenWrapperDownloader.java" beforeDir="false" afterPath="$PROJECT_DIR$/Eureka/.mvn/wrapper/MavenWrapperDownloader.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Eureka/.mvn/wrapper/maven-wrapper.properties" beforeDir="false" afterPath="$PROJECT_DIR$/Eureka/.mvn/wrapper/maven-wrapper.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Eureka/Dockerfile" beforeDir="false" afterPath="$PROJECT_DIR$/Eureka/Dockerfile" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Eureka/mvnw" beforeDir="false" afterPath="$PROJECT_DIR$/Eureka/mvnw" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Eureka/mvnw.cmd" beforeDir="false" afterPath="$PROJECT_DIR$/Eureka/mvnw.cmd" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Eureka/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Eureka/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Eureka/src/main/java/com/example/Eureka/EurekaApplication.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Eureka/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/Eureka/src/main/resources/application.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Eureka/src/test/java/com/tim26/Eureka/EurekaApplicationTests.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/AuthService/src/main/resources/adsDB.mv.db" beforeDir="false" afterPath="$PROJECT_DIR$/AuthService/src/main/resources/adsDB.mv.db" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AuthService/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/AuthService/src/main/resources/application.properties" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Followerservice/src/main/resources/adsDB.mv.db" beforeDir="false" afterPath="$PROJECT_DIR$/Followerservice/src/main/resources/adsDB.mv.db" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/PostService/src/main/java/com/example/PostService/Controller/KomentarController.java" beforeDir="false" afterPath="$PROJECT_DIR$/PostService/src/main/java/com/example/PostService/Controller/KomentarController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/PostService/src/main/java/com/example/PostService/Model/Post.java" beforeDir="false" afterPath="$PROJECT_DIR$/PostService/src/main/java/com/example/PostService/Model/Post.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/PostService/src/main/resources/adsDB.mv.db" beforeDir="false" afterPath="$PROJECT_DIR$/PostService/src/main/resources/adsDB.mv.db" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docker-compose.yml" beforeDir="false" afterPath="$PROJECT_DIR$/docker-compose.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/media-service/src/main/java/xws/media/controller/MediaController.java" beforeDir="false" afterPath="$PROJECT_DIR$/media-service/src/main/java/xws/media/controller/MediaController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/settingsservice/src/main/resources/adsDB.mv.db" beforeDir="false" afterPath="$PROJECT_DIR$/settingsservice/src/main/resources/adsDB.mv.db" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -40,7 +38,7 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/Eureka" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/PostService" />
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
@@ -52,6 +50,8 @@
       <updated>1623668813190</updated>
       <workItem from="1623668816582" duration="450000" />
       <workItem from="1623762112383" duration="707000" />
+      <workItem from="1623781054864" duration="1530000" />
+      <workItem from="1623792609012" duration="1305000" />
     </task>
     <servers />
   </component>
@@ -59,9 +59,23 @@
     <option name="version" value="3" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="740" y="275" key="FileChooserDialogImpl" timestamp="1623762809301">
+    <state x="740" y="275" key="FileChooserDialogImpl" timestamp="1623793924503">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="740" y="275" key="FileChooserDialogImpl/0.0.1920.1040/1920.0.1440.860@0.0.1920.1040" timestamp="1623762809301" />
+    <state x="740" y="275" key="FileChooserDialogImpl/0.0.1920.1040/1920.0.1440.860@0.0.1920.1040" timestamp="1623793924503" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-method">
+          <url>file://$PROJECT_DIR$/media-service/src/main/java/xws/media/controller/MediaController.java</url>
+          <line>26</line>
+          <properties class="xws.media.controller.MediaController" method="uploadFiles">
+            <option name="EMULATED" value="true" />
+          </properties>
+          <option name="timeStamp" value="2" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>

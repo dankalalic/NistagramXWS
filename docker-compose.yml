@@ -36,7 +36,7 @@ services:
       context: ./AuthService
       dockerfile: Dockerfile
     ports:
-      - "8087:8087"
+      - "8090:8090"
     tty: true
     restart: on-failure
     container_name: authservice
@@ -65,7 +65,7 @@ services:
       - nistagram-network
 
   followerservice:
-    image: authservice
+    image: followerservice
     build:
       context: ./Followerservice
       dockerfile: Dockerfile

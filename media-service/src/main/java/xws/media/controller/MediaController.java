@@ -30,4 +30,6 @@ public class MediaController {
 		return new ResponseEntity(mediaService.upload(multipartFiles, username), HttpStatus.CREATED);
 	}
 
+	
+
 }

@@ -6,15 +6,19 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import static javax.persistence.DiscriminatorType.STRING;
+
 @Entity
+@Inheritance(strategy=InheritanceType.SINGLE_TABLE)
+@DiscriminatorColumn(name="tip", discriminatorType=STRING)
 public class Sadrzaj {
     @Id
     @SequenceGenerator(name="seq_sadrzaj", sequenceName = "seq_sadrzaj", initialValue = 1, allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_sadrzaj")
     private Integer id;
 
-    @ElementCollection
-    private Set<String> slike = new HashSet<String>();
+    @ManyToOne(cascade = CascadeType.MERGE, fetch = FetchType.LAZY)
+    private RegistrovaniKorisnik kreator;
 
     @Column
     private Integer brojreportova;
@@ -25,10 +29,13 @@ public class Sadrzaj {
     @ManyToMany(mappedBy = "dislajkovan")
     private Set<RegistrovaniKorisnik> registrovaniKorisnik = new HashSet<RegistrovaniKorisnik>();
 
-    @ManyToOne(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
+    @ManyToOne(cascade = CascadeType.MERGE, fetch = FetchType.LAZY)
     private Lokacija lokacija;
 
-    @ManyToMany(mappedBy = "sadrzaj", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "sadrzaj", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private Set<Slika> slike;
+
+    @ManyToMany(mappedBy = "sadrzaj", fetch = FetchType.LAZY)
     private Set<Tagovi> tagovi = new HashSet<Tagovi>();
 
     public Sadrzaj() {
@@ -40,14 +47,6 @@ public class Sadrzaj {
 
     public void setId(Integer id) {
         this.id = id;
-    }
-
-    public Set<String> getSlike() {
-        return slike;
-    }
-
-    public void setSlike(Set<String> slike) {
-        this.slike = slike;
     }
 
     public Integer getBrojreportova() {
@@ -88,5 +87,17 @@ public class Sadrzaj {
 
     public void setTagovi(Set<Tagovi> tagovi) {
         this.tagovi = tagovi;
+    }
+
+    public RegistrovaniKorisnik getKreator() {
+        return kreator;
+    }
+
+    public void setKreator(RegistrovaniKorisnik kreator) {
+        this.kreator = kreator;
+    }
+
+    public void setSlike(Set<Slika> slike) {
+        this.slike = slike;
     }
 }

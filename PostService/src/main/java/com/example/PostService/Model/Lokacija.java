@@ -10,11 +10,11 @@ public class Lokacija {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_post")
     private Integer id;
 
-    @Column
+    @Column(unique = true)
     private String naziv;
 
 
-    @OneToMany(mappedBy = "lokacija", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "lokacija", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Set<Sadrzaj> sadrzaj;
 
     public Lokacija() {
