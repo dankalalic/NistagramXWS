@@ -14,7 +14,8 @@ import java.util.Set;
 public class RegisteredUser extends User{
 
     public enum EnumPol{
-        Musko,Zensko
+        Musko,
+        Zensko
     }
 
     @Column
@@ -30,7 +31,7 @@ public class RegisteredUser extends User{
     private String telefon;
 
     @Column
-    private EnumPol pol;
+    private String pol;
 
     @Column
     private LocalDate datumrodj;
@@ -61,12 +62,14 @@ public class RegisteredUser extends User{
     @OneToOne(mappedBy = "registeredUser")
     private ZahtevZaVerifikaciju zahtevZaRVerifikaciju;
 
+    @JsonIgnore
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name="UserBlok",
             joinColumns={@JoinColumn(name="jaBlokiraoId")},
             inverseJoinColumns={@JoinColumn(name="meneBlokiraliId")})
     private Set<RegisteredUser> jaBlokirao = new HashSet<RegisteredUser>();
 
+    @JsonIgnore
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name="UserBlok",
             joinColumns={@JoinColumn(name="meneBlokiraliId")},
@@ -160,11 +163,11 @@ public class RegisteredUser extends User{
         this.dozvoljeneNotifikacije = dozvoljeneNotifikacije;
     }
 
-    public EnumPol getPol() {
+    public String getPol() {
         return pol;
     }
 
-    public void setPol(EnumPol pol) {
+    public void setPol(String pol) {
         this.pol = pol;
     }
 
