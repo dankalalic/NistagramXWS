@@ -8,6 +8,8 @@ import javax.persistence.*;
 public class ZahteviZaPracenje {
 
     @Id
+    @SequenceGenerator(name="seq_zahtevi_pracenje", sequenceName = "seq_zahtevi_pracenje", initialValue = 1, allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_zahtevi_pracenje")
     private Integer id;
 
     @Column

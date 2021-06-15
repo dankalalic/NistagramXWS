@@ -65,7 +65,7 @@ services:
       - nistagram-network
 
   followerservice:
-    image: authservice
+    image: followerservice
     build:
       context: ./Followerservice
       dockerfile: Dockerfile

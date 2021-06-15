@@ -1,5 +1,7 @@
 package com.example.followerservice.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
@@ -9,18 +11,22 @@ import java.util.Set;
 public class User {
 
     @Id
+    @SequenceGenerator(name="seq_user", sequenceName = "seq_user", initialValue = 1, allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_user")
     private Integer id;
 
     @Column
     private Boolean isPrivate;
 
 
+    @JsonIgnore
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name="UserRel",
             joinColumns={@JoinColumn(name="mojId")},
             inverseJoinColumns={@JoinColumn(name="kogapratimId")})
     private Set<User> followers = new HashSet<User>();
 
+    @JsonIgnore
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name="UserRel",
             joinColumns={@JoinColumn(name="mojId")},
