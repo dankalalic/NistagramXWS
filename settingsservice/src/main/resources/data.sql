@@ -1,0 +1,1 @@
+insert into USERS (rolee, id, username, lozinka) values ('registeredUser', 1, 'pera', '123');
