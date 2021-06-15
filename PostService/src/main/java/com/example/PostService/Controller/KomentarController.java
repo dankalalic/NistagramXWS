@@ -25,11 +25,6 @@ public class KomentarController {
         this.komentarRepository = komentarRepository;
     }
 
-
-
-
-
-
     @GetMapping
     public  ResponseEntity<List<Komentar>> getMedications(){
         
