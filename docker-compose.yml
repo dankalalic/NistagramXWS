@@ -98,17 +98,6 @@ services:
     networks:
       - nistagram-network 
 
-  media-service:
-    build: ./media-service
-    image: media-service
-    restart: on-failure
-    depends_on:
-      - eureka
-    networks:
-      - nistagram-network
-    ports:
-      - 9000:9000
-
 networks:
   nistagram-network:
     driver: bridge
