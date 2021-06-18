@@ -1,5 +1,7 @@
 package com.example.PostService.Model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.Set;
 
@@ -13,7 +15,7 @@ public class Lokacija {
     @Column(unique = true)
     private String naziv;
 
-
+    @JsonIgnore
     @OneToMany(mappedBy = "lokacija", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Set<Sadrzaj> sadrzaj;
 

@@ -1,5 +1,7 @@
 package com.example.PostService.Model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -17,17 +19,17 @@ public class Sadrzaj {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_sadrzaj")
     private Integer id;
 
-    @ManyToOne(cascade = CascadeType.MERGE, fetch = FetchType.LAZY)
+    @ManyToOne( fetch = FetchType.LAZY)
     private RegistrovaniKorisnik kreator;
 
     @Column
     private Integer brojreportova;
 
     @ManyToMany(mappedBy = "sadrzajlajkovani")
-    private Set<RegistrovaniKorisnik> registrovaniKorisniklajkovan = new HashSet<RegistrovaniKorisnik>();
+    private Set<RegistrovaniKorisnik> lajkovali = new HashSet<RegistrovaniKorisnik>();
 
     @ManyToMany(mappedBy = "dislajkovan")
-    private Set<RegistrovaniKorisnik> registrovaniKorisnik = new HashSet<RegistrovaniKorisnik>();
+    private Set<RegistrovaniKorisnik> dislajkovali = new HashSet<RegistrovaniKorisnik>();
 
     @ManyToOne(cascade = CascadeType.MERGE, fetch = FetchType.LAZY)
     private Lokacija lokacija;
@@ -57,20 +59,20 @@ public class Sadrzaj {
         this.brojreportova = brojreportova;
     }
 
-    public Set<RegistrovaniKorisnik> getRegistrovaniKorisniklajkovan() {
-        return registrovaniKorisniklajkovan;
+    public Set<RegistrovaniKorisnik> getLajkovali() {
+        return lajkovali;
     }
 
-    public void setRegistrovaniKorisniklajkovan(Set<RegistrovaniKorisnik> registrovaniKorisniklajkovan) {
-        this.registrovaniKorisniklajkovan = registrovaniKorisniklajkovan;
+    public void setLajkovali(Set<RegistrovaniKorisnik> lajkovali) {
+        this.lajkovali = lajkovali;
     }
 
-    public Set<RegistrovaniKorisnik> getRegistrovaniKorisnik() {
-        return registrovaniKorisnik;
+    public Set<RegistrovaniKorisnik> getDislajkovali() {
+        return dislajkovali;
     }
 
-    public void setRegistrovaniKorisnik(Set<RegistrovaniKorisnik> registrovaniKorisnik) {
-        this.registrovaniKorisnik = registrovaniKorisnik;
+    public void setDislajkovali(Set<RegistrovaniKorisnik> dislajkovali) {
+        this.dislajkovali = dislajkovali;
     }
 
     public Lokacija getLokacija() {

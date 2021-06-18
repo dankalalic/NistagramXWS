@@ -12,22 +12,21 @@ public class RegistrovaniKorisnik {
     @Id
     private Integer id;
 
-
+    @JsonIgnore
     @OneToMany(mappedBy = "kreator", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Set<Sadrzaj> posts;
-
 
     @OneToMany(mappedBy = "registrovaniKorisnik", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Set<Komentar> komentari;
 
-
+    @JsonIgnore
     @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(name = "lajkovali", joinColumns = @JoinColumn(name = "sadrzajlajkovani_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "registrovaniKorisniklajkovan_id", referencedColumnName = "id"))
+    @JoinTable(name = "lajkovali", joinColumns = @JoinColumn(name = "registrovaniKorisniklajkovan_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "sadrzajlajkovani_id", referencedColumnName = "id"))
     private Set<Sadrzaj> sadrzajlajkovani = new HashSet<Sadrzaj>();
 
-
+    @JsonIgnore
     @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(name = "dislajkovali", joinColumns = @JoinColumn(name = "dislajkovan_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "registrovaniKorisnik_id", referencedColumnName = "id"))
+    @JoinTable(name = "dislajkovali", joinColumns = @JoinColumn(name = "registrovaniKorisnik_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "dislajkovan_id", referencedColumnName = "id"))
     private Set<Sadrzaj> dislajkovan = new HashSet<Sadrzaj>();
 
     public RegistrovaniKorisnik() {

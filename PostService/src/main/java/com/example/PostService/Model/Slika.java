@@ -6,7 +6,7 @@ import javax.persistence.*;
 public class Slika {
 
     @Id
-    @SequenceGenerator(name="seq_slika", sequenceName = "seq_slika", initialValue = 1, allocationSize = 1)
+    @SequenceGenerator(name = "seq_slika", sequenceName = "seq_slika", initialValue = 1, allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_slika")
     private Integer id;
 

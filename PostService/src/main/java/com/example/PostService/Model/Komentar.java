@@ -15,10 +15,10 @@ public class Komentar {
     @Column
     private String text;
 
-    @ManyToOne(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
+    @ManyToOne(cascade = CascadeType.MERGE, fetch = FetchType.LAZY)
     private RegistrovaniKorisnik registrovaniKorisnik;
 
-    @ManyToOne(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
+    @ManyToOne(cascade = CascadeType.MERGE, fetch = FetchType.LAZY)
     private Sadrzaj sadrzaj;
 
     public Komentar() {

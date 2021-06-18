@@ -1,5 +1,7 @@
 package com.example.PostService.Model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
@@ -14,6 +16,7 @@ public class Tagovi {
     @Column(unique = true)
     private String naziv;
 
+    @JsonIgnore
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "tagovani", joinColumns = @JoinColumn(name = "tagovi_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "sadrzaj_id", referencedColumnName = "id"))
     private Set<Sadrzaj> sadrzaj = new HashSet<Sadrzaj>();

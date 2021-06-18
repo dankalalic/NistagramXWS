@@ -10,4 +10,5 @@ import java.util.Set;
 public interface PostRepository extends JpaRepository<Post,Integer> {
 
     Set<Post> findAllByRegistrovaniKorisnik(RegistrovaniKorisnik registraniKorisnik);
+
 }
