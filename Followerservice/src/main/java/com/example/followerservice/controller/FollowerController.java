@@ -4,11 +4,17 @@ import com.example.followerservice.UserService;
 import com.example.followerservice.model.DTO.UserDTO;
 import com.example.followerservice.model.User;
 import com.example.followerservice.repository.FollowerRepository;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.netflix.discovery.EurekaClient;
+import com.netflix.discovery.shared.Application;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.RestTemplate;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -26,6 +32,11 @@ public class FollowerController {
     public void setUserService(UserService userService){this.userService=userService;}
 
     @Autowired
+    private RestTemplate restTemplate;
+
+
+
+    @Autowired
     private FollowerRepository followerRepository;
 
     @GetMapping(value="/user")
@@ -36,7 +47,7 @@ public class FollowerController {
     }
 
     @PostMapping(value="/follow",consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Set<User>> followSomeone(@RequestBody UserDTO userDTO){
+    public ResponseEntity<Boolean> followSomeone(@RequestBody UserDTO userDTO){
         Integer id=userDTO.getMyID();
         Integer id2=userDTO.getSomeonesID();
         User user= this.followerRepository.findOneById(id);
@@ -84,13 +95,24 @@ public class FollowerController {
 
         }
 
-       Set<User> users= new HashSet<>();
+
+
+        String url="https://settingsservice/zahteviZaPracenje/primazahtev";
+
+       Boolean bolean= restTemplate.postForObject("http://settingsservice/zahteviZaPracenje/primazahtev",userDTO,Boolean.class);
+
+
+
+
+
+
+        Set<User> users= new HashSet<>();
 
         users.add(user2);
         users.add(user3);
 
 
-        return new ResponseEntity<>(users,HttpStatus.OK);
+        return new ResponseEntity<>(bolean,HttpStatus.OK);
     }
 
 }

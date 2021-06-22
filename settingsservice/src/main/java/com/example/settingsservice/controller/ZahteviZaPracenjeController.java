@@ -27,7 +27,7 @@ public class ZahteviZaPracenjeController {
     private RegisteredUserRepository registeredUserRepository;
 
     @PostMapping(value="/primazahtev",consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<ZahteviZaPracenje> followSomeone(@RequestBody idDTO idDTO) {
+    public ResponseEntity<Boolean> followSomeone(@RequestBody idDTO idDTO) {
         RegisteredUser meuser= this.registeredUserRepository.findOneById(idDTO.getMyID());
         RegisteredUser someoneuser= this.registeredUserRepository.findOneById(idDTO.getSomeonesID());
 
@@ -37,7 +37,16 @@ public class ZahteviZaPracenjeController {
 
         zahteviZaPracenje=zahteviZaPracenjeService.save(zahteviZaPracenje);
 
-        return new ResponseEntity<>( zahteviZaPracenje,HttpStatus.OK);
+        return new ResponseEntity<>(true, HttpStatus.OK);
+    }
+
+    @PostMapping(value="/proba")
+    public Boolean proba(@RequestBody idDTO idDTO) {
+
+        String Hejj="hejj";
+
+
+        return true;
     }
 
 }
