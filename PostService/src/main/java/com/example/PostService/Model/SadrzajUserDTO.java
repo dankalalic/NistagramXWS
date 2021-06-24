@@ -1,4 +1,4 @@
-package com.example.PostService.DTO;
+package com.example.PostService.Model;
 
 public class SadrzajUserDTO {
     private Integer sadrzajId;

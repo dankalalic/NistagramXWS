@@ -1,22 +1,17 @@
 package com.example.PostService.Controller;
 
-
 import com.example.PostService.Model.Post;
-import com.example.PostService.Model.RegistrovaniKorisnik;
-import com.example.PostService.Model.Sadrzaj;
+import com.example.PostService.Model.SadrzajDTO;
 import com.example.PostService.Service.PostService;
 import com.example.PostService.Service.RegistrovaniKorisnikService;
 import com.example.PostService.Service.SadrzajService;
-import com.example.PostService.dto.SadrzajDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-import java.util.Set;
-
+@CrossOrigin(origins = "http://localhost:4200")
 @RestController
 @RequestMapping(value = "/posts")
 public class PostController {

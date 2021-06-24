@@ -1,13 +1,11 @@
 package com.example.PostService.Controller;
 
-import com.example.PostService.Model.RegistrovaniKorisnik;
+import com.example.PostService.Model.IdDTO;
 import com.example.PostService.Model.Sadrzaj;
+import com.example.PostService.Model.SadrzajUserDTO;
+import com.example.PostService.Model.StringDTO;
 import com.example.PostService.Service.SadrzajService;
-import com.example.PostService.dto.SadrzajDTO;
 import org.springframework.beans.factory.annotation.Autowired;
-import com.example.PostService.DTO.IdDTO;
-import com.example.PostService.DTO.SadrzajUserDTO;
-import com.example.PostService.DTO.StringDTO;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -65,6 +63,7 @@ public class SadrzajController {
         String username = "v";
         return new ResponseEntity(sadrzajService.upload(multipartFiles, username), HttpStatus.CREATED);
     }
+
     @CrossOrigin(origins = "http://localhost:4200")
     @PostMapping(value="/getpictures")
     public ResponseEntity<Set<Sadrzaj>> getRegistrovaniKorisnikPictures(@RequestBody IdDTO idDTO){

@@ -1,15 +1,10 @@
 package com.example.PostService.Service;
 
-import com.example.PostService.Model.Post;
-import com.example.PostService.Model.RegistrovaniKorisnik;
-import com.example.PostService.Model.Sadrzaj;
-import com.example.PostService.Model.Slika;
+import com.example.PostService.Model.*;
 import com.example.PostService.Repository.LokacijaRepository;
 import com.example.PostService.Repository.PostRepository;
 import com.example.PostService.Repository.RegistrovaniKorisnikRepository;
 import com.example.PostService.Repository.SlikaRepository;
-import com.example.PostService.dto.RegistrovaniKorisnikDto;
-import com.example.PostService.dto.SadrzajDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

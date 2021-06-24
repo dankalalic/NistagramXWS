@@ -1,7 +1,5 @@
-package com.example.PostService.dto;
+package com.example.PostService.Model;
 
-
-import java.util.List;
 import java.util.Set;
 
 public class SadrzajDTO {
@@ -41,4 +39,5 @@ public class SadrzajDTO {
     public void setLokacija(String lokacija) {
         this.lokacija = lokacija;
     }
+
 }

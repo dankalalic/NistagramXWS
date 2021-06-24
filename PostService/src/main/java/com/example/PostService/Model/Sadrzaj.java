@@ -14,7 +14,7 @@ import static javax.persistence.DiscriminatorType.STRING;
 @Entity
 @Inheritance(strategy=InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name="tip", discriminatorType=STRING)
-public class Sadrzaj {
+public abstract class Sadrzaj {
     @Id
     @SequenceGenerator(name="seq_sadrzaj", sequenceName = "seq_sadrzaj", initialValue = 1, allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_sadrzaj")

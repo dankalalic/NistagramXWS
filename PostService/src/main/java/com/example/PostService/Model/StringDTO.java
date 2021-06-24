@@ -1,7 +1,7 @@
-package com.example.PostService.DTO;
+package com.example.PostService.Model;
 
 public class StringDTO {
-    
+
     private String string;
 
     public String getString() {
