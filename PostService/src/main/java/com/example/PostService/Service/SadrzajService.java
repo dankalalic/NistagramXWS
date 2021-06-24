@@ -1,44 +1,42 @@
 package com.example.PostService.Service;
 
-import com.example.PostService.Model.RegistrovaniKorisnik;
-import com.example.PostService.Model.Sadrzaj;
-import com.example.PostService.Repository.SadrzajRepository;
+import com.example.PostService.Model.*;
+import com.example.PostService.Repository.*;
+import com.example.PostService.dto.SadrzajDTO;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import com.example.PostService.DTO.SadrzajUserDTO;
-import com.example.PostService.Model.Lokacija;
-import com.example.PostService.Model.Tagovi;
-import com.example.PostService.Repository.LokacijaRepository;
-import com.example.PostService.Repository.RegistrovaniKorisnikRepository;
-import com.example.PostService.Repository.SadrzajRepository;
-import com.example.PostService.Repository.TagRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.client.RestTemplate;
+import org.springframework.web.multipart.MultipartFile;
 
-import javax.persistence.SecondaryTable;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Set;
+import java.io.File;
+import java.io.InputStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
+import java.util.*;
+import org.apache.commons.io.FilenameUtils;
+
+import javax.persistence.Id;
+
 
 @Service
 public class SadrzajService {
     private SadrzajRepository sadrzajRepository;
-
     private LokacijaRepository lokacijaRepository;
     private TagRepository tagRepository;
     private RegistrovaniKorisnikRepository registrovaniKorisnikRepository;
+    private PostRepository postRepository;
 
     @Autowired
-    public SadrzajRepository setSadrzajRepository(SadrzajRepository sadrzajRepository)
-    {
-        return this.sadrzajRepository = sadrzajRepository;
-    }
+    public SadrzajRepository setSadrzajRepository(SadrzajRepository sadrzajRepository) { return this.sadrzajRepository = sadrzajRepository; }
 
     @Autowired
-    public LokacijaRepository setLokacijaRepository(LokacijaRepository lokacijaRepository)
-    {
-        return this.lokacijaRepository = lokacijaRepository;
-    }
+    public LokacijaRepository setLokacijaRepository(LokacijaRepository lokacijaRepository) { return this.lokacijaRepository = lokacijaRepository; }
 
     @Autowired
     public TagRepository setTagRepository(TagRepository tagRepository)
@@ -47,11 +45,10 @@ public class SadrzajService {
     }
 
     @Autowired
-    public RegistrovaniKorisnikRepository setRegistrovaniKorisnikRepository(RegistrovaniKorisnikRepository registrovaniKorisnikRepository)
-    {
-        return this.registrovaniKorisnikRepository = registrovaniKorisnikRepository;
-    }
+    public RegistrovaniKorisnikRepository setRegistrovaniKorisnikRepository(RegistrovaniKorisnikRepository registrovaniKorisnikRepository) { return this.registrovaniKorisnikRepository = registrovaniKorisnikRepository; }
 
+    @Autowired
+    public PostRepository setPostRepository(PostRepository postRepository) {return this.postRepository = postRepository; }
 
     public List<Sadrzaj> findByLokacija(String lokacija) {
         Lokacija lokacija1 = lokacijaRepository.findByNaziv(lokacija);
@@ -68,7 +65,18 @@ public class SadrzajService {
 
     public List<Sadrzaj> findByProfil(Integer id) {
         RegistrovaniKorisnik registrovaniKorisnik = registrovaniKorisnikRepository.findOneById(id);
-        List<Sadrzaj> sadrzajs = sadrzajRepository.findByKreator(registrovaniKorisnik);
+        List<Sadrzaj> sadrzajs = new ArrayList<>();
+
+        /*Boolean isPrivate =
+                new RestTemplate().postForObject(
+                        "http://localhost:8082/follower/isPrivate", id, Boolean.class);
+        if (isPrivate) {
+            sadrzajs = sadrzajRepository.findByKreator(registrovaniKorisnik);
+        } else {
+            System.out.println("Profil je privatan!");
+        }*/
+        sadrzajs.addAll(postRepository.findByKreator(registrovaniKorisnik));
+        //dodaj i reklame kad
         return sadrzajs;
     }
 
@@ -98,5 +106,65 @@ public class SadrzajService {
         sadrzaj.setLajkovali(lajkovali);
 
         return sadrzajRepository.save(sadrzaj);
+    }
+
+    /*public Sadrzaj create(SadrzajDTO sadrzajDTO) {
+        Sadrzaj sadrzaj = new Sadrzaj();
+        sadrzaj.setKreator(registrovaniKorisnikRepository.findOneById(sadrzajDTO.getUserId()));
+        sadrzaj.setLokacija(lokacijaRepository.findByNaziv(sadrzajDTO.getLokacija()));
+        Set<Slika> slike1 = new HashSet<>();
+        for (String slika : sadrzajDTO.getSlike()) {
+            Slika slika1 = new Slika();
+            slika1.setUrl(slika);
+            slike1.add(slika1);
+        }
+
+
+        sadrzaj.setSlike(slike1);
+
+        sadrzaj = sadrzajRepository.save(sadrzaj);
+        for (Slika slika : sadrzaj.getSlike()) {
+            slika.setSadrzaj(sadrzaj);
+        }
+        return sadrzaj;
+    }*/
+
+    public List<String> upload(MultipartFile[] multipartFiles, String username) {
+        List<String> paths = new ArrayList<>();
+
+        for (MultipartFile multipartFile : multipartFiles) {
+            String ext = FilenameUtils.getExtension(multipartFile.getOriginalFilename());
+            String fileName = UUID.randomUUID() + "." + ext;
+
+            String home = System.getProperty("user.home");
+            String path = home + File.separator + ".m2" + File.separator + "root" + File.separator + ".m2";
+
+            try {
+                Path uploadPath = Paths.get(path);
+
+                if (!Files.exists(uploadPath))
+                    Files.createDirectories(uploadPath);
+
+                try (InputStream inputStream = multipartFile.getInputStream()) {
+                    Path filePath = uploadPath.resolve(fileName);
+                    Files.copy(inputStream, filePath, StandardCopyOption.REPLACE_EXISTING);
+                }
+                paths.add(path + File.separator + fileName);
+                //TODO: convert to urls
+
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        return paths;
+    }
+
+    public Set<Sadrzaj> getPictures(Integer id){
+        RegistrovaniKorisnik registrovaniKorisnik=registrovaniKorisnikRepository.findOneById(id);
+        Set<Sadrzaj> list= new HashSet<>();
+        list.addAll(registrovaniKorisnik.getPosts());
+        //dodaj reklame kasnije
+        return list;
     }
 }

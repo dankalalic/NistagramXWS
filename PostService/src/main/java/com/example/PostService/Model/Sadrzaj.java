@@ -1,6 +1,7 @@
 package com.example.PostService.Model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.springframework.web.bind.annotation.CrossOrigin;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -19,8 +20,8 @@ public class Sadrzaj {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_sadrzaj")
     private Integer id;
 
-    @ManyToOne( fetch = FetchType.LAZY)
-    private RegistrovaniKorisnik kreator;
+    //@ManyToOne( fetch = FetchType.LAZY)
+    //private RegistrovaniKorisnik kreator;
 
     @Column
     private Integer brojreportova;
@@ -35,12 +36,22 @@ public class Sadrzaj {
     private Lokacija lokacija;
 
     @OneToMany(mappedBy = "sadrzaj", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private Set<Slika> slike;
+    private Set<Slika> slike = new HashSet<>();
 
     @ManyToMany(mappedBy = "sadrzaj", fetch = FetchType.LAZY)
     private Set<Tagovi> tagovi = new HashSet<Tagovi>();
 
     public Sadrzaj() {
+    }
+
+    public Sadrzaj(Integer id, Integer brojreportova, Set<RegistrovaniKorisnik> lajkovali, Set<RegistrovaniKorisnik> dislajkovali, Lokacija lokacija, Set<Slika> slike, Set<Tagovi> tagovi) {
+        this.id = id;
+        this.brojreportova = brojreportova;
+        this.lajkovali = lajkovali;
+        this.dislajkovali = dislajkovali;
+        this.lokacija = lokacija;
+        this.slike = slike;
+        this.tagovi = tagovi;
     }
 
     public Integer getId() {
@@ -91,15 +102,11 @@ public class Sadrzaj {
         this.tagovi = tagovi;
     }
 
-    public RegistrovaniKorisnik getKreator() {
-        return kreator;
-    }
-
-    public void setKreator(RegistrovaniKorisnik kreator) {
-        this.kreator = kreator;
-    }
-
     public void setSlike(Set<Slika> slike) {
         this.slike = slike;
+    }
+
+    public Set<Slika> getSlike() {
+        return slike;
     }
 }

@@ -21,7 +21,6 @@ insert into SLIKA (id, url, sadrzaj_id) values (nextval('seq_slika'), 'https://h
 insert into SLIKA (id, url, sadrzaj_id) values (nextval('seq_slika'), 'macki.jpg', 1);
 
 insert into TAGOVANI(tagovi_id, sadrzaj_id) values (1, 1);
-insert into TAGOVANI(tagovi_id, sadrzaj_id) values (1, 1);
 
 insert into LAJKOVALI(sadrzajlajkovani_id, registrovanikorisniklajkovan_id) values(1, 1);
 insert into LAJKOVALI(sadrzajlajkovani_id, registrovanikorisniklajkovan_id) values(1, 2);

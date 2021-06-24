@@ -19,5 +19,9 @@ public class UserService {
 
     }
 
+    public User findById(Integer id) {
+        return followerRepository.findOneById(id);
+    }
+
 
 }

@@ -39,7 +39,7 @@ public class UserService {
 
     public User save(UserRequest userRequest) {
         User u = new User();
-        u.setEmail(userRequest.getEmail());
+        u.setUsername(userRequest.getUsername());
         // pre nego sto postavimo lozinku u atribut hesiramo je
         u.setPassword(passwordEncoder.encode(userRequest.getPassword()));
         u.setEnabled(true);
@@ -52,7 +52,7 @@ public class UserService {
         return u;
     }
 
-    public User findByEmail(String email) {
-        return userRepository.findByEmail(email);
+    public User findByUsername(String username) {
+        return userRepository.findByUsername(username);
     }
 }

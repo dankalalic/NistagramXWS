@@ -9,7 +9,7 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.example</groupId>
-	<artifactId>PostService</artifactId>
+	<artifactId>postservice</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>PostService</name>
 	<description>Demo project for Spring Boot</description>
@@ -64,7 +64,12 @@
 			<artifactId>spring-cloud-commons</artifactId>
 			<version>2.2.2.RELEASE</version>
 		</dependency>
-	</dependencies>
+		<dependency>
+			<groupId>commons-io</groupId>
+			<artifactId>commons-io</artifactId>
+			<version>2.6</version>
+		</dependency>
+    </dependencies>
 
 
 	<build>
@@ -74,11 +79,11 @@
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
 
-			<plugin>
+			<!--<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-resources-plugin</artifactId>
 				<version>3.1.0</version>
-			</plugin>
+			</plugin>-->
 		</plugins>
 	</build>
 
