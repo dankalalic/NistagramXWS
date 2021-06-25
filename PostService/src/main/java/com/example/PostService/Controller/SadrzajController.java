@@ -2,6 +2,7 @@ package com.example.PostService.Controller;
 
 import com.example.PostService.Model.Sadrzaj;
 import com.example.PostService.Service.SadrzajService;
+import com.example.PostService.dto.SadrzajDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import com.example.PostService.DTO.IdDTO;
 import com.example.PostService.DTO.SadrzajUserDTO;
@@ -50,4 +51,10 @@ public class SadrzajController {
     public ResponseEntity<Sadrzaj> dislike(@RequestBody SadrzajUserDTO sadrzajUserDTO) {
         return new ResponseEntity<>( sadrzajService.dislike(sadrzajUserDTO), HttpStatus.OK);
     }
+
+    @PostMapping("/neprikladanSadrzaj")
+    public ResponseEntity<Sadrzaj> neprikladanSadrzaj(@RequestBody SadrzajDTO sadrzajDTO) {
+        return new ResponseEntity<>( sadrzajService.prijaviNeprikladanSadrzaj(sadrzajDTO), HttpStatus.OK);
+    }
+
 }

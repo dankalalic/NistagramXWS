@@ -3,6 +3,7 @@ package com.example.PostService.Service;
 import com.example.PostService.Model.RegistrovaniKorisnik;
 import com.example.PostService.Model.Sadrzaj;
 import com.example.PostService.Repository.SadrzajRepository;
+import com.example.PostService.dto.SadrzajDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.example.PostService.DTO.SadrzajUserDTO;
@@ -97,6 +98,12 @@ public class SadrzajService {
         sadrzaj.setDislajkovali(dislajkovali);
         sadrzaj.setLajkovali(lajkovali);
 
+        return sadrzajRepository.save(sadrzaj);
+    }
+
+    public Sadrzaj prijaviNeprikladanSadrzaj(SadrzajDTO sadrzajDTO){
+        Sadrzaj sadrzaj = sadrzajRepository.findOneById(sadrzajDTO.getSadrzajId());
+        sadrzaj.setBrojreportova(sadrzaj.getBrojreportova()+1);
         return sadrzajRepository.save(sadrzaj);
     }
 }
