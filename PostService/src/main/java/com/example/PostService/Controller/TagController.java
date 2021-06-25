@@ -1,7 +1,7 @@
 package com.example.PostService.Controller;
 
-import com.example.PostService.DTO.StringDTO;
 import com.example.PostService.Model.Komentar;
+import com.example.PostService.Model.StringDTO;
 import com.example.PostService.Model.Tagovi;
 import com.example.PostService.Repository.KomentarRepository;
 import com.example.PostService.Repository.TagRepository;

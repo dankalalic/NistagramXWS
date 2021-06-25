@@ -11,11 +11,10 @@ import java.util.Set;
 
 public interface SadrzajRepository extends JpaRepository<Sadrzaj,Integer> {
 
-    //Set<Sadrzaj> findAllByRegistrovaniKorisnik(RegistrovaniKorisnik registraniKorisnik);
 
     List<Sadrzaj> findByLokacija(Lokacija lokacija);
 
-    List<Sadrzaj> findByKreator(RegistrovaniKorisnik registrovaniKorisnik);
+    //List<Sadrzaj> findByKreator(RegistrovaniKorisnik registrovaniKorisnik);
 
     Sadrzaj findOneById(Integer id);
 }

@@ -12,9 +12,12 @@ public class RegistrovaniKorisnik {
     @Id
     private Integer id;
 
+    @Column(unique = true)
+    private String email;
+
     @JsonIgnore
     @OneToMany(mappedBy = "kreator", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private Set<Sadrzaj> posts;
+    private Set<Post> posts;
 
     @OneToMany(mappedBy = "registrovaniKorisnik", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Set<Komentar> komentari;
@@ -40,11 +43,11 @@ public class RegistrovaniKorisnik {
         this.id = id;
     }
 
-    public Set<Sadrzaj> getPosts() {
+    public Set<Post> getPosts() {
         return posts;
     }
 
-    public void setPosts(Set<Sadrzaj> posts) {
+    public void setPosts(Set<Post> posts) {
         this.posts = posts;
     }
 
@@ -71,4 +74,8 @@ public class RegistrovaniKorisnik {
     public void setDislajkovan(Set<Sadrzaj> dislajkovan) {
         this.dislajkovan = dislajkovan;
     }
+
+    public String getEmail() { return email; }
+
+    public void setEmail(String email) { this.email = email; }
 }

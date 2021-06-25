@@ -1,0 +1,23 @@
+<form (ngSubmit)="onSubmit()" >
+  <div class="container">
+    <div class="row">
+      <div class="col-25">
+        <label for="username">Email</label>
+      </div>
+      <div class="col-75">
+        <input type="text" [(ngModel)]="username" name="username" id="username"/>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-25">
+        <label for="password" >Lozinka</label>
+      </div>
+      <div class="col-75">
+        <input type="password" [(ngModel)]="password" name="password" id="password"/>
+      </div>
+    </div>
+    <app-button text="Log in" color="green" type="submit" [routerLink]="['/newsfeed']"></app-button>
+    <!--<app-button text="Registracija" color="green" type="button" [routerLink]="['/newsfeed']"></app-button>
+    <app-button text="Nastavi bez prijave" color="green" type="button" [routerLink]="['/newsfeed']"></app-button>-->
+  </div>
+</form>
