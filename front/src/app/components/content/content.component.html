@@ -1,5 +1,5 @@
 <div *ngFor="let image of images">
-  <img alt="slika" [src]="sanitize(image)"/>
+  <img alt="slika" [src]="sanitize('data:image/jpg;base64,' + image.url)"/>
 </div>
 
 <p>Kreator</p>

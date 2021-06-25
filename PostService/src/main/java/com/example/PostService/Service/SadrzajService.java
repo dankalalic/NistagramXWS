@@ -7,11 +7,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
+import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -29,6 +31,7 @@ public class SadrzajService {
     private TagRepository tagRepository;
     private RegistrovaniKorisnikRepository registrovaniKorisnikRepository;
     private PostRepository postRepository;
+    private SlikaRepository slikaRepository;
 
     @Autowired
     public SadrzajRepository setSadrzajRepository(SadrzajRepository sadrzajRepository) { return this.sadrzajRepository = sadrzajRepository; }
@@ -47,6 +50,9 @@ public class SadrzajService {
 
     @Autowired
     public PostRepository setPostRepository(PostRepository postRepository) {return this.postRepository = postRepository; }
+
+    @Autowired
+    public SlikaRepository setSlikaRepository(SlikaRepository slikaRepository) { return this.slikaRepository = slikaRepository; }
 
     public List<Sadrzaj> findByLokacija(String lokacija) {
         Lokacija lokacija1 = lokacijaRepository.findByNaziv(lokacija);
@@ -127,7 +133,23 @@ public class SadrzajService {
         return sadrzaj;
     }*/
 
-    public List<String> upload(MultipartFile[] multipartFiles, String username) {
+
+    public String upload(MultipartFile multipartFile) throws IOException {
+        try {
+            String filename = StringUtils.cleanPath(multipartFile.getOriginalFilename());
+            Slika slika = new Slika();
+            slika.setName(filename);
+            slika.setUrl(multipartFile.getBytes());
+            slika.setSize(multipartFile.getSize());
+
+            slikaRepository.save(slika);
+            return "sucess";
+        } catch(Exception e) {
+            return "error";
+        }
+    }
+
+       /* public List<String> upload(MultipartFile[] multipartFiles, String username) {
         List<String> paths = new ArrayList<>();
 
         for (MultipartFile multipartFile : multipartFiles) {
@@ -156,7 +178,7 @@ public class SadrzajService {
             }
         }
         return paths;
-    }
+    }*/
 
     public Set<Sadrzaj> getPictures(Integer id){
         RegistrovaniKorisnik registrovaniKorisnik=registrovaniKorisnikRepository.findOneById(id);

@@ -49,41 +49,41 @@ services:
     #volumes:
       #- C:/Users/Dragan/.m2:/root/.m2
 
-  postservice:
-    image: postservice
-    build:
-      context: ./PostService
-      dockerfile: Dockerfile
-    ports:
-      - "8083:8083"
-    tty: true
-    restart: on-failure
-    container_name: postservice
-    depends_on:
-      - eureka
-    environment:
-      - REGISTRY_HOST=eureka
-    networks:
-      - nistagram-network
-    volumes:
-      - C:/Users/Dragan/.m2:/root/.m2
-
-  #followerservice:
-    #image: followerservice
+  #postservice:
+    #image: postservice
     #build:
-      #context: ./Followerservice
+      #context: ./PostService
       #dockerfile: Dockerfile
     #ports:
-      #- "8082:8082"
+      #- "8083:8083"
     #tty: true
     #restart: on-failure
-    #container_name: followerservice
+    #container_name: postservice
     #depends_on:
       #- eureka
     #environment:
       #- REGISTRY_HOST=eureka
     #networks:
       #- nistagram-network
+    #volumes:
+      #- C:/Users/Dragan/.m2:/root/.m2
+
+  followerservice:
+    image: followerservice
+    build:
+      context: ./Followerservice
+      dockerfile: Dockerfile
+    ports:
+      - "8082:8082"
+    tty: true
+    restart: on-failure
+    container_name: followerservice
+    depends_on:
+      - eureka
+    environment:
+      - REGISTRY_HOST=eureka
+    networks:
+      - nistagram-network
 
   #settingsservice:
     #image: settingsservice

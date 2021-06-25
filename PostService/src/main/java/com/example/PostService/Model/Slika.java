@@ -13,22 +13,19 @@ public class Slika {
     private Integer id;
 
     @Column
-    private String url;
+    private String name;
+
+    @Lob
+    @Column
+    private byte[] url;
+
+    @Column
+    private Long size;
 
     @JsonIgnore
     @ManyToOne(cascade = CascadeType.MERGE, fetch = FetchType.LAZY)
     private Sadrzaj sadrzaj;
 
-    public Slika(Integer id, String url) {
-        this.id = id;
-        this.url = url;
-    }
-
-    public Slika(Integer id, String url, Sadrzaj sadrzaj) {
-        this.id = id;
-        this.url = url;
-        this.sadrzaj = sadrzaj;
-    }
 
     public Slika() {
     }
@@ -41,11 +38,11 @@ public class Slika {
         this.id = id;
     }
 
-    public String getUrl() {
+    public byte[] getUrl() {
         return url;
     }
 
-    public void setUrl(String url) {
+    public void setUrl(byte[] url) {
         this.url = url;
     }
 
@@ -55,5 +52,21 @@ public class Slika {
 
     public void setSadrzaj(Sadrzaj sadrzaj) {
         this.sadrzaj = sadrzaj;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public Long getSize() {
+        return size;
+    }
+
+    public void setSize(Long size) {
+        this.size = size;
     }
 }

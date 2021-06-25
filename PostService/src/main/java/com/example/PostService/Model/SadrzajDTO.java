@@ -4,13 +4,13 @@ import java.util.Set;
 
 public class SadrzajDTO {
     private Integer userId;
-    private Set<String> slike;
+    private Set<Integer> slike;
     private String lokacija;
 
     public SadrzajDTO() {
     }
 
-    public SadrzajDTO(Integer userId, Set<String> slike, String lokacija) {
+    public SadrzajDTO(Integer userId, Set<Integer> slike, String lokacija) {
         this.userId = userId;
         this.slike = slike;
         this.lokacija = lokacija;
@@ -24,11 +24,11 @@ public class SadrzajDTO {
         this.userId = userId;
     }
 
-    public Set<String> getSlike() {
+    public Set<Integer> getSlike() {
         return slike;
     }
 
-    public void setSlike(Set<String> slike) {
+    public void setSlike(Set<Integer> slike) {
         this.slike = slike;
     }
 

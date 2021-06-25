@@ -29,8 +29,7 @@ export class ContentComponent implements OnInit {
       this.contents = result;
       for (let content of this.contents) {
         for(let image of content.slike) {
-          this.images.push(image.url)
-          console.log(image.url);
+          this.images.push(image)
         }
       }
       console.log('success', result);

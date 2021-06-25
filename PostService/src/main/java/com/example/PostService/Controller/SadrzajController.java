@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
+import java.io.IOException;
 import java.util.List;
 import java.util.Set;
 
@@ -56,12 +57,18 @@ public class SadrzajController {
     public ResponseEntity<Sadrzaj> createpost(@RequestBody SadrzajDTO sadrzajDTO){
         return new ResponseEntity<>(sadrzajService.create(sadrzajDTO), HttpStatus.OK);
     }*/
-    @CrossOrigin(origins = "http://localhost:4200")
+    /*@CrossOrigin(origins = "http://localhost:4200")
     @PostMapping("/upload")
     public ResponseEntity uploadFiles(@RequestParam("media") MultipartFile[] multipartFiles, HttpServletRequest request) {
         //String username = tokenUtils.getUsernameFromToken(tokenUtils.getToken(request));
         String username = "v";
         return new ResponseEntity(sadrzajService.upload(multipartFiles, username), HttpStatus.CREATED);
+    }*/
+
+    @CrossOrigin(origins = "http://localhost:4200")
+    @PostMapping("/upload")
+    public ResponseEntity uploadFiles(@RequestParam("media") MultipartFile multipartFiles, HttpServletRequest request) throws IOException {
+        return new ResponseEntity(sadrzajService.upload(multipartFiles), HttpStatus.CREATED);
     }
 
     @CrossOrigin(origins = "http://localhost:4200")

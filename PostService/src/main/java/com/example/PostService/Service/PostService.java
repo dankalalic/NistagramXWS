@@ -41,13 +41,10 @@ public class PostService {
         sadrzaj.setKreator(registrovaniKorisnikRepository.findOneById(sadrzajDTO.getUserId()));
         sadrzaj.setLokacija(lokacijaRepository.findByNaziv(sadrzajDTO.getLokacija()));
         Set<Slika> slike1 = new HashSet<>();
-        for (String slika : sadrzajDTO.getSlike()) {
-            Slika slika1 = new Slika();
-            slika1.setUrl(slika);
+        for (Integer slika : sadrzajDTO.getSlike()) {
+            Slika slika1 = slikaRepository.findOneById(slika);
             slike1.add(slika1);
         }
-
-
         sadrzaj.setSlike(slike1);
 
         sadrzaj = postRepository.save(sadrzaj);
