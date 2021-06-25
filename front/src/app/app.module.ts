@@ -12,13 +12,19 @@ import { ButtonComponent } from './components/button/button.component';
 import {CommonModule} from '@angular/common';
 import {AuthService} from "./services/auth.service";
 import { ContentComponent } from './components/content/content.component';
+import { NavbarComponent } from './components/navbar/navbar.component';
+import { NewsfeedComponent } from './components/newsfeed/newsfeed.component';
+import { ProfileViewComponent } from './components/profile-view/profile-view.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginFormComponent,
     ButtonComponent,
-    ContentComponent
+    ContentComponent,
+    NavbarComponent,
+    NewsfeedComponent,
+    ProfileViewComponent
   ],
   imports: [
     BrowserModule,

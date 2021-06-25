@@ -1,6 +1,18 @@
-<div *ngFor="let image of images">
-  <img alt="slika" [src]="sanitize('data:image/jpg;base64,' + image.url)"/>
+<ul style="list-style-type: none">
+<div class="polaroid">
+  <li *ngFor="let content of contents">
+
+    <div class="container1">
+      <div>{{content['kreator']['id']}}</div>
+    </div>
+    <ul style="list-style-type: none">
+      <li *ngFor="let image of content['slike']">
+          <img alt="slika" style="width : 100%" [src]="sanitize('data:image/jpg;base64,' + image.url)"/>
+      </li>
+    </ul>
+    <div class="container1">
+      <div>{{content['lokacija']['naziv']}}</div>
+    </div>
+  </li>
 </div>
-
-<p>Kreator</p>
-
+</ul>

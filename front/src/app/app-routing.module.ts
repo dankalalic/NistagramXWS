@@ -4,10 +4,13 @@ import {LoginFormComponent} from "./components/login-form/login-form.component";
 import {AppComponent} from "./app.component";
 import {ContentComponent} from "./components/content/content.component";
 import {AuthService} from "./services/auth.service";
+import {NewsfeedComponent} from "./components/newsfeed/newsfeed.component";
+import {ProfileViewComponent} from "./components/profile-view/profile-view.component";
 
 const routes: Routes = [
-  { path: '', component: AppComponent},
-  { path: 'newsfeed', component: ContentComponent}
+  { path: '', component: LoginFormComponent},
+  { path: 'newsfeed', component: NewsfeedComponent},
+  { path: 'profile', component: ProfileViewComponent}
 ];
 
 @NgModule({

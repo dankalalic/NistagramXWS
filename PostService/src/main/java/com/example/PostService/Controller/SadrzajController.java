@@ -1,9 +1,6 @@
 package com.example.PostService.Controller;
 
-import com.example.PostService.Model.IdDTO;
-import com.example.PostService.Model.Sadrzaj;
-import com.example.PostService.Model.SadrzajUserDTO;
-import com.example.PostService.Model.StringDTO;
+import com.example.PostService.Model.*;
 import com.example.PostService.Service.SadrzajService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -73,7 +70,7 @@ public class SadrzajController {
 
     @CrossOrigin(origins = "http://localhost:4200")
     @PostMapping(value="/getpictures")
-    public ResponseEntity<Set<Sadrzaj>> getRegistrovaniKorisnikPictures(@RequestBody IdDTO idDTO){
+    public ResponseEntity<Set<SadrzajReturnDTO>> getRegistrovaniKorisnikPictures(@RequestBody IdDTO idDTO){
         return new ResponseEntity<>(sadrzajService.getPictures(idDTO.getId()), HttpStatus.OK);
     }
 

@@ -27,4 +27,5 @@ export class ContentService {
     console.log('g')
     return this.http.post<any>(this.newsfeedUrl, id, options);
   }
+
 }

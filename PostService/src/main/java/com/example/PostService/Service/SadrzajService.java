@@ -134,7 +134,7 @@ public class SadrzajService {
     }*/
 
 
-    public String upload(MultipartFile multipartFile) throws IOException {
+    public Integer upload(MultipartFile multipartFile) throws IOException {
         try {
             String filename = StringUtils.cleanPath(multipartFile.getOriginalFilename());
             Slika slika = new Slika();
@@ -142,49 +142,24 @@ public class SadrzajService {
             slika.setUrl(multipartFile.getBytes());
             slika.setSize(multipartFile.getSize());
 
-            slikaRepository.save(slika);
-            return "sucess";
+            slika = slikaRepository.save(slika);
+            return slika.getId();
         } catch(Exception e) {
-            return "error";
+            return null;
         }
     }
 
-       /* public List<String> upload(MultipartFile[] multipartFiles, String username) {
-        List<String> paths = new ArrayList<>();
-
-        for (MultipartFile multipartFile : multipartFiles) {
-            String ext = FilenameUtils.getExtension(multipartFile.getOriginalFilename());
-            String fileName = UUID.randomUUID() + "." + ext;
-
-            String home = System.getProperty("user.home");
-            String path = home + File.separator + ".m2" + File.separator + "root" + File.separator + ".m2";
-
-            try {
-                Path uploadPath = Paths.get(path);
-
-                if (!Files.exists(uploadPath))
-                    Files.createDirectories(uploadPath);
-
-                try (InputStream inputStream = multipartFile.getInputStream()) {
-                    Path filePath = uploadPath.resolve(fileName);
-                    Files.copy(inputStream, filePath, StandardCopyOption.REPLACE_EXISTING);
-                }
-                paths.add(path + File.separator + fileName);
-                //TODO: convert to urls
-
-
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
-        return paths;
-    }*/
-
-    public Set<Sadrzaj> getPictures(Integer id){
+    public Set<SadrzajReturnDTO> getPictures(Integer id){
         RegistrovaniKorisnik registrovaniKorisnik=registrovaniKorisnikRepository.findOneById(id);
-        Set<Sadrzaj> list= new HashSet<>();
-        list.addAll(registrovaniKorisnik.getPosts());
+        Set<SadrzajReturnDTO> sadrzajReturnDTOS= new HashSet<>();
+        for (Post post : registrovaniKorisnik.getPosts()) {
+            SadrzajReturnDTO sadrzajReturnDTO = new SadrzajReturnDTO(post.getId(), post.getKreator(),
+                    post.getBrojreportova(), post.getLajkovali(), post.getDislajkovali(), post.getLokacija(),
+                    post.getSlike(), post.getTagovi());
+            sadrzajReturnDTOS.add(sadrzajReturnDTO);
+        }
+
         //dodaj reklame kasnije
-        return list;
+        return sadrzajReturnDTOS;
     }
 }

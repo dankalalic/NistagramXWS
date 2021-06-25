@@ -16,10 +16,10 @@ export class AppComponent {
 
   btnLogin(user : UserLogin) {
     console.log('hh');
-    this.router.navigate(['newsfeed']);
+    //this.router.navigate(['newsfeed']);
     this.authService.login(user).subscribe(result =>
     {
-        //this.router.navigate(['/newsfeed']);
+        this.router.navigate(['/newsfeed']);
         sessionStorage.setItem('token', result.accessToken);
 
     }, err => {
