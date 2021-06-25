@@ -18,7 +18,7 @@ public class PostService {
         this.postRepository = postRepository;
     }
 
-    public Set<Post> findallbyregistrovanikorisnik(RegistrovaniKorisnik registrovanikorisnik){
+    /*public Set<Post> findallbyregistrovanikorisnik(RegistrovaniKorisnik registrovanikorisnik){
         return postRepository.findAllByRegistrovaniKorisnik(registrovanikorisnik);
-    }
+    }*/
 }
