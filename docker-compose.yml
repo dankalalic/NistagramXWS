@@ -47,22 +47,22 @@ services:
     #networks:
       #- nistagram-network
 
-  #postservice:
-    #image: postservice
-    #build:
-      #context: ./PostService
-      #dockerfile: Dockerfile
-    #ports:
-      #- "8083:8083"
-    #tty: true
-    #restart: on-failure
-    #container_name: postservice
-    #depends_on:
-      #- eureka
-    #environment:
-      #- REGISTRY_HOST=eureka
-    #networks:
-      #- nistagram-network
+  postservice:
+    image: postservice
+    build:
+      context: ./PostService
+      dockerfile: Dockerfile
+    ports:
+      - "8083:8083"
+    tty: true
+    restart: on-failure
+    container_name: postservice
+    depends_on:
+      - eureka
+    environment:
+      - REGISTRY_HOST=eureka
+    networks:
+      - nistagram-network
 
   followerservice:
     image: followerservice
