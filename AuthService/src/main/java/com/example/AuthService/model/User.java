@@ -24,7 +24,7 @@ public class User implements UserDetails {
     private Integer id;
 
     @Column(nullable = false, unique = true)
-    private String email;
+    private String username;
 
     @Column(nullable = false)
     private String password;
@@ -46,9 +46,9 @@ public class User implements UserDetails {
 
     public User() {}
 
-    public User(Integer id, String email, String password, boolean enabled, Integer flag, Timestamp lastPasswordResetDate, List<Authority> authorities) {
+    public User(Integer id, String username, String password, boolean enabled, Integer flag, Timestamp lastPasswordResetDate, List<Authority> authorities) {
         this.id = id;
-        this.email = email;
+        this.username = username;
         this.password = password;
         this.enabled = enabled;
         this.flag = flag;
@@ -62,9 +62,9 @@ public class User implements UserDetails {
 
     public void setId(Integer id) { this.id = id; }
 
-    public String getEmail() { return email; }
-
-    public void setEmail(String email) { this.email = email;}
+    public void setUsername(String username) {
+        this.username = username;
+    }
 
     public void setPassword(String password) {
         Timestamp now = new Timestamp(new Date().getTime());
@@ -106,7 +106,7 @@ public class User implements UserDetails {
 
     @Override
     public String getUsername() {
-        return email;
+        return username;
     }
 
     //Nije potrebno za ovu aplikaciju konkretno
@@ -129,5 +129,7 @@ public class User implements UserDetails {
     public boolean isEnabled() {
         return enabled;
     }
+
+
 
 }

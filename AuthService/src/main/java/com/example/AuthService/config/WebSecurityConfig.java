@@ -6,7 +6,6 @@ import com.example.AuthService.security.auth.TokenAuthenticationFilter;
 import com.example.AuthService.service.UserServiceDetails;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -23,7 +22,6 @@ import org.springframework.security.web.authentication.www.BasicAuthenticationFi
 @Configuration
 // Ukljucivanje podrske za anotacije "@Pre*" i "@Post*" koje ce aktivirati autorizacione provere za svaki pristup metodi
 @EnableGlobalMethodSecurity(prePostEnabled = true)
-@ComponentScan
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     //Bean koji ce raditi hesiranje lozinke
@@ -51,10 +49,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(jwtUserDetailsService).passwordEncoder(passwordEncoder());
-        auth.inMemoryAuthentication()
-                .withUser("d").password("$2y$12$7gZv4xiHIOlkEQ8ByETU.uDVGsTVdYvkZfCDlDHSF.FoMu258kHKm").roles("USER");
     }
-    
+
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
@@ -63,33 +59,30 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 // sve neautentifikovane zahteve obradi uniformno i posalji 401 gresku
                 //.exceptionHandling().authenticationEntryPoint(restAuthenticationEntryPoint).and()
                 .exceptionHandling().authenticationEntryPoint(restAuthenticationEntryPoint).and()
-                
+
                 // svim korisnicima dopusti da pristupe putanjama /auth/**
                 .authorizeRequests().antMatchers("/auth/**").permitAll()
-                                    .antMatchers("/h2-console/**").permitAll()
 
                 // za svaki drugi zahtev korisnik mora biti autentifikovan
                 .anyRequest().authenticated().and()
 
                 // umetni custom filter TokenAuthenticationFilter kako bi se vrsila provera JWT tokena umesto cistih korisnickog imena i lozinke (koje radi BasicAuthenticationFilter)
                 .addFilterBefore(new TokenAuthenticationFilter(tokenUtils, jwtUserDetailsService),
-                        BasicAuthenticationFilter.class)
-                .formLogin().disable()
-                .cors();
-        
-        // zbog jednostavnosti primera
+                        BasicAuthenticationFilter.class);
 
-        http.headers().frameOptions().disable();
+        // zbog jednostavnosti primera
+        http.csrf().disable();
     }
 
     // Generalna bezbednost aplikacije
     @Override
     public void configure(WebSecurity web) throws Exception {
         // TokenAuthenticationFilter ce ignorisati sve ispod navedene putanje
-        web.ignoring().antMatchers(HttpMethod.POST, "/auth/**", "/auth/login");
-        web.ignoring().antMatchers(HttpMethod.GET, "/webjars/**", "/favicon.ico",
-				"/**/*.css", "/**/*.js", "/favicon.ico", "/**/*.html");
-    }
+        web.ignoring().antMatchers(HttpMethod.POST, "/auth/**","/medications/MedicationsSearch","/medications/MedicationsSearchh","/medications/getOneMedication","/pharmacy/PharmaciesSearch","/pharmacy/PharmaciesSearchbyaddress","/pharmacy/filterbyrating","/medications/getpharmaciesprice","/medications/filterType");
+        web.ignoring().antMatchers(HttpMethod.GET, "/", "/webjars/**", "/favicon.ico",
+                "/**/*.css", "/**/*.js", "/favicon.ico", "/**/*.html","/medications/getTypeMedication","/pharmacy/allpharmacies","/medications/allmedications","/medications/allmedicationss","/pharmacy/allpharmaciessortbyname","/pharmacy/allpharmaciessortbyaddress","/pharmacy/allpharmaciessortbyrating");
 
+
+    }
 
 }

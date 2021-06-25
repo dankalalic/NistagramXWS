@@ -9,9 +9,18 @@ import static javax.persistence.DiscriminatorType.STRING;
 @DiscriminatorValue("post")
 public class Post extends Sadrzaj {
 
-   // @ManyToOne(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
-    //private RegistrovaniKorisnik registrovaniKorisnik;
+    @ManyToOne(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
+    private RegistrovaniKorisnik kreator;
 
     public Post() {
     }
+
+    public RegistrovaniKorisnik getKreator() {
+        return kreator;
+    }
+
+    public void setKreator(RegistrovaniKorisnik kreator) {
+        this.kreator = kreator;
+    }
+
 }

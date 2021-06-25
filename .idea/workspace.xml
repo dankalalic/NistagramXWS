@@ -1,14 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="789d1596-e368-4ece-a01b-9121c7bf6cd7" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AuthService/src/main/java/com/example/AuthService/security/TokenUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/AuthService/src/main/java/com/example/AuthService/security/TokenUtils.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AuthService/src/main/resources/adsDB.mv.db" beforeDir="false" afterPath="$PROJECT_DIR$/AuthService/src/main/resources/adsDB.mv.db" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AuthService/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/AuthService/src/main/resources/application.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/PostService/src/main/java/com/example/PostService/Repository/KomentarRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/PostService/src/main/java/com/example/PostService/Repository/KomentarRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docker-compose.yml" beforeDir="false" afterPath="$PROJECT_DIR$/docker-compose.yml" afterDir="false" />
-    </list>
+    <list default="true" id="789d1596-e368-4ece-a01b-9121c7bf6cd7" name="Default Changelist" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -46,6 +39,7 @@
       <workItem from="1623668816582" duration="450000" />
       <workItem from="1623762112383" duration="707000" />
       <workItem from="1623779747563" duration="2686000" />
+      <workItem from="1624013060505" duration="51000" />
     </task>
     <servers />
   </component>

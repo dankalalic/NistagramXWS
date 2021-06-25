@@ -1,10 +1,10 @@
 package com.example.PostService.Controller;
 
-import com.example.PostService.DTO.StringDTO;
 import com.example.PostService.Model.Lokacija;
 import com.example.PostService.Model.Tagovi;
 import com.example.PostService.Service.LokacijaService;
 import com.example.PostService.Service.TagService;
+//import com.example.PostService.dto.StringDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -25,8 +25,9 @@ public class LokacijaController {
         return this.lokacijaService = lokacijaService;
     }
 
+    /*
     @PostMapping("/findByNaziv")
     public ResponseEntity<Lokacija> findByNaziv(@RequestBody StringDTO stringDTO){
         return new ResponseEntity<>(lokacijaService.findByNaziv(stringDTO.getString()), HttpStatus.OK);
-    }
+    }*/
 }

@@ -3,28 +3,28 @@ package com.example.AuthService.security.auth;
 //DTO za login (vrednosti unete na login strani)
 public class JwtAuthenticationRequest {
 
-    private String email;
+    private String username;
     private String password;
 
     public JwtAuthenticationRequest() {
         super();
     }
 
-    public JwtAuthenticationRequest(String email, String password) {
+    public JwtAuthenticationRequest(String email, String lozinka) {
         this.setUsername(email);
-        this.setPassword(password);
+        this.setPassword(lozinka);
     }
 
-    public String getEmail() {
-        return this.email;
+    public String getUsername() {
+        return username;
     }
 
     public void setUsername(String username) {
-        this.email = username;
+        this.username = username;
     }
 
     public String getPassword() {
-        return this.password;
+        return password;
     }
 
     public void setPassword(String password) {
