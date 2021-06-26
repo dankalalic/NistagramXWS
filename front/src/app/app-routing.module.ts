@@ -6,11 +6,13 @@ import {ContentComponent} from "./components/content/content.component";
 import {AuthService} from "./services/auth.service";
 import {NewsfeedComponent} from "./components/newsfeed/newsfeed.component";
 import {ProfileViewComponent} from "./components/profile-view/profile-view.component";
+import {VerificationUploadComponent} from "./components/verification-upload/verification-upload.component";
 
 const routes: Routes = [
   { path: '', component: LoginFormComponent},
   { path: 'newsfeed', component: NewsfeedComponent},
-  { path: 'profile', component: ProfileViewComponent}
+  { path: 'profile', component: ProfileViewComponent},
+  {path: 'verification', component: VerificationUploadComponent}
 ];
 
 @NgModule({

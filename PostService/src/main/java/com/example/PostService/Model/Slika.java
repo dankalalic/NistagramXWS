@@ -27,6 +27,12 @@ public class Slika {
     private Sadrzaj sadrzaj;
 
 
+    public Slika(String name, byte[] url, Long size) {
+        this.name = name;
+        this.url = url;
+        this.size = size;
+    }
+
     public Slika() {
     }
 

@@ -1,6 +1,7 @@
 package com.example.PostService.Controller;
 
 import com.example.PostService.Model.*;
+import com.example.PostService.Repository.SlikaRepository;
 import com.example.PostService.Service.SadrzajService;
 import com.example.PostService.Model.SadrzajDTO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +21,9 @@ import java.util.Set;
 public class SadrzajController {
 
     private SadrzajService sadrzajService;
+
+    @Autowired
+    private SlikaRepository slikaRepository;
 
     @Autowired
     public SadrzajService setSadrzajService(SadrzajService sadrzajService) {
@@ -78,6 +82,17 @@ public class SadrzajController {
     public ResponseEntity<Set<SadrzajReturnDTO>> getRegistrovaniKorisnikPictures(@RequestBody IdDTO idDTO){
         return new ResponseEntity<>(sadrzajService.getPictures(idDTO.getId()), HttpStatus.OK);
 
+    }
+
+    @CrossOrigin(origins = "http://localhost:4200")
+    @PostMapping("/uploadmoj")
+    public ResponseEntity.BodyBuilder uplaodImage(@RequestParam("imageFile") MultipartFile file) throws IOException {
+
+        System.out.println("Original Image Byte Size - " + file.getBytes().length);
+        Slika slika= new Slika(file.getOriginalFilename(),file.getBytes(),file.getSize());
+
+        this.slikaRepository.save(slika);
+        return ResponseEntity.status(HttpStatus.OK);
     }
 
 }

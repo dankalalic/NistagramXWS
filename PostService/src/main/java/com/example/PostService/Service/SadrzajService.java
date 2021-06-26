@@ -13,7 +13,7 @@ import com.example.PostService.Repository.SadrzajRepository;
 import com.example.PostService.Repository.TagRepository;
 import com.example.PostService.Model.*;
 import com.example.PostService.Repository.*;
-import org.apache.commons.io.FilenameUtils;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
