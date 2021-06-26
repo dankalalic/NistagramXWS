@@ -30,7 +30,6 @@ services:
     #networks:
       #- nistagram-network
 
-<<<<<<< HEAD
   #authservice:
     #image: authservice
     #build:
@@ -47,7 +46,7 @@ services:
       #- REGISTRY_HOST=eureka
     #networks:
       #- nistagram-network
-=======
+
   authservice:
     image: authservice
     build:
@@ -66,7 +65,6 @@ services:
       - nistagram-network
     #volumes:
       #- C:/Users/Dragan/.m2:/root/.m2
->>>>>>> 32b2f7081d4b1725c9b39b1514443833996bf099
 
   postservice:
     image: postservice
