@@ -6,6 +6,15 @@ public class SadrzajDTO {
     private Integer userId;
     private Set<Integer> slike;
     private String lokacija;
+    private String tag;
+
+    public String getTag() {
+        return tag;
+    }
+
+    public void setTag(String tag) {
+        this.tag = tag;
+    }
 
     public SadrzajDTO() {
     }

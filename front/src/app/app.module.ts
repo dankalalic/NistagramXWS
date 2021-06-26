@@ -15,6 +15,7 @@ import { ContentComponent } from './components/content/content.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { NewsfeedComponent } from './components/newsfeed/newsfeed.component';
 import { ProfileViewComponent } from './components/profile-view/profile-view.component';
+import { PostComponent } from './components/post/post.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import { ProfileViewComponent } from './components/profile-view/profile-view.com
     ContentComponent,
     NavbarComponent,
     NewsfeedComponent,
-    ProfileViewComponent
+    ProfileViewComponent,
+    PostComponent
   ],
   imports: [
     BrowserModule,
