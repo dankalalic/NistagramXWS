@@ -109,4 +109,6 @@ public abstract class Sadrzaj {
     public Set<Slika> getSlike() {
         return slike;
     }
+
+
 }
