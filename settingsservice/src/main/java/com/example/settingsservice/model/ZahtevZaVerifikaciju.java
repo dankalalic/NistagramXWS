@@ -13,7 +13,7 @@ public class ZahtevZaVerifikaciju {
     private Integer id;
 
     @Column
-    private String slika;
+    private byte[] slika;
 
     @Column
     private Boolean status;
@@ -21,7 +21,49 @@ public class ZahtevZaVerifikaciju {
     @Column
     private Boolean obradjen;
 
+    @Column
+    private String ime;
 
+    @Column
+    private String prezime;
+
+    @Column
+    private String kategorija;
+
+
+    public ZahtevZaVerifikaciju(Integer id, byte[] slika, Boolean status, Boolean obradjen, String ime, String prezime, String kategorija) {
+        this.id = id;
+        this.slika = slika;
+        this.status = status;
+        this.obradjen = obradjen;
+        this.ime = ime;
+        this.prezime = prezime;
+        this.kategorija = kategorija;
+    }
+
+    public String getIme() {
+        return ime;
+    }
+
+    public void setIme(String ime) {
+        this.ime = ime;
+    }
+
+    public String getPrezime() {
+        return prezime;
+    }
+
+    public void setPrezime(String prezime) {
+        this.prezime = prezime;
+    }
+
+    public String getKategorija() {
+        return kategorija;
+    }
+
+    public void setKategorija(String kategorija) {
+        this.kategorija = kategorija;
+    }
 
     public Boolean getStatus() {
         return status;
@@ -45,7 +87,7 @@ public class ZahtevZaVerifikaciju {
     public ZahtevZaVerifikaciju() {
     }
 
-    public ZahtevZaVerifikaciju(Integer id, String slika, Admin admin) {
+    public ZahtevZaVerifikaciju(Integer id, byte[] slika, Admin admin) {
         this.id = id;
         this.slika = slika;
         this.admin = admin;
@@ -69,11 +111,11 @@ public class ZahtevZaVerifikaciju {
         this.id = id;
     }
 
-    public String getSlika() {
+    public byte[] getSlika() {
         return slika;
     }
 
-    public void setSlika(String slika) {
+    public void setSlika(byte[] slika) {
         this.slika = slika;
     }
 

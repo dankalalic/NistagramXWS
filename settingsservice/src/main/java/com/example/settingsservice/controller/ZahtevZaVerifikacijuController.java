@@ -1,5 +1,6 @@
 package com.example.settingsservice.controller;
 
+import com.example.settingsservice.dto.ZahtevZaVerifikacijudto;
 import com.example.settingsservice.model.RegisteredUser;
 import com.example.settingsservice.model.ZahtevZaVerifikaciju;
 import com.example.settingsservice.model.idDTO;
@@ -28,12 +29,27 @@ public class ZahtevZaVerifikacijuController {
     @GetMapping(value="/getAll",consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<ZahtevZaVerifikaciju>> getAll() {
 
-        List<ZahtevZaVerifikaciju> zahtevZaVerifikacijuList = zahtevZaVerifikacijuRepository.getAllByObradjen();
+        List<ZahtevZaVerifikaciju> zahtevZaVerifikacijuList = zahtevZaVerifikacijuRepository.getAllByObradjen(false);
 
         return new ResponseEntity<>(zahtevZaVerifikacijuList,HttpStatus.OK);
 
     }
 
+
+    @PostMapping(value="/createzahtev",consumes = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<ZahtevZaVerifikaciju> create(ZahtevZaVerifikacijudto zahtev) {
+        ZahtevZaVerifikaciju zahtevZaVerifikaciju= new ZahtevZaVerifikaciju();
+        zahtevZaVerifikaciju.setIme(zahtev.getIme());
+        zahtevZaVerifikaciju.setPrezime(zahtev.getPrezime());
+        zahtevZaVerifikaciju.setKategorija(zahtev.getKategorija());
+        zahtevZaVerifikaciju.setSlika(zahtev.getSlika());
+        zahtevZaVerifikacijuRepository.save(zahtevZaVerifikaciju);
+
+
+
+        return new ResponseEntity<>(zahtevZaVerifikaciju,HttpStatus.OK);
+
+    }
 
     @PostMapping(value="/approve",consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ZahtevZaVerifikaciju> approve(idVerificationDTO idVerificationDTO) {

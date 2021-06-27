@@ -1,17 +1,26 @@
 import { Component, OnInit } from '@angular/core';
-import {VerificationUploadService} from "../../services/verification-upload.service";
+import {HttpClient, HttpHeaders} from "@angular/common/http";
+import {Id} from "../../model/id";
+import {ContentService} from "../../services/content.service";
 import {DomSanitizer} from "@angular/platform-browser";
-import {Post} from "../../model/post";
-import {PostserviceService} from "../../services/postservice.service";
+import {VerificationUploadService} from "../../services/verification-upload.service";
+
+const options = {
+  headers: new HttpHeaders({
+    'Content-Type': 'application/json',
+  }),
+};
 
 @Component({
-  selector: 'app-post',
-  templateUrl: './post.component.html',
-  styleUrls: ['./post.component.css']
+  selector: 'app-verification-upload',
+  templateUrl: './verification-upload.component.html',
+  styleUrls: ['./verification-upload.component.css']
 })
-export class PostComponent implements OnInit {
 
-  constructor(private verificationService : VerificationUploadService, private sanitizer:DomSanitizer,private postService:PostserviceService) {
+
+export class VerificationUploadComponent implements OnInit {
+
+  constructor(private verificationService : VerificationUploadService, private sanitizer:DomSanitizer) {
   }
 
   ngOnInit(): void {
@@ -23,15 +32,10 @@ export class PostComponent implements OnInit {
   retrieveResonse: any;
   message: any;
   imageName: any;
-  tag!: string;
-  lokacija!: string;
-  slike:Array<number>=[]
 
 
 
   //Gets called when the user selects an image
-
-
   public onFileChanged(event:any) {
     //Select File
     this.selectedFile = event.target.files[0];
@@ -55,23 +59,16 @@ export class PostComponent implements OnInit {
         }
       }*/
       console.log('success', result);
-      this.slike.push(result.body);
-      console.log(this.slike);
 
     }, err => {
       console.log('err', err);
     })
   }
 
-  createPost() {
-    const post :Post={
-      userId:2,
-      tag:this.tag,
-      lokacija:this.lokacija,
-      slike:this.slike
-    }
-    this.postService.createPost(post).subscribe(result =>{
-      console.log(result);
-    })
-  }
+    //Make a call to the Spring Boot Application to save the image
+
+
+
+
+
 }

@@ -16,7 +16,7 @@ import { NavbarComponent } from './components/navbar/navbar.component';
 import { NewsfeedComponent } from './components/newsfeed/newsfeed.component';
 import { ProfileViewComponent } from './components/profile-view/profile-view.component';
 import { PostComponent } from './components/post/post.component';
-
+import { VerificationUploadComponent } from './components/verification-upload/verification-upload.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -26,7 +26,8 @@ import { PostComponent } from './components/post/post.component';
     NavbarComponent,
     NewsfeedComponent,
     ProfileViewComponent,
-    PostComponent
+    PostComponent,
+    VerificationUploadComponent
   ],
   imports: [
     BrowserModule,

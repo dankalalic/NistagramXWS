@@ -58,10 +58,13 @@ public class PostService {
         sadrzaj.setSlike(slike1);
 
         sadrzaj = postRepository.save(sadrzaj);
-        for (Slika slika : sadrzaj.getSlike()) {
-            slika.setSadrzaj(sadrzaj);
-            slikaRepository.save(slika);
+        for (Integer slika : sadrzajDTO.getSlike()) {
+            Slika slika1 = slikaRepository.findOneById(slika);
+            slika1.setSadrzaj(sadrzaj);
+            slikaRepository.save(slika1);
         }
+
+
         return sadrzaj;
     }
 
