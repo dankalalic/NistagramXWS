@@ -5,9 +5,12 @@ public class ZahtevZaVerifikacijudto {
     private String ime;
     private String prezime;
     private String kategorija;
-    private byte[] slika ;
+    private Integer slika ;
 
-    public ZahtevZaVerifikacijudto(String ime, String prezime, String kategorija, byte[] slika) {
+    public ZahtevZaVerifikacijudto() {
+    }
+
+    public ZahtevZaVerifikacijudto(String ime, String prezime, String kategorija, Integer slika) {
         this.ime = ime;
         this.prezime = prezime;
         this.kategorija = kategorija;
@@ -38,11 +41,11 @@ public class ZahtevZaVerifikacijudto {
         this.kategorija = kategorija;
     }
 
-    public byte[] getSlika() {
+    public Integer getSlika() {
         return slika;
     }
 
-    public void setSlika(byte[] slika) {
+    public void setSlika(Integer slika) {
         this.slika = slika;
     }
 }

@@ -13,7 +13,7 @@ public class ZahtevZaVerifikaciju {
     private Integer id;
 
     @Column
-    private byte[] slika;
+    private Integer slika;
 
     @Column
     private Boolean status;
@@ -31,7 +31,7 @@ public class ZahtevZaVerifikaciju {
     private String kategorija;
 
 
-    public ZahtevZaVerifikaciju(Integer id, byte[] slika, Boolean status, Boolean obradjen, String ime, String prezime, String kategorija) {
+    public ZahtevZaVerifikaciju(Integer id, Integer slika, Boolean status, Boolean obradjen, String ime, String prezime, String kategorija) {
         this.id = id;
         this.slika = slika;
         this.status = status;
@@ -87,7 +87,7 @@ public class ZahtevZaVerifikaciju {
     public ZahtevZaVerifikaciju() {
     }
 
-    public ZahtevZaVerifikaciju(Integer id, byte[] slika, Admin admin) {
+    public ZahtevZaVerifikaciju(Integer id, Integer slika, Admin admin) {
         this.id = id;
         this.slika = slika;
         this.admin = admin;
@@ -111,11 +111,11 @@ public class ZahtevZaVerifikaciju {
         this.id = id;
     }
 
-    public byte[] getSlika() {
+    public Integer getSlika() {
         return slika;
     }
 
-    public void setSlika(byte[] slika) {
+    public void setSlika(Integer slika) {
         this.slika = slika;
     }
 

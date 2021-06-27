@@ -15,7 +15,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-
+@CrossOrigin(origins = "http://localhost:4200")
 @RestController
 @RequestMapping("/zahteviZaVerifikaciju")
 public class ZahtevZaVerifikacijuController {
@@ -35,9 +35,9 @@ public class ZahtevZaVerifikacijuController {
 
     }
 
-
+    @CrossOrigin(origins = "http://localhost:4200")
     @PostMapping(value="/createzahtev",consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<ZahtevZaVerifikaciju> create(ZahtevZaVerifikacijudto zahtev) {
+    public ResponseEntity<ZahtevZaVerifikaciju> create(@RequestBody ZahtevZaVerifikacijudto zahtev) {
         ZahtevZaVerifikaciju zahtevZaVerifikaciju= new ZahtevZaVerifikaciju();
         zahtevZaVerifikaciju.setIme(zahtev.getIme());
         zahtevZaVerifikaciju.setPrezime(zahtev.getPrezime());

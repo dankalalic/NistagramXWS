@@ -17,6 +17,8 @@ import { NewsfeedComponent } from './components/newsfeed/newsfeed.component';
 import { ProfileViewComponent } from './components/profile-view/profile-view.component';
 import { PostComponent } from './components/post/post.component';
 import { VerificationUploadComponent } from './components/verification-upload/verification-upload.component';
+import {ZahtevComponent} from "./components/zahtev/zahtev.component";
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -27,7 +29,8 @@ import { VerificationUploadComponent } from './components/verification-upload/ve
     NewsfeedComponent,
     ProfileViewComponent,
     PostComponent,
-    VerificationUploadComponent
+    VerificationUploadComponent,
+    ZahtevComponent
   ],
   imports: [
     BrowserModule,
