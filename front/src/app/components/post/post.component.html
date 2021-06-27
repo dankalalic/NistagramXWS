@@ -1,0 +1,21 @@
+<div class="container row">
+  <div class="col-md-12">
+    <h1>Upload Image</h1>
+  </div>
+</div>
+
+<div class="container row">
+  <div class="col-md-6">
+    <input type="file" (change)="onFileChanged($event)">
+    <div class="col-75">
+      <input type="text" [(ngModel)]="lokacija" name="lokacija" id="lokacija"/>
+      <input type="text" [(ngModel)]="tag" name="tag" id="tag"/>
+    </div>
+  </div>
+  <div class="col-md-6">
+    <input type="button" (click)="onUpload()" value="upload">
+  </div>
+  <div class="col-md-6">
+    <app-button type="button" (btnClick)="createPost()" ></app-button>
+  </div>
+</div>

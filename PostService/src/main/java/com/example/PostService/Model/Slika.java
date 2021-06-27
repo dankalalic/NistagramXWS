@@ -26,7 +26,11 @@ public class Slika {
     @ManyToOne(cascade = CascadeType.MERGE, fetch = FetchType.LAZY)
     private Sadrzaj sadrzaj;
 
-
+    public Slika(String name, byte[] url, Long size) {
+        this.name = name;
+        this.url = url;
+        this.size = size;
+    }
     public Slika() {
     }
 

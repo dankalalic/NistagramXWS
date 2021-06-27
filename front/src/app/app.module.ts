@@ -15,6 +15,9 @@ import { ContentComponent } from './components/content/content.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { NewsfeedComponent } from './components/newsfeed/newsfeed.component';
 import { ProfileViewComponent } from './components/profile-view/profile-view.component';
+import { PostComponent } from './components/post/post.component';
+import { VerificationUploadComponent } from './components/verification-upload/verification-upload.component';
+import {ZahtevComponent} from "./components/zahtev/zahtev.component";
 
 @NgModule({
   declarations: [
@@ -24,7 +27,10 @@ import { ProfileViewComponent } from './components/profile-view/profile-view.com
     ContentComponent,
     NavbarComponent,
     NewsfeedComponent,
-    ProfileViewComponent
+    ProfileViewComponent,
+    PostComponent,
+    VerificationUploadComponent,
+    ZahtevComponent
   ],
   imports: [
     BrowserModule,

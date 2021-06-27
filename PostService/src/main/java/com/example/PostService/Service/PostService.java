@@ -1,10 +1,7 @@
 package com.example.PostService.Service;
 
 import com.example.PostService.Model.*;
-import com.example.PostService.Repository.LokacijaRepository;
-import com.example.PostService.Repository.PostRepository;
-import com.example.PostService.Repository.RegistrovaniKorisnikRepository;
-import com.example.PostService.Repository.SlikaRepository;
+import com.example.PostService.Repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,6 +14,12 @@ public class PostService {
     private RegistrovaniKorisnikRepository registrovaniKorisnikRepository;
     private LokacijaRepository lokacijaRepository;
     private SlikaRepository slikaRepository;
+    private TagRepository tagoviRepository;
+
+    @Autowired
+    public void setTagoviRepository(TagRepository tagoviRepository) {
+        this.tagoviRepository = tagoviRepository;
+    }
 
     @Autowired
     public void setPostRepository(PostRepository postRepository) {
@@ -45,6 +48,7 @@ public class PostService {
         Post sadrzaj = new Post();
         sadrzaj.setKreator(registrovaniKorisnikRepository.findOneById(sadrzajDTO.getUserId()));
         sadrzaj.setLokacija(lokacijaRepository.findByNaziv(sadrzajDTO.getLokacija()));
+        sadrzaj.setTagovi(tagoviRepository.findAllByNaziv(sadrzajDTO.getTag()));
         sadrzaj.setBrojreportova(0);
         Set<Slika> slike1 = new HashSet<>();
         for (Integer slika : sadrzajDTO.getSlike()) {
@@ -54,10 +58,13 @@ public class PostService {
         sadrzaj.setSlike(slike1);
 
         sadrzaj = postRepository.save(sadrzaj);
-        for (Slika slika : sadrzaj.getSlike()) {
-            slika.setSadrzaj(sadrzaj);
-            slikaRepository.save(slika);
+        for (Integer slika : sadrzajDTO.getSlike()) {
+            Slika slika1 = slikaRepository.findOneById(slika);
+            slika1.setSadrzaj(sadrzaj);
+            slikaRepository.save(slika1);
         }
+
+
         return sadrzaj;
     }
 

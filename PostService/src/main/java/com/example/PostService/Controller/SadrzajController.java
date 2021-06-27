@@ -1,6 +1,8 @@
 package com.example.PostService.Controller;
 
 import com.example.PostService.Model.*;
+import com.example.PostService.Repository.SadrzajRepository;
+import com.example.PostService.Repository.SlikaRepository;
 import com.example.PostService.Service.SadrzajService;
 import com.example.PostService.Model.SadrzajDTO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.persistence.Id;
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 import java.util.List;
@@ -20,6 +23,12 @@ import java.util.Set;
 public class SadrzajController {
 
     private SadrzajService sadrzajService;
+    private SlikaRepository slikaRepository;
+
+    @Autowired
+    public void setSlikaRepository(SlikaRepository slikaRepository) {
+        this.slikaRepository = slikaRepository;
+    }
 
     @Autowired
     public SadrzajService setSadrzajService(SadrzajService sadrzajService) {
@@ -69,8 +78,26 @@ public class SadrzajController {
 
     @CrossOrigin(origins = "http://localhost:4200")
     @PostMapping("/upload")
-    public ResponseEntity uploadFiles(@RequestParam("media") MultipartFile multipartFiles, HttpServletRequest request) throws IOException {
-        return new ResponseEntity(sadrzajService.upload(multipartFiles), HttpStatus.CREATED);
+    public Integer uplaodImage(@RequestParam("imageFile") MultipartFile file) throws IOException {
+
+        System.out.println("Original Image Byte Size - " + file.getBytes().length);
+        Slika slika= new Slika(file.getOriginalFilename(),file.getBytes(),file.getSize());
+
+        this.slikaRepository.save(slika);
+
+        return slika.getId();
+    }
+
+    @CrossOrigin(origins = "http://localhost:4200")
+    @PostMapping("/uploadzahtev")
+    public byte[] uplaodImageZahtev(@RequestParam("imageFile") MultipartFile file) throws IOException {
+
+        System.out.println("Original Image Byte Size - " + file.getBytes().length);
+        Slika slika= new Slika(file.getOriginalFilename(),file.getBytes(),file.getSize());
+
+        this.slikaRepository.save(slika);
+
+        return slika.getUrl();
     }
 
     @CrossOrigin(origins = "http://localhost:4200")
