@@ -51,6 +51,7 @@ public class SadrzajController {
         return new ResponseEntity<>( sadrzajService.dislike(sadrzajUserDTO), HttpStatus.OK);
     }
 
+    @CrossOrigin(origins = "http://localhost:4200")
     @PostMapping("/neprikladanSadrzaj")
     public ResponseEntity<StringDTO> neprikladanSadrzaj(@RequestBody IdDTO idDTO) {
 
@@ -59,11 +60,13 @@ public class SadrzajController {
         return new ResponseEntity<>(ss, HttpStatus.OK);
     }
 
+    @CrossOrigin(origins = "http://localhost:4200")
     @PostMapping("/sadrzajKorisnikLajkovao")
     public ResponseEntity<Set<SadrzajReturnDTO>> sadrzajKorisnikLajkovao(@RequestBody IdDTO idDTO) {
         return new ResponseEntity<>(sadrzajService.getsadrzajKorisnikLajkovao(idDTO.getId()), HttpStatus.OK);
     }
 
+    @CrossOrigin(origins = "http://localhost:4200")
     @PostMapping("/sadrzajKorisnikDislajkovao")
     public ResponseEntity<Set<SadrzajReturnDTO>> sadrzajKorisnikDislajkovao(@RequestBody IdDTO idDTO) {
         return new ResponseEntity<>(sadrzajService.getsadrzajKorisnikDislajkovao(idDTO.getId()), HttpStatus.OK);

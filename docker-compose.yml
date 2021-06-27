@@ -30,41 +30,24 @@ services:
     #networks:
       #- nistagram-network
 
+
   #authservice:
-    #image: authservice
+   # image: authservice
     #build:
-      #context: ./AuthService
+     # context: ./AuthService
       #dockerfile: Dockerfile
     #ports:
-      #- "8090:8090"
+     # - "8090:8090"
     #tty: true
     #restart: on-failure
     #container_name: authservice
     #depends_on:
-      #- eureka
+     # - eureka
     #environment:
-      #- REGISTRY_HOST=eureka
+     # - REGISTRY_HOST=eureka
     #networks:
-      #- nistagram-network
+     # - nistagram-network
 
-  authservice:
-    image: authservice
-    build:
-      context: ./AuthService
-      dockerfile: Dockerfile
-    ports:
-      - "8090:8090"
-    tty: true
-    restart: on-failure
-    container_name: authservice
-    depends_on:
-      - eureka
-    environment:
-      - REGISTRY_HOST=eureka
-    networks:
-      - nistagram-network
-    #volumes:
-      #- C:/Users/Dragan/.m2:/root/.m2
 
   postservice:
     image: postservice
