@@ -60,10 +60,27 @@ public class SadrzajController {
         return new ResponseEntity<>( sadrzajService.dislike(sadrzajUserDTO), HttpStatus.OK);
     }
 
+    @CrossOrigin(origins = "http://localhost:4200")
     @PostMapping("/neprikladanSadrzaj")
-    public ResponseEntity<Sadrzaj> neprikladanSadrzaj(@RequestBody IdDTO idDTO) {
-        return new ResponseEntity<>(sadrzajService.prijaviNeprikladanSadrzaj(idDTO), HttpStatus.OK);
+    public ResponseEntity<StringDTO> neprikladanSadrzaj(@RequestBody IdDTO idDTO) {
+
+        String s = sadrzajService.prijaviNeprikladanSadrzaj(idDTO);
+        StringDTO ss = new StringDTO(s);
+        return new ResponseEntity<>(ss, HttpStatus.OK);
     }
+
+    @CrossOrigin(origins = "http://localhost:4200")
+    @PostMapping("/sadrzajKorisnikLajkovao")
+    public ResponseEntity<Set<SadrzajReturnDTO>> sadrzajKorisnikLajkovao(@RequestBody IdDTO idDTO) {
+        return new ResponseEntity<>(sadrzajService.getsadrzajKorisnikLajkovao(idDTO.getId()), HttpStatus.OK);
+    }
+
+    @CrossOrigin(origins = "http://localhost:4200")
+    @PostMapping("/sadrzajKorisnikDislajkovao")
+    public ResponseEntity<Set<SadrzajReturnDTO>> sadrzajKorisnikDislajkovao(@RequestBody IdDTO idDTO) {
+        return new ResponseEntity<>(sadrzajService.getsadrzajKorisnikDislajkovao(idDTO.getId()), HttpStatus.OK);
+    }
+
     /*@PostMapping(value="/createposts")
     public ResponseEntity<Sadrzaj> createpost(@RequestBody SadrzajDTO sadrzajDTO){
         return new ResponseEntity<>(sadrzajService.create(sadrzajDTO), HttpStatus.OK);

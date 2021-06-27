@@ -18,6 +18,8 @@ import { ProfileViewComponent } from './components/profile-view/profile-view.com
 import { PostComponent } from './components/post/post.component';
 import { VerificationUploadComponent } from './components/verification-upload/verification-upload.component';
 import {ZahtevComponent} from "./components/zahtev/zahtev.component";
+import { LajkovanoComponent } from './components/lajkovano/lajkovano.component';
+import { DislajkovanoComponent } from './components/dislajkovano/dislajkovano.component';
 
 @NgModule({
   declarations: [
@@ -31,6 +33,8 @@ import {ZahtevComponent} from "./components/zahtev/zahtev.component";
     PostComponent,
     VerificationUploadComponent,
     ZahtevComponent
+    LajkovanoComponent,
+    DislajkovanoComponent
   ],
   imports: [
     BrowserModule,

@@ -9,6 +9,8 @@ import {ProfileViewComponent} from "./components/profile-view/profile-view.compo
 import {VerificationUploadComponent} from "./components/verification-upload/verification-upload.component";
 import {PostComponent} from "./components/post/post.component";
 import {ZahtevComponent} from "./components/zahtev/zahtev.component";
+import {LajkovanoComponent} from "./components/lajkovano/lajkovano.component";
+import {DislajkovanoComponent} from "./components/dislajkovano/dislajkovano.component";
 
 const routes: Routes = [
   { path: '', component: LoginFormComponent},
@@ -17,7 +19,9 @@ const routes: Routes = [
   {path: 'verification', component: VerificationUploadComponent},
   {path: 'createpost', component: PostComponent},
   {path: 'zahtev', component: ZahtevComponent}
-];
+  {path: 'lajkovano', component: LajkovanoComponent},
+  {path: 'dislajkovano', component: DislajkovanoComponent}
+  ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],

@@ -8,6 +8,7 @@
     <ul style="list-style-type: none">
       <li *ngFor="let image of content['slike']">
           <img alt="slika" style="width : 100%" [src]="sanitize('data:image/jpg;base64,' + image.url)"/>
+          <app-button text="Neprikladan sadrzaj" color="red" type="submit" (btnClick)="report(content['id'])"></app-button>
       </li>
     </ul>
     <div class="container1">
