@@ -35,6 +35,17 @@ public class RegisteredUserService {
 
     }
 
+    public RegisteredUser privacyAndNotificationSettings(Integer id, Boolean taggable, Boolean isPrivate, Boolean acceptMsg, Boolean allowNotifs) {
+        RegisteredUser registeredUser = registeredUserRepository.findOneById(id);
+
+        registeredUser.setDozvoljeneNotifikacije(allowNotifs);
+        registeredUser.setDozvoljenoTagovanje(taggable);
+        registeredUser.setIsPrivate(isPrivate);
+        registeredUser.setPrihvataPoruke(acceptMsg);
+
+        return registeredUserRepository.save(registeredUser);
+    }
+
     public RegisteredUser findByUsername(String username) {
         return registeredUserRepository.findByUsername(username);
     }

@@ -1,8 +1,10 @@
 package com.example.settingsservice.controller;
 
+import com.example.settingsservice.TokenUtils;
 import com.example.settingsservice.dto.UserChangeDTO;
 import com.example.settingsservice.model.RegisteredUser;
 import com.example.settingsservice.model.UserRequest;
+import com.example.settingsservice.model.privacyDTO;
 import com.example.settingsservice.service.RegisteredUserService;
 import com.example.settingsservice.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +14,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
-
+@CrossOrigin(origins = "http://localhost:4200")
 @RestController
 @RequestMapping("/registeredUsers")
 public class RegisteredUserController {
@@ -22,6 +24,9 @@ public class RegisteredUserController {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private TokenUtils tokenUtils;
 
     @PostMapping(value="/changeRegisteredUserInfo", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     //@PreAuthorize("hasRole('REGISTEREDUSER')")
@@ -50,6 +55,13 @@ public class RegisteredUserController {
     }
        */
 
+    @CrossOrigin(origins = "http://localhost:4200")
+    @PostMapping(value="/privacySettings")
+    public ResponseEntity<RegisteredUser> privacyAndNotifSettings(@RequestBody privacyDTO privacyDTO, @RequestHeader(value="Authorization") String token) {
+        Integer id = tokenUtils.getIdFromToken(token);
+        return new ResponseEntity<>(registeredUserService.privacyAndNotificationSettings(id, privacyDTO.getTaggable(), privacyDTO.getPrivate(),
+                privacyDTO.getAcceptMsg(), privacyDTO.getAllowNotifs()), HttpStatus.OK);
+    }
 
     @PostMapping(value="/signup", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<RegisteredUser> addUser(@RequestBody UserRequest userRequest, UriComponentsBuilder ucBuilder) throws ResourceConflictException {

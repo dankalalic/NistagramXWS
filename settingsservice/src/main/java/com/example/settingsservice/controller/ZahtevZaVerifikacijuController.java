@@ -25,14 +25,14 @@ public class ZahtevZaVerifikacijuController {
     @Autowired
     private ZahtevZaVerifikacijuRepository zahtevZaVerifikacijuRepository;
 
-    @GetMapping(value="/getAll",consumes = MediaType.APPLICATION_JSON_VALUE)
+    /*@GetMapping(value="/getAll",consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<ZahtevZaVerifikaciju>> getAll() {
 
         List<ZahtevZaVerifikaciju> zahtevZaVerifikacijuList = zahtevZaVerifikacijuRepository.getAllByObradjen();
 
         return new ResponseEntity<>(zahtevZaVerifikacijuList,HttpStatus.OK);
 
-    }
+    }*/
 
 
     @PostMapping(value="/approve",consumes = MediaType.APPLICATION_JSON_VALUE)

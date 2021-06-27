@@ -29,6 +29,9 @@ public class User implements UserDetails {
     @Column(nullable = false)
     private String password;
 
+    @Column
+    private String role;
+
     @Column(name = "enabled")
     private boolean enabled;
 
@@ -46,10 +49,11 @@ public class User implements UserDetails {
 
     public User() {}
 
-    public User(Integer id, String username, String password, boolean enabled, Integer flag, Timestamp lastPasswordResetDate, List<Authority> authorities) {
+    public User(Integer id, String username, String password, String role, boolean enabled, Integer flag, Timestamp lastPasswordResetDate, List<Authority> authorities) {
         this.id = id;
         this.username = username;
         this.password = password;
+        this.role = role;
         this.enabled = enabled;
         this.flag = flag;
         this.lastPasswordResetDate = lastPasswordResetDate;
@@ -70,6 +74,14 @@ public class User implements UserDetails {
         Timestamp now = new Timestamp(new Date().getTime());
         this.setLastPasswordResetDate(now);
         this.password = password;
+    }
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
     }
 
     public Integer getFlag() {

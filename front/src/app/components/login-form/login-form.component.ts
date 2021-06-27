@@ -28,29 +28,25 @@ export class LoginFormComponent implements OnInit {
       password: this.password,
     };
 
-    //this.onLogin.emit(user);
     this.btnLogin(user);
-
-    console.log(user.username, user.password);
 
     this.username = '';
     this.password = '';
-
-    console.log("JESSS")
-
   }
 
   btnLogin(user : UserLogin) {
-    console.log('hh');
-    //this.router.navigate(['newsfeed']);
     this.authService.login(user).subscribe(result =>
     {
-      this.router.navigate(['/newsfeed']);
       sessionStorage.setItem('token', result.accessToken);
       sessionStorage.setItem('role', result.role);
+      if (result.role == 'user') {
+        this.router.navigate(['/newsfeed']);
+      } else if (result.role == 'admin') {
 
+      }
     }, err => {
-      console.log('err')})
+      this.router.navigate(['/error']);
+    })
   }
 
 }

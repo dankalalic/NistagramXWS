@@ -13,7 +13,7 @@ public class RegistrovaniKorisnik {
     private Integer id;
 
     @Column(unique = true)
-    private String email;
+    private String username;
 
     @JsonIgnore
     @OneToMany(mappedBy = "kreator", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
@@ -75,7 +75,11 @@ public class RegistrovaniKorisnik {
         this.dislajkovan = dislajkovan;
     }
 
-    public String getEmail() { return email; }
+    public String getUsername() {
+        return username;
+    }
 
-    public void setEmail(String email) { this.email = email; }
+    public void setUsername(String username) {
+        this.username = username;
+    }
 }

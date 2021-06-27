@@ -15,6 +15,8 @@ import { ContentComponent } from './components/content/content.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { NewsfeedComponent } from './components/newsfeed/newsfeed.component';
 import { ProfileViewComponent } from './components/profile-view/profile-view.component';
+import { SearchChoiceComponent } from './components/search-choice/search-choice.component';
+import { ErrorComponent } from './components/error/error.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +26,9 @@ import { ProfileViewComponent } from './components/profile-view/profile-view.com
     ContentComponent,
     NavbarComponent,
     NewsfeedComponent,
-    ProfileViewComponent
+    ProfileViewComponent,
+    SearchChoiceComponent,
+    ErrorComponent
   ],
   imports: [
     BrowserModule,

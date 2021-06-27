@@ -38,10 +38,10 @@ public class TokenUtils {
     private final SignatureAlgorithm SIGNATURE_ALGORITHM = SignatureAlgorithm.HS512;
 
     // Funkcija za generisanje JWT token
-    public String generateToken(String username) {
+    public String generateToken(Integer id) {
         return Jwts.builder()
                 .setIssuer(APP_NAME)
-                .setSubject(username)
+                .setSubject(id.toString())
                 .setAudience(generateAudience())
                 .setIssuedAt(new Date())
                 .setExpiration(generateExpirationDate())
@@ -85,8 +85,8 @@ public class TokenUtils {
         final String username = getUsernameFromToken(token);
         final Date created = getIssuedAtDateFromToken(token);
 
-        return (username != null && username.equals(userDetails.getUsername())
-                && !isCreatedBeforeLastPasswordReset(created, user.getLastPasswordResetDate()));
+        return (username != null && username.equals(userDetails.getUsername()));
+                //&& !isCreatedBeforeLastPasswordReset(created, user.getLastPasswordResetDate()));
     }
 
     public String getUsernameFromToken(String token) {
@@ -159,7 +159,7 @@ public class TokenUtils {
         return (lastPasswordReset != null && created.before(lastPasswordReset));
     }
 
-    private Boolean isTokenExpired(String token) {
+    public Boolean isTokenExpired(String token) {
         final Date expiration = this.getExpirationDateFromToken(token);
         return expiration.before(new Date());
     }

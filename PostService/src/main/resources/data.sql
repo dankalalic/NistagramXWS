@@ -8,18 +8,13 @@ insert into TAGOVI(id, naziv) values (nextval('seq_tagovi'), 'ker');
 insert into LOKACIJA(id, naziv) values (nextval('seq_post'), 'Novi Sad');
 insert into LOKACIJA(id, naziv) values (nextval('seq_post'), 'Zrenjanin');
 
-insert into REGISTROVANIKORISNIK (id) values (1);
-insert into REGISTROVANIKORISNIK (id) values (2);
-insert into REGISTROVANIKORISNIK (id) values (3);
+insert into REGISTROVANIKORISNIK (id, username) values (1, 'd');
+insert into REGISTROVANIKORISNIK (id, username) values (2, 'v');
 
 insert into SADRZAJ(id, tip, lokacija_id, kreator_id, brojreportova) values (nextval('seq_sadrzaj'), 'post', 1, 1, 0);
 insert into SADRZAJ(id, tip, lokacija_id, kreator_id, brojreportova) values (nextval('seq_sadrzaj'), 'post', 1, 1, 1);
-insert into SADRZAJ(id, tip, lokacija_id, kreator_id, brojreportova) values (nextval('seq_sadrzaj'), 'post', 1, 1, 0);
-insert into SADRZAJ(id, tip, lokacija_id, kreator_id, brojreportova) values (nextval('seq_sadrzaj'), 'post', 2, 1, 0);
-
---insert into SLIKA (id, url, sadrzaj_id) values (nextval('seq_slika'), 'https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/dog-puppy-on-garden-royalty-free-image-1586966191.jpg?crop=1.00xw:0.669xh;0,0.190xh&resize=1200:*', 1);
---insert into SLIKA (id, url, sadrzaj_id) values (nextval('seq_slika'), 'macki.jpg', 1);
-
+insert into SADRZAJ(id, tip, lokacija_id, kreator_id, brojreportova) values (nextval('seq_sadrzaj'), 'post', 1, 2, 0);
+insert into SADRZAJ(id, tip, lokacija_id, kreator_id, brojreportova) values (nextval('seq_sadrzaj'), 'post', 2, 2, 0);
 
 insert into TAGOVANI(tagovi_id, sadrzaj_id) values (1, 1);
 

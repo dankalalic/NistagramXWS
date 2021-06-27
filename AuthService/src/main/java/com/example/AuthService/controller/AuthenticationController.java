@@ -25,8 +25,9 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
-
+@CrossOrigin(origins = "http://localhost:4200")
 @RestController
 @RequestMapping(value="/auth", produces= MediaType.APPLICATION_JSON_VALUE)
 public class AuthenticationController {
@@ -65,17 +66,16 @@ public class AuthenticationController {
         // Ubaci korisnika u trenutni security kontekst
         SecurityContextHolder.getContext().setAuthentication(authentication);
 
+
         // Kreiraj token za tog korisnika
         User user = (User) authentication.getPrincipal();
-        String jwt = tokenUtils.generateToken(user.getUsername());
+        String jwt = tokenUtils.generateToken(user.getId());
         int expiresIn = tokenUtils.getExpiredIn();
 
         Boolean enabled= user.isEnabled();
 
-        System.out.println(jwt);
-
         // Vrati token kao odgovor na uspesnu autentifikaciju
-        return ResponseEntity.ok(new UserTokenRoleDto(jwt,expiresIn,enabled));
+        return ResponseEntity.ok(new UserTokenRoleDto(jwt,expiresIn,enabled, user.getRole()));
     }
 
     // Endpoint za registraciju novog korisnika
@@ -126,6 +126,11 @@ public class AuthenticationController {
     static class PasswordChanger {
         public String oldPassword;
         public String newPassword;
+    }
+
+    @PostMapping(value="/checkToken")
+    public Boolean checkToken(@RequestBody StringDTO stringDTO) {
+        return tokenUtils.isTokenExpired(stringDTO.getToken());
     }
 
 }

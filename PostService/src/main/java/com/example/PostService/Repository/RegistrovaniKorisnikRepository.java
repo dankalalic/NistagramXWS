@@ -6,4 +6,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 public interface RegistrovaniKorisnikRepository extends JpaRepository<RegistrovaniKorisnik,Integer> {
 
     RegistrovaniKorisnik findOneById(Integer id);
+
+    RegistrovaniKorisnik findOneByUsername(String username);
 }
