@@ -49,6 +49,7 @@ public class SadrzajController {
     public ResponseEntity<List<Sadrzaj>> findByTag(@RequestBody StringDTO stringDTO){
         return new ResponseEntity<>(sadrzajService.findByTag(stringDTO.getString()), HttpStatus.OK);
     }
+
     @CrossOrigin(origins = "http://localhost:4200")
     @PostMapping("/findByProfil")
     public ResponseEntity<List<Sadrzaj>> findByProfil(@RequestBody StringDTO stringDTO){
