@@ -26,14 +26,14 @@ public class ZahtevZaVerifikacijuController {
     @Autowired
     private ZahtevZaVerifikacijuRepository zahtevZaVerifikacijuRepository;
 
-    @GetMapping(value="/getAll",consumes = MediaType.APPLICATION_JSON_VALUE)
+    /*@GetMapping(value="/getAll",consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<ZahtevZaVerifikaciju>> getAll() {
 
         List<ZahtevZaVerifikaciju> zahtevZaVerifikacijuList = zahtevZaVerifikacijuRepository.getAllByObradjen(false);
 
         return new ResponseEntity<>(zahtevZaVerifikacijuList,HttpStatus.OK);
 
-    }
+    }*/
 
     @CrossOrigin(origins = "http://localhost:4200")
     @PostMapping(value="/createzahtev",consumes = MediaType.APPLICATION_JSON_VALUE)

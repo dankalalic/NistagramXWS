@@ -4,6 +4,8 @@ import {UserLogin} from "../../model/user-login";
 import {Id} from "../../model/id";
 import {PostService} from "../../services/post.service";
 import {DomSanitizer} from '@angular/platform-browser';
+import {StringDTO} from "../../model/stringDTO";
+import {AuthService} from "../../services/auth.service";
 import {Router} from "@angular/router";
 
 @Component({
@@ -14,16 +16,11 @@ import {Router} from "@angular/router";
 export class ContentComponent implements OnInit {
   @Input() contents! : [];
 
-  //public contents : any = [];
-  //public images : any = [];
-
-  constructor(private contentService : ContentService, private postService:PostService, private sanitizer:DomSanitizer) {
+  constructor(private contentService : ContentService, private postService:PostService, private sanitizer:DomSanitizer, private router: Router) {
   }
 
   ngOnInit(): void {
-
   }
-
 
   sanitize(url:string){
     return this.sanitizer.bypassSecurityTrustUrl(url);
@@ -41,6 +38,30 @@ export class ContentComponent implements OnInit {
       }
     );
 
+  }
+
+
+  like(id : number) {
+    console.log(id);
+    const id1 : Id = {
+      id : id
+    }
+    this.contentService.like(id1).subscribe(result => {
+      console.log(result)
+  }, err => {
+      this.router.navigate(['/error']);
+  })
+  }
+
+  dislike(id : number) {
+    const id1 : Id = {
+      id : id
+    }
+    this.contentService.dislike(id1).subscribe(result => {
+      console.log(result)
+    }, err => {
+      this.router.navigate(['/error']);
+    })
   }
 
 

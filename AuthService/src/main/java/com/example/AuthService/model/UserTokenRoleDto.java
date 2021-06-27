@@ -1,15 +1,19 @@
 package com.example.AuthService.model;
 
+import java.util.List;
+
 public class UserTokenRoleDto {
 
     private String accessToken;
     private int expiresIn;
     private Boolean enabled;
+    private String role;
 
-    public UserTokenRoleDto(String accessToken, int expiresIn, Boolean enabled) {
+    public UserTokenRoleDto(String accessToken, int expiresIn, Boolean enabled, String role) {
         this.accessToken = accessToken;
         this.expiresIn = expiresIn;
-        this.enabled=enabled;
+        this.enabled = enabled;
+        this.role = role;
     }
 
     public Boolean getEnabled() {
@@ -36,4 +40,11 @@ public class UserTokenRoleDto {
         this.expiresIn = expiresIn;
     }
 
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
+    }
 }

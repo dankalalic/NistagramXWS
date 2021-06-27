@@ -1,11 +1,9 @@
-package com.example.AuthService.security;
+package com.example.settingsservice;
 
-import com.example.AuthService.model.User;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
 import javax.servlet.http.HttpServletRequest;
@@ -38,16 +36,16 @@ public class TokenUtils {
     private final SignatureAlgorithm SIGNATURE_ALGORITHM = SignatureAlgorithm.HS512;
 
     // Funkcija za generisanje JWT token
-    public String generateToken(Integer id) {
+    /*public String generateToken(String username) {
         return Jwts.builder()
                 .setIssuer(APP_NAME)
-                .setSubject(id.toString())
+                .setSubject(username)
                 .setAudience(generateAudience())
                 .setIssuedAt(new Date())
                 .setExpiration(generateExpirationDate())
                 // .claim("key", value) //moguce je postavljanje proizvoljnih podataka u telo JWT tokena
                 .signWith(SIGNATURE_ALGORITHM, SECRET).compact();
-    }
+    }*/
 
     private String generateAudience() {
         return AUDIENCE_WEB;
@@ -80,24 +78,25 @@ public class TokenUtils {
     }
 
     // Funkcija za validaciju JWT tokena
-    public Boolean validateToken(String token, UserDetails userDetails) {
+    /*public Boolean validateToken(String token, UserDetails userDetails) {
         User user = (User) userDetails;
         final String username = getUsernameFromToken(token);
         final Date created = getIssuedAtDateFromToken(token);
 
         return (username != null && username.equals(userDetails.getUsername()));
                 //&& !isCreatedBeforeLastPasswordReset(created, user.getLastPasswordResetDate()));
-    }
+    }*/
 
-    public String getUsernameFromToken(String token) {
-        String username;
+    public Integer getIdFromToken(String token) {
+        Integer id;
+        token = token.split(" ")[1];
         try {
             final Claims claims = this.getAllClaimsFromToken(token);
-            username = claims.getSubject();
+            id = Integer.parseInt(claims.getSubject());
         } catch (Exception e) {
-            username = null;
+            id = null;
         }
-        return username;
+        return id;
     }
 
     public Date getIssuedAtDateFromToken(String token) {

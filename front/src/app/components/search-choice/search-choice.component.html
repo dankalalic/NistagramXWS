@@ -1,0 +1,12 @@
+<app-navbar></app-navbar>
+<div class="btn-group" role="group" aria-label="Basic example">
+  <app-button type="button" class="btn btn-secondary" (btnClick)="profile()" text="Po profilu"></app-button>
+  <app-button type="button" class="btn btn-secondary" (btnClick)="location()" text="Po lokaciji"></app-button>
+  <app-button type="button" class="btn btn-secondary" (btnClick)="tags()" text="Po tagovima"></app-button>
+</div>
+<form class="form-inline my-2 my-lg-0 " style=" margin-left: 80px" (ngSubmit)="onSubmit()">
+  <input class="form-control mr-sm-2" type="search" placeholder="Search" name="search" aria-label="Search" [(ngModel)]="search">
+  <button class="btn btn-outline-success my-2 my-sm-0 input-group-append" type="submit" >Search</button>
+</form>
+<app-content [contents]="contents"></app-content>
+<router-outlet></router-outlet>

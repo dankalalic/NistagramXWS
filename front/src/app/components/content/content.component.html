@@ -3,7 +3,7 @@
   <li *ngFor="let content of contents">
 
     <div class="container1">
-      <div>{{content['kreator']['id']}}</div>
+      <div>{{content['kreator']['username']}}</div>
     </div>
     <ul style="list-style-type: none">
       <li *ngFor="let image of content['slike']">
@@ -14,6 +14,8 @@
     <div class="container1">
       <div>{{content['lokacija']['naziv']}}</div>
     </div>
+    <app-button text="Like" color="green" type="button" (btnClick)="like(content['id'])"></app-button>
+    <app-button text="Disike" color="green" type="button" (btnClick)="dislike(content['id'])"></app-button>
   </li>
 </div>
 </ul>

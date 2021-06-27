@@ -5,6 +5,7 @@ import com.example.PostService.Repository.SadrzajRepository;
 import com.example.PostService.Repository.SlikaRepository;
 import com.example.PostService.Service.SadrzajService;
 import com.example.PostService.Model.SadrzajDTO;
+import com.example.PostService.TokenUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -35,29 +36,35 @@ public class SadrzajController {
         return this.sadrzajService = sadrzajService;
     }
 
+    @Autowired
+    public TokenUtils tokenUtils;
+
+    @CrossOrigin(origins = "http://localhost:4200")
     @PostMapping("/findByLokacija")
     public ResponseEntity<List<Sadrzaj>> findByLokacija(@RequestBody StringDTO stringDTO){
         return new ResponseEntity<>(sadrzajService.findByLokacija(stringDTO.getString()), HttpStatus.OK);
     }
-
+    @CrossOrigin(origins = "http://localhost:4200")
     @PostMapping("/findByTag")
     public ResponseEntity<List<Sadrzaj>> findByTag(@RequestBody StringDTO stringDTO){
         return new ResponseEntity<>(sadrzajService.findByTag(stringDTO.getString()), HttpStatus.OK);
     }
     @CrossOrigin(origins = "http://localhost:4200")
     @PostMapping("/findByProfil")
-    public ResponseEntity<List<Sadrzaj>> findByProfil(@RequestBody IdDTO idDTO){
-        return new ResponseEntity<>(sadrzajService.findByProfil(idDTO.getId()), HttpStatus.OK);
+    public ResponseEntity<List<Sadrzaj>> findByProfil(@RequestBody StringDTO stringDTO){
+        return new ResponseEntity<>(sadrzajService.findByProfil(stringDTO.getString()), HttpStatus.OK);
     }
 
     @PostMapping("/like")
-    public ResponseEntity<Sadrzaj> like(@RequestBody SadrzajUserDTO sadrzajUserDTO) {
-        return new ResponseEntity<>( sadrzajService.like(sadrzajUserDTO), HttpStatus.OK);
+    public ResponseEntity<Sadrzaj> like(@RequestBody IdDTO idDTO, @RequestHeader(value="Authorization") String token) {
+        Integer userId = tokenUtils.getIdFromToken(token);
+        return new ResponseEntity<>( sadrzajService.like(idDTO.getId(), userId), HttpStatus.OK);
     }
 
     @PostMapping("/dislike")
-    public ResponseEntity<Sadrzaj> dislike(@RequestBody SadrzajUserDTO sadrzajUserDTO) {
-        return new ResponseEntity<>( sadrzajService.dislike(sadrzajUserDTO), HttpStatus.OK);
+    public ResponseEntity<Sadrzaj> dislike(@RequestBody IdDTO idDTO, @RequestHeader(value="Authorization") String token) {
+        Integer userId = tokenUtils.getIdFromToken(token);
+        return new ResponseEntity<>( sadrzajService.dislike(idDTO.getId(), userId), HttpStatus.OK);
     }
 
     @CrossOrigin(origins = "http://localhost:4200")

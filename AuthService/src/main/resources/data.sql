@@ -1,5 +1,5 @@
-insert into USERS (id, username, password, enabled) values (nextval('seq_user'), 'd',  '$2y$12$7gZv4xiHIOlkEQ8ByETU.uDVGsTVdYvkZfCDlDHSF.FoMu258kHKm' , True);
-insert into USERS (id, username, password, enabled) values (nextval('seq_user'), 'v',  '$2y$12$7gZv4xiHIOlkEQ8ByETU.uDVGsTVdYvkZfCDlDHSF.FoMu258kHKm' , True);
+insert into USERS (id, username, password, role, enabled) values (nextval('seq_user'), 'd',  '$2y$12$7gZv4xiHIOlkEQ8ByETU.uDVGsTVdYvkZfCDlDHSF.FoMu258kHKm', 'user', True);
+insert into USERS (id, username, password, role, enabled) values (nextval('seq_user'), 'v',  '$2y$12$7gZv4xiHIOlkEQ8ByETU.uDVGsTVdYvkZfCDlDHSF.FoMu258kHKm', 'user', True);
 
 insert into AUTHORITY (name) values ('ROLE_USER');
 

@@ -20,6 +20,8 @@ import { VerificationUploadComponent } from './components/verification-upload/ve
 import {ZahtevComponent} from "./components/zahtev/zahtev.component";
 import { LajkovanoComponent } from './components/lajkovano/lajkovano.component';
 import { DislajkovanoComponent } from './components/dislajkovano/dislajkovano.component';
+import { SearchChoiceComponent } from './components/search-choice/search-choice.component';
+import { ErrorComponent } from './components/error/error.component';
 
 @NgModule({
   declarations: [
@@ -32,9 +34,11 @@ import { DislajkovanoComponent } from './components/dislajkovano/dislajkovano.co
     ProfileViewComponent,
     PostComponent,
     VerificationUploadComponent,
-    ZahtevComponent
+    ZahtevComponent,
     LajkovanoComponent,
-    DislajkovanoComponent
+    DislajkovanoComponent,
+    SearchChoiceComponent,
+    ErrorComponent
   ],
   imports: [
     BrowserModule,

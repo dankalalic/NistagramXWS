@@ -11,6 +11,9 @@ import {PostComponent} from "./components/post/post.component";
 import {ZahtevComponent} from "./components/zahtev/zahtev.component";
 import {LajkovanoComponent} from "./components/lajkovano/lajkovano.component";
 import {DislajkovanoComponent} from "./components/dislajkovano/dislajkovano.component";
+import {SearchChoiceComponent} from "./components/search-choice/search-choice.component";
+import {ErrorComponent} from "./components/error/error.component";
+
 
 const routes: Routes = [
   { path: '', component: LoginFormComponent},
@@ -18,10 +21,12 @@ const routes: Routes = [
   { path: 'profile', component: ProfileViewComponent},
   {path: 'verification', component: VerificationUploadComponent},
   {path: 'createpost', component: PostComponent},
-  {path: 'zahtev', component: ZahtevComponent}
+  {path: 'zahtev', component: ZahtevComponent},
   {path: 'lajkovano', component: LajkovanoComponent},
-  {path: 'dislajkovano', component: DislajkovanoComponent}
-  ];
+  {path: 'dislajkovano', component: DislajkovanoComponent},
+  { path: 'search', component: SearchChoiceComponent},
+  { path: 'error', component : ErrorComponent}
+];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],

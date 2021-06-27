@@ -81,6 +81,7 @@ services:
     networks:
       - nistagram-network
 
+
   settingsservice:
     image: settingsservice
     build:

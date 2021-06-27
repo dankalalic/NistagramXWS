@@ -78,8 +78,8 @@ public class SadrzajService {
         return sadrzaji;
     }
 
-    public List<Sadrzaj> findByProfil(Integer id) {
-        RegistrovaniKorisnik registrovaniKorisnik = registrovaniKorisnikRepository.findOneById(id);
+    public List<Sadrzaj> findByProfil(String username) {
+        RegistrovaniKorisnik registrovaniKorisnik = registrovaniKorisnikRepository.findOneByUsername(username);
         List<Sadrzaj> sadrzajs = new ArrayList<>();
 
         /*Boolean isPrivate =
@@ -95,30 +95,45 @@ public class SadrzajService {
         return sadrzajs;
     }
 
-    public Sadrzaj like(SadrzajUserDTO sadrzajUserDTO) {
-        Sadrzaj sadrzaj = sadrzajRepository.findOneById(sadrzajUserDTO.getSadrzajId());
-        RegistrovaniKorisnik registrovaniKorisnik = registrovaniKorisnikRepository.findOneById(sadrzajUserDTO.getUserId());
+    public Sadrzaj like(Integer id, Integer userId) {
+        Sadrzaj sadrzaj = sadrzajRepository.findOneById(id);
+        RegistrovaniKorisnik registrovaniKorisnik = registrovaniKorisnikRepository.findOneById(userId);
 
         Set<RegistrovaniKorisnik> lajkovali = sadrzaj.getLajkovali();
         Set<RegistrovaniKorisnik> dislajkovali = sadrzaj.getDislajkovali();
 
         lajkovali.add(registrovaniKorisnik);
 
-        if(sadrzaj.getDislajkovali().contains(registrovaniKorisnik)) {
+        dislajkovali.remove(registrovaniKorisnik);
+        sadrzaj.setLajkovali(lajkovali);
+        sadrzaj.setDislajkovali(dislajkovali);
+
+        Set<Sadrzaj> lajkovano = registrovaniKorisnik.getSadrzajlajkovani();
+        Set<Sadrzaj> dislajkovano = registrovaniKorisnik.getDislajkovan();
+
+        lajkovano.add(sadrzaj);
+        dislajkovano.remove(sadrzaj);
+
+        registrovaniKorisnik.setSadrzajlajkovani(lajkovano);
+        registrovaniKorisnik.setDislajkovan(dislajkovano);
+
+        registrovaniKorisnikRepository.save(registrovaniKorisnik);
+
+        /*if(sadrzaj.getDislajkovali().contains(registrovaniKorisnik)) {
             dislajkovali.remove(registrovaniKorisnik);
         }
 
         sadrzaj.setLajkovali(lajkovali);
         sadrzaj.setDislajkovali(dislajkovali);
 
-        this.sadrzajRepository.saveAndFlush(sadrzaj);
+        this.sadrzajRepository.saveAndFlush(sadrzaj);*/
 
-        return sadrzaj;
+        return sadrzajRepository.save(sadrzaj);
     }
 
-    public Sadrzaj dislike(SadrzajUserDTO sadrzajUserDTO) {
-        Sadrzaj sadrzaj = sadrzajRepository.findOneById(sadrzajUserDTO.getSadrzajId());
-        RegistrovaniKorisnik registrovaniKorisnik = registrovaniKorisnikRepository.findOneById(sadrzajUserDTO.getUserId());
+    public Sadrzaj dislike(Integer id, Integer userId) {
+        Sadrzaj sadrzaj = sadrzajRepository.findOneById(id);
+        RegistrovaniKorisnik registrovaniKorisnik = registrovaniKorisnikRepository.findOneById(userId);
         Set<RegistrovaniKorisnik> lajkovali = sadrzaj.getLajkovali();
         Set<RegistrovaniKorisnik> dislajkovali = sadrzaj.getDislajkovali();
 
@@ -126,6 +141,17 @@ public class SadrzajService {
         dislajkovali.add(registrovaniKorisnik);
         sadrzaj.setDislajkovali(dislajkovali);
         sadrzaj.setLajkovali(lajkovali);
+
+        Set<Sadrzaj> lajkovano = registrovaniKorisnik.getSadrzajlajkovani();
+        Set<Sadrzaj> dislajkovano = registrovaniKorisnik.getDislajkovan();
+
+        lajkovano.remove(sadrzaj);
+        dislajkovano.add(sadrzaj);
+
+        registrovaniKorisnik.setSadrzajlajkovani(lajkovano);
+        registrovaniKorisnik.setDislajkovan(dislajkovano);
+
+        registrovaniKorisnikRepository.save(registrovaniKorisnik);
 
         return sadrzajRepository.save(sadrzaj);
     }

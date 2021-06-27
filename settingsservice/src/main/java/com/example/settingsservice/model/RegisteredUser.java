@@ -48,6 +48,12 @@ public class RegisteredUser extends User{
     @Column
     private Boolean dozvoljeneNotifikacije;
 
+    @Column
+    private Boolean prihvataPoruke;
+
+    @Column
+    private Boolean isPrivate;
+
     @JsonIgnore
     @OneToMany(mappedBy = "saljeZahtev", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Set<ZahteviZaPracenje> poslati = new HashSet<ZahteviZaPracenje>();
@@ -217,5 +223,21 @@ public class RegisteredUser extends User{
 
     public void setMeneBlokirali(Set<RegisteredUser> meneBlokirali) {
         this.meneBlokirali = meneBlokirali;
+    }
+
+    public Boolean getPrihvataPoruke() {
+        return prihvataPoruke;
+    }
+
+    public void setPrihvataPoruke(Boolean prihvataPoruke) {
+        this.prihvataPoruke = prihvataPoruke;
+    }
+
+    public Boolean getIsPrivate() {
+        return isPrivate;
+    }
+
+    public void setIsPrivate(Boolean isPrivate) {
+        isPrivate = isPrivate;
     }
 }
