@@ -26,14 +26,14 @@ public class ZahtevZaVerifikacijuController {
     @Autowired
     private ZahtevZaVerifikacijuRepository zahtevZaVerifikacijuRepository;
 
-    /*@GetMapping(value="/getAll",consumes = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value="/getAll")
     public ResponseEntity<List<ZahtevZaVerifikaciju>> getAll() {
 
         List<ZahtevZaVerifikaciju> zahtevZaVerifikacijuList = zahtevZaVerifikacijuRepository.getAllByObradjen(false);
 
         return new ResponseEntity<>(zahtevZaVerifikacijuList,HttpStatus.OK);
 
-    }*/
+    }
 
     @CrossOrigin(origins = "http://localhost:4200")
     @PostMapping(value="/createzahtev",consumes = MediaType.APPLICATION_JSON_VALUE)
@@ -52,7 +52,7 @@ public class ZahtevZaVerifikacijuController {
     }
 
     @PostMapping(value="/approve",consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<ZahtevZaVerifikaciju> approve(idVerificationDTO idVerificationDTO) {
+    public ResponseEntity<ZahtevZaVerifikaciju> approve(@RequestBody idVerificationDTO idVerificationDTO) {
 
         ZahtevZaVerifikaciju zahtevZaVerifikaciju=zahtevZaVerifikacijuRepository.findOneById(idVerificationDTO.getId());
         zahtevZaVerifikaciju.setObradjen(true);
@@ -63,7 +63,7 @@ public class ZahtevZaVerifikacijuController {
 
 
     @PostMapping(value="/decline",consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<ZahtevZaVerifikaciju> decline(idVerificationDTO idVerificationDTO) {
+    public ResponseEntity<ZahtevZaVerifikaciju> decline(@RequestBody idVerificationDTO idVerificationDTO) {
 
         ZahtevZaVerifikaciju zahtevZaVerifikaciju=zahtevZaVerifikacijuRepository.findOneById(idVerificationDTO.getId());
         zahtevZaVerifikaciju.setObradjen(true);

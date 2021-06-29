@@ -16,7 +16,7 @@ export class DislajkovanoComponent implements OnInit {
     const id : Id = {
       id : 2
     };
-    this.postService.getDislajkovano(id).subscribe(result =>
+    this.postService.getDislajkovano().subscribe(result =>
     {
       //this.router.navigate(['/newsfeed']);
       //sessionStorage.setItem('token', result.accessToken);

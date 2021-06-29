@@ -68,7 +68,6 @@ public class RegisteredUser extends User{
     @OneToOne(mappedBy = "registeredUser")
     private ZahtevZaVerifikaciju zahtevZaRVerifikaciju;
 
-    @JsonIgnore
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name="UserBlok",
             joinColumns={@JoinColumn(name="jaBlokiraoId")},
@@ -76,10 +75,7 @@ public class RegisteredUser extends User{
     private Set<RegisteredUser> jaBlokirao = new HashSet<RegisteredUser>();
 
     @JsonIgnore
-    @ManyToMany(cascade = CascadeType.ALL)
-    @JoinTable(name="UserBlok",
-            joinColumns={@JoinColumn(name="meneBlokiraliId")},
-            inverseJoinColumns={@JoinColumn(name="jaBlokiraoId")})
+    @ManyToMany(mappedBy = "jaBlokirao")
     private Set<RegisteredUser> meneBlokirali = new HashSet<RegisteredUser>();
 
     public RegisteredUser() {
@@ -238,6 +234,6 @@ public class RegisteredUser extends User{
     }
 
     public void setIsPrivate(Boolean isPrivate) {
-        isPrivate = isPrivate;
+        this.isPrivate = isPrivate;
     }
 }

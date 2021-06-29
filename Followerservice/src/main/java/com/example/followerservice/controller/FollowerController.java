@@ -1,5 +1,6 @@
 package com.example.followerservice.controller;
 
+import com.example.followerservice.TokenUtils;
 import com.example.followerservice.UserService;
 import com.example.followerservice.model.DTO.IdDTO;
 import com.example.followerservice.model.DTO.UserDTO;
@@ -34,7 +35,8 @@ public class FollowerController {
     @Autowired
     private RestTemplate restTemplate;
 
-
+    @Autowired
+    TokenUtils tokenUtils;
 
     @Autowired
     private FollowerRepository followerRepository;
@@ -47,9 +49,9 @@ public class FollowerController {
     }
 
     @PostMapping(value="/follow",consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Boolean> followSomeone(@RequestBody UserDTO userDTO){
-        Integer id=userDTO.getMyID();
-        Integer id2=userDTO.getSomeonesID();
+    public ResponseEntity<Boolean> followSomeone(@RequestBody IdDTO idDTO, @RequestHeader(value="Authorization") String token) {
+        Integer id = tokenUtils.getIdFromToken(token);
+        Integer id2=idDTO.getId();
         User user= this.followerRepository.findOneById(id);
         User user1= this.followerRepository.findOneById(id2);
         User user2= new User();
@@ -63,7 +65,6 @@ public class FollowerController {
 
             user2=userService.save(user);
 
-
             followers.add(user);
             user1.setFollowers(followers);
 
@@ -75,42 +76,28 @@ public class FollowerController {
 
         for (User user4: user2.getFollowers()){
             integers.add(user4.getId());
-
-
         }
         for (User user4: user2.getFollowing()){
             integers.add(user4.getId());
-
-
         }
 
         for (User user4: user3.getFollowers()){
             integers.add(user4.getId());
-
-
         }
         for (User user4: user3.getFollowing()){
             integers.add(user4.getId());
-
-
         }
 
+       String url="https://settingsservice/zahteviZaPracenje/primazahtev";
 
-
-        String url="https://settingsservice/zahteviZaPracenje/primazahtev";
-
+        UserDTO userDTO = new UserDTO(id, id2);
        Boolean bolean= restTemplate.postForObject("http://settingsservice/zahteviZaPracenje/primazahtev",userDTO,Boolean.class);
 
 
+       Set<User> users= new HashSet<>();
 
-
-
-
-        Set<User> users= new HashSet<>();
-
-        users.add(user2);
-        users.add(user3);
-
+       users.add(user2);
+       users.add(user3);
 
         return new ResponseEntity<>(bolean,HttpStatus.OK);
     }

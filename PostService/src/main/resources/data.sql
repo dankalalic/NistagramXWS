@@ -30,4 +30,4 @@ insert into LAJKOVALI(sadrzajlajkovani_id, registrovanikorisniklajkovan_id) valu
 
 
 insert into DISLAJKOVALI(dislajkovan_id, registrovanikorisnik_id) values(2, 1);
-insert into DISLAJKOVALI(dislajkovan_id, registrovanikorisnik_id) values(2, 3);
+--insert into DISLAJKOVALI(dislajkovan_id, registrovanikorisnik_id) values(2, 3);

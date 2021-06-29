@@ -16,7 +16,7 @@ export class LajkovanoComponent implements OnInit {
     const id : Id = {
       id : 2
     };
-    this.postService.getLajkovano(id).subscribe(result =>
+    this.postService.getLajkovano().subscribe(result =>
     {
       //this.router.navigate(['/newsfeed']);
       //sessionStorage.setItem('token', result.accessToken);

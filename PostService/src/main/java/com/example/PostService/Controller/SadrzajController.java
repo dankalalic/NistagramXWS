@@ -78,15 +78,17 @@ public class SadrzajController {
     }
 
     @CrossOrigin(origins = "http://localhost:4200")
-    @PostMapping("/sadrzajKorisnikLajkovao")
-    public ResponseEntity<Set<SadrzajReturnDTO>> sadrzajKorisnikLajkovao(@RequestBody IdDTO idDTO) {
-        return new ResponseEntity<>(sadrzajService.getsadrzajKorisnikLajkovao(idDTO.getId()), HttpStatus.OK);
+    @GetMapping("/sadrzajKorisnikLajkovao")
+    public ResponseEntity<Set<SadrzajReturnDTO>> sadrzajKorisnikLajkovao(@RequestHeader(value="Authorization") String token) {
+        Integer userId = tokenUtils.getIdFromToken(token);
+        return new ResponseEntity<>(sadrzajService.getsadrzajKorisnikLajkovao(userId), HttpStatus.OK);
     }
 
     @CrossOrigin(origins = "http://localhost:4200")
-    @PostMapping("/sadrzajKorisnikDislajkovao")
-    public ResponseEntity<Set<SadrzajReturnDTO>> sadrzajKorisnikDislajkovao(@RequestBody IdDTO idDTO) {
-        return new ResponseEntity<>(sadrzajService.getsadrzajKorisnikDislajkovao(idDTO.getId()), HttpStatus.OK);
+    @GetMapping("/sadrzajKorisnikDislajkovao")
+    public ResponseEntity<Set<SadrzajReturnDTO>> sadrzajKorisnikDislajkovao(@RequestHeader(value="Authorization") String token) {
+        Integer userId = tokenUtils.getIdFromToken(token);
+        return new ResponseEntity<>(sadrzajService.getsadrzajKorisnikDislajkovao(userId), HttpStatus.OK);
     }
 
     /*@PostMapping(value="/createposts")
@@ -132,4 +134,10 @@ public class SadrzajController {
 
     }
 
+    @CrossOrigin(origins = "http://localhost:4200")
+    @GetMapping(value="/getAll")
+    public ResponseEntity<List<Sadrzaj>> getAll(){
+        return new ResponseEntity<>(sadrzajService.getAll(), HttpStatus.OK);
+
+    }
 }

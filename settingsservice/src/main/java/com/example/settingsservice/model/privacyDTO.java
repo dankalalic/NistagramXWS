@@ -2,13 +2,13 @@ package com.example.settingsservice.model;
 
 public class privacyDTO {
     private Boolean allowNotifs;
-    private Boolean isPrivate;
+    private Boolean isp;
     private Boolean acceptMsg;
     private Boolean taggable;
 
-    public privacyDTO(Boolean allowNotifs, Boolean isPrivate, Boolean acceptMsg, Boolean taggable) {
+    public privacyDTO(Boolean allowNotifs, Boolean isp, Boolean acceptMsg, Boolean taggable) {
         this.allowNotifs = allowNotifs;
-        this.isPrivate = isPrivate;
+        this.isp = isp;
         this.acceptMsg = acceptMsg;
         this.taggable = taggable;
     }
@@ -24,12 +24,12 @@ public class privacyDTO {
         this.allowNotifs = allowNotifs;
     }
 
-    public Boolean getPrivate() {
-        return isPrivate;
+    public Boolean getIsp() {
+        return isp;
     }
 
-    public void setPrivate(Boolean aPrivate) {
-        isPrivate = aPrivate;
+    public void setIsp(Boolean isp) {
+        this.isp = isp;
     }
 
     public Boolean getAcceptMsg() {
