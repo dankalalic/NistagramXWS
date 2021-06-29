@@ -23,14 +23,16 @@ public class RegistrovaniKorisnik {
     private Set<Komentar> komentari;
 
     @JsonIgnore
-    @ManyToMany(fetch = FetchType.LAZY)
+    @ManyToMany(fetch = FetchType.LAZY, cascade={CascadeType.PERSIST, CascadeType.MERGE})
     @JoinTable(name = "lajkovali", joinColumns = @JoinColumn(name = "registrovaniKorisniklajkovan_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "sadrzajlajkovani_id", referencedColumnName = "id"))
     private Set<Sadrzaj> sadrzajlajkovani = new HashSet<Sadrzaj>();
 
     @JsonIgnore
-    @ManyToMany(fetch = FetchType.LAZY)
+    @ManyToMany(fetch = FetchType.LAZY, cascade={CascadeType.PERSIST, CascadeType.MERGE})
     @JoinTable(name = "dislajkovali", joinColumns = @JoinColumn(name = "registrovaniKorisnik_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "dislajkovan_id", referencedColumnName = "id"))
     private Set<Sadrzaj> dislajkovan = new HashSet<Sadrzaj>();
+
+
 
     public RegistrovaniKorisnik() {
     }

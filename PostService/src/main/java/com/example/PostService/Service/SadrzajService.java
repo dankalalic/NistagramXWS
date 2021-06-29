@@ -98,10 +98,12 @@ public class SadrzajService {
     public Sadrzaj like(Integer id, Integer userId) {
         Sadrzaj sadrzaj = sadrzajRepository.findOneById(id);
         RegistrovaniKorisnik registrovaniKorisnik = registrovaniKorisnikRepository.findOneById(userId);
+
         Set<RegistrovaniKorisnik> lajkovali = sadrzaj.getLajkovali();
         Set<RegistrovaniKorisnik> dislajkovali = sadrzaj.getDislajkovali();
 
         lajkovali.add(registrovaniKorisnik);
+
         dislajkovali.remove(registrovaniKorisnik);
         sadrzaj.setLajkovali(lajkovali);
         sadrzaj.setDislajkovali(dislajkovali);
@@ -116,6 +118,15 @@ public class SadrzajService {
         registrovaniKorisnik.setDislajkovan(dislajkovano);
 
         registrovaniKorisnikRepository.save(registrovaniKorisnik);
+
+        /*if(sadrzaj.getDislajkovali().contains(registrovaniKorisnik)) {
+            dislajkovali.remove(registrovaniKorisnik);
+        }
+
+        sadrzaj.setLajkovali(lajkovali);
+        sadrzaj.setDislajkovali(dislajkovali);
+
+        this.sadrzajRepository.saveAndFlush(sadrzaj);*/
 
         return sadrzajRepository.save(sadrzaj);
     }
@@ -145,10 +156,12 @@ public class SadrzajService {
         return sadrzajRepository.save(sadrzaj);
     }
 
-    public Sadrzaj prijaviNeprikladanSadrzaj(IdDTO sadrzajDTO) {
+    public String prijaviNeprikladanSadrzaj(IdDTO sadrzajDTO) {
         Sadrzaj sadrzaj = sadrzajRepository.findOneById(sadrzajDTO.getId());
         sadrzaj.setBrojreportova(sadrzaj.getBrojreportova() + 1);
-        return sadrzajRepository.save(sadrzaj);
+        sadrzajRepository.save(sadrzaj);
+        String s = "Uspesno ste prijavili neprikladan sadrzaj";
+        return s;
     }
     /*public Sadrzaj create(SadrzajDTO sadrzajDTO) {
         Sadrzaj sadrzaj = new Sadrzaj();
@@ -200,4 +213,39 @@ public class SadrzajService {
         //dodaj reklame kasnije
         return sadrzajReturnDTOS;
     }
+
+    public Set<SadrzajReturnDTO> getsadrzajKorisnikLajkovao(Integer id){
+        RegistrovaniKorisnik registrovaniKorisnik=registrovaniKorisnikRepository.findOneById(id);
+        Set<SadrzajReturnDTO> sadrzajReturnDTOS = new HashSet<>();
+        List<Post> posts = postRepository.findAll();
+        for (Post post: posts) {
+            if(post.getLajkovali().contains(registrovaniKorisnik)){
+                SadrzajReturnDTO sadrzajReturnDTO = new SadrzajReturnDTO(post.getId(), post.getKreator(),
+                        post.getBrojreportova(), post.getLajkovali(), post.getDislajkovali(), post.getLokacija(),
+                        post.getSlike(), post.getTagovi());
+                sadrzajReturnDTOS.add(sadrzajReturnDTO);
+            }
+        }
+
+        return sadrzajReturnDTOS;
+
+    }
+
+    public Set<SadrzajReturnDTO> getsadrzajKorisnikDislajkovao(Integer id){
+        RegistrovaniKorisnik registrovaniKorisnik=registrovaniKorisnikRepository.findOneById(id);
+        Set<SadrzajReturnDTO> sadrzajReturnDTOS = new HashSet<>();
+        List<Post> posts = postRepository.findAll();
+        for (Post post: posts) {
+            if(post.getDislajkovali().contains(registrovaniKorisnik)){
+                SadrzajReturnDTO sadrzajReturnDTO = new SadrzajReturnDTO(post.getId(), post.getKreator(),
+                        post.getBrojreportova(), post.getLajkovali(), post.getDislajkovali(), post.getLokacija(),
+                        post.getSlike(), post.getTagovi());
+                sadrzajReturnDTOS.add(sadrzajReturnDTO);
+            }
+        }
+
+        return sadrzajReturnDTOS;
+
+    }
+
 }

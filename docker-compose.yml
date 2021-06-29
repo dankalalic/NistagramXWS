@@ -30,7 +30,6 @@ services:
     #networks:
       #- nistagram-network
 
-
   authservice:
     image: authservice
     build:
@@ -64,40 +63,41 @@ services:
       - REGISTRY_HOST=eureka
     networks:
       - nistagram-network
+    
+  followerservice:
+    image: followerservice
+    build:
+      context: ./Followerservice
+      dockerfile: Dockerfile
+    ports:
+      - "8082:8082"
+    tty: true
+    restart: on-failure
+    container_name: followerservice
+    depends_on:
+      - eureka
+    environment:
+      - REGISTRY_HOST=eureka
+    networks:
+      - nistagram-network
 
-  #followerservice:
-    #image: followerservice
-    #build:
-      #context: ./Followerservice
-      #dockerfile: Dockerfile
-    #ports:
-      #- "8082:8082"
-    #tty: true
-    #restart: on-failure
-    #container_name: followerservice
-    #depends_on:
-      #- eureka
-    #environment:
-      #- REGISTRY_HOST=eureka
-    #networks:
-      #- nistagram-network
 
-  #settingsservice:
-    #image: settingsservice
-    #build:
-      #context: ./settingsservice
-      #dockerfile: Dockerfile
-    #ports:
-      #- "8084:8084"
-    #tty: true
-    #restart: on-failure
-    #container_name: settingsservice
-    #depends_on:
-      #- eureka
-    #environment:
-      #- REGISTRY_HOST=eureka
-    #networks:
-      #- nistagram-network 
+  settingsservice:
+    image: settingsservice
+    build:
+      context: ./settingsservice
+      dockerfile: Dockerfile
+    ports:
+      - "8084:8084"
+    tty: true
+    restart: on-failure
+    container_name: settingsservice
+    depends_on:
+      - eureka
+    environment:
+      - REGISTRY_HOST=eureka
+    networks:
+      - nistagram-network 
 
 networks:
   nistagram-network:
