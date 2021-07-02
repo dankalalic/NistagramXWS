@@ -248,4 +248,11 @@ public class SadrzajService {
 
     }
 
+    public List<Sadrzaj> getAll() {
+        List<Sadrzaj> sadrzajs = sadrzajRepository.findAll();
+        //dodaj reklame kasnije
+        return sadrzajs;
+
+    }
+
 }

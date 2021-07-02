@@ -8,7 +8,9 @@
   <div class="col-md-6">
     <input type="file" (change)="onFileChanged($event)">
     <div class="col-75">
+      <label for="lokacija">Lokacija</label>
       <input type="text" [(ngModel)]="lokacija" name="lokacija" id="lokacija"/>
+      <label for="tag">Tag</label>
       <input type="text" [(ngModel)]="tag" name="tag" id="tag"/>
     </div>
   </div>

@@ -15,4 +15,7 @@ public class idVerificationDTO {
     public idVerificationDTO(Integer id) {
         this.id = id;
     }
+
+    public idVerificationDTO() {
+    }
 }

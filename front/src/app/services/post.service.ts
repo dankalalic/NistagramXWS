@@ -3,11 +3,17 @@ import {Id} from '../model/id'
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {UserLogin} from "../model/user-login";
 
+const token = (sessionStorage.getItem('token'));
+let token1 : string;
+if (token != null) {token1 = token;} else {token1 = 'null';}
+console.log(token1)
 const options = {
   headers: new HttpHeaders({
     'Content-Type': 'application/json',
+    'Authorization': 'Bearer ' + token1
   }),
 };
+
 
 @Injectable({
   providedIn: 'root'
@@ -29,14 +35,14 @@ export class PostService {
     return this.http.post<any>(this.contentReport, id, options);
   }
 
-  getLajkovano(id:Id){
+  getLajkovano(){
     console.log('ok')
-    return this.http.post<any>(this.liked, id, options);
+    return this.http.get<any>(this.liked, options);
   }
 
-  getDislajkovano(id:Id){
+  getDislajkovano(){
     console.log('ok')
-    return this.http.post<any>(this.disliked, id, options);
+    return this.http.get<any>(this.disliked, options);
   }
 
 }

@@ -8,5 +8,14 @@
   <input class="form-control mr-sm-2" type="search" placeholder="Search" name="search" aria-label="Search" [(ngModel)]="search">
   <button class="btn btn-outline-success my-2 my-sm-0 input-group-append" type="submit" >Search</button>
 </form>
-<app-content [contents]="contents"></app-content>
+<div *ngIf="empty">
+  <p>Nema rezultata za {{search}}</p>
+</div>
+<div *ngIf="!empty">
+  <!--<div *ngIf="isForProfile">
+    <a >{{contents[0].kreator.username}}</a>
+    <app-button text="Blokiraj" color="green" type="button" (btnClick)="block(contents[0].kreator.username)"></app-button>
+  </div>-->
+  <app-content [contents]="contents"></app-content>
+</div>
 <router-outlet></router-outlet>

@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Set;
 
 @Service
 public class RegisteredUserService {
@@ -16,9 +17,9 @@ public class RegisteredUserService {
     private RegisteredUserRepository registeredUserRepository;
 
 
-    public RegisteredUser changeRegisteredUserInfo(UserChangeDTO userChangeDTO){
+    public RegisteredUser changeRegisteredUserInfo(UserChangeDTO userChangeDTO, Integer id){
 
-        RegisteredUser registeredUser = registeredUserRepository.findOneById(3);
+        RegisteredUser registeredUser = registeredUserRepository.findOneById(id);
 
         registeredUser.setIme(userChangeDTO.getIme());
         registeredUser.seteMail(userChangeDTO.geteMail());
@@ -70,5 +71,22 @@ public class RegisteredUserService {
 
         u = this.registeredUserRepository.save(u);
         return u;
+    }
+
+    public RegisteredUser block(Integer idToBlock, Integer idBlocker) {
+        RegisteredUser blocker = registeredUserRepository.findOneById(idBlocker);
+        RegisteredUser toBlock = registeredUserRepository.findOneById(idToBlock);
+
+        Set<RegisteredUser> blokirani = blocker.getJaBlokirao();
+        Set<RegisteredUser> meneBlokirali = toBlock.getMeneBlokirali();
+
+        blokirani.add(toBlock);
+        meneBlokirali.add(blocker);
+
+        blocker.setJaBlokirao(blokirani);
+        toBlock.setMeneBlokirali(meneBlokirali);
+
+        registeredUserRepository.save(toBlock);
+        return registeredUserRepository.save(blocker);
     }
 }

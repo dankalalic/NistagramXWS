@@ -33,18 +33,13 @@ export class ContentService {
 
   constructor(private http: HttpClient, private authService : AuthService) {
     //this.token = sessionStorage.getItem("token");
-    this.newsfeedUrl = 'http://localhost:8083/sadrzaj/findByProfil';
+    this.newsfeedUrl = 'http://localhost:8083/sadrzaj/getAll';
     this.likeUrl = 'http://localhost:8083/sadrzaj/like';
     this.dislikeUrl = 'http://localhost:8083/sadrzaj/dislike';
   }
 
-  getNewsfeed(string : StringDTO) {
-
-    //const token1 : Stringnull = {
-      //string : this.token
-    //};
-
-    return this.http.post<any>(this.newsfeedUrl, string, options);
+  getNewsfeed() {
+    return this.http.get<any>(this.newsfeedUrl, options);
   }
 
   like(id : Id) {

@@ -9,11 +9,16 @@ import {StringDTO} from "../../model/stringDTO";
   templateUrl: './search-choice.component.html',
   styleUrls: ['./search-choice.component.css']
 })
+
+
 export class SearchChoiceComponent implements OnInit {
 
   public contents : any = [];
   public by! : string;
   public search! : string;
+  public empty! : boolean;
+  public isForProfile : boolean = true;
+
 
   constructor(private searchService : SearchService, private router: Router) { }
 
@@ -37,9 +42,13 @@ export class SearchChoiceComponent implements OnInit {
       this.getByTag(search1);
     }
   }
+
   getByProfile(username : StringDTO) {
     this.searchService.getByProfile(username).subscribe(result => {
       this.contents = result;
+      this.empty = this.contents.length == 0;
+      this.isForProfile = true;
+      //this.empty = !!this.contents.empty;
       console.log('success', result);
 
     }, err => {
@@ -52,6 +61,8 @@ export class SearchChoiceComponent implements OnInit {
   getByLocation(naziv : StringDTO) {
     this.searchService.getByLocation(naziv).subscribe(result => {
       this.contents = result;
+      this.empty = this.contents.length == 0;
+      this.isForProfile = false;
       console.log('success', result);
 
     }, err => {
@@ -63,11 +74,17 @@ export class SearchChoiceComponent implements OnInit {
   getByTag(naziv : StringDTO) {
     this.searchService.getByTag(naziv).subscribe(result => {
       this.contents = result;
+      this.empty = this.contents.length == 0;
+      this.isForProfile = false;
       console.log('success', result);
 
     }, err => {
       console.log('err', err);
     })
     this.search = '';
+  }
+
+  block(username : string) {
+
   }
 }

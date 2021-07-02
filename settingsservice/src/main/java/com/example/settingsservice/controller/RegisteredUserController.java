@@ -2,9 +2,7 @@ package com.example.settingsservice.controller;
 
 import com.example.settingsservice.TokenUtils;
 import com.example.settingsservice.dto.UserChangeDTO;
-import com.example.settingsservice.model.RegisteredUser;
-import com.example.settingsservice.model.UserRequest;
-import com.example.settingsservice.model.privacyDTO;
+import com.example.settingsservice.model.*;
 import com.example.settingsservice.service.RegisteredUserService;
 import com.example.settingsservice.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,9 +28,9 @@ public class RegisteredUserController {
 
     @PostMapping(value="/changeRegisteredUserInfo", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     //@PreAuthorize("hasRole('REGISTEREDUSER')")
-    public ResponseEntity<RegisteredUser> changeRegisteredUserInfo(@RequestBody UserChangeDTO userDTO) {
-
-        RegisteredUser user = registeredUserService.changeRegisteredUserInfo(userDTO);
+    public ResponseEntity<RegisteredUser> changeRegisteredUserInfo(@RequestBody UserChangeDTO userDTO, @RequestHeader(value="Authorization") String token) {
+        Integer id = tokenUtils.getIdFromToken(token);
+        RegisteredUser user = registeredUserService.changeRegisteredUserInfo(userDTO, id);
 
         return new ResponseEntity<>(user, HttpStatus.OK);
     }
@@ -59,7 +57,7 @@ public class RegisteredUserController {
     @PostMapping(value="/privacySettings")
     public ResponseEntity<RegisteredUser> privacyAndNotifSettings(@RequestBody privacyDTO privacyDTO, @RequestHeader(value="Authorization") String token) {
         Integer id = tokenUtils.getIdFromToken(token);
-        return new ResponseEntity<>(registeredUserService.privacyAndNotificationSettings(id, privacyDTO.getTaggable(), privacyDTO.getPrivate(),
+        return new ResponseEntity<>(registeredUserService.privacyAndNotificationSettings(id, privacyDTO.getTaggable(), privacyDTO.getIsp(),
                 privacyDTO.getAcceptMsg(), privacyDTO.getAllowNotifs()), HttpStatus.OK);
     }
 
@@ -76,5 +74,12 @@ public class RegisteredUserController {
         headers.setLocation(ucBuilder.path("/api/user/{userId}").buildAndExpand(registeredUser.getId()).toUri());
         return new ResponseEntity<RegisteredUser>(registeredUser, HttpStatus.CREATED);
     }
+
+    @PostMapping(value="/block", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<RegisteredUser> block(@RequestBody IdOnlyDTO idDTO, @RequestHeader(value="Authorization") String token) {
+        Integer id = tokenUtils.getIdFromToken(token);
+        return new ResponseEntity<>(registeredUserService.block(idDTO.getId(), id), HttpStatus.OK);
+    }
+
 
 }

@@ -17,10 +17,8 @@ export class NewsfeedComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    const username : StringDTO = {
-      string : 'zika'
-    };
-    this.contentService.getNewsfeed(username).subscribe(result =>
+
+    this.contentService.getNewsfeed().subscribe(result =>
     {
       this.contents = result;
       console.log('success', result);

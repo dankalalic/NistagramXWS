@@ -25,7 +25,8 @@ const routes: Routes = [
   {path: 'lajkovano', component: LajkovanoComponent},
   {path: 'dislajkovano', component: DislajkovanoComponent},
   { path: 'search', component: SearchChoiceComponent},
-  { path: 'error', component : ErrorComponent}
+  { path: 'error', component : ErrorComponent},
+  { path: 'post', component: PostComponent }
 ];
 
 @NgModule({

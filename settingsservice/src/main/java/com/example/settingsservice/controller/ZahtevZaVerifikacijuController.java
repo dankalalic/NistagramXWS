@@ -42,10 +42,7 @@ public class ZahtevZaVerifikacijuController {
         zahtevZaVerifikaciju.setSlika(zahtev.getSlika());
         zahtevZaVerifikacijuRepository.save(zahtevZaVerifikaciju);
 
-
-
         return new ResponseEntity<>(zahtevZaVerifikaciju,HttpStatus.OK);
-
     }
 
     @PostMapping(value="/approve",consumes = MediaType.APPLICATION_JSON_VALUE)
@@ -54,8 +51,7 @@ public class ZahtevZaVerifikacijuController {
         ZahtevZaVerifikaciju zahtevZaVerifikaciju=zahtevZaVerifikacijuRepository.findOneById(idVerificationDTO.getId());
         zahtevZaVerifikaciju.setObradjen(true);
         zahtevZaVerifikaciju.setStatus(true);
-        return new ResponseEntity<>(zahtevZaVerifikaciju,HttpStatus.OK);
-
+        return new ResponseEntity<>(zahtevZaVerifikacijuRepository.save(zahtevZaVerifikaciju),HttpStatus.OK);
     }
 
 
@@ -65,13 +61,7 @@ public class ZahtevZaVerifikacijuController {
         ZahtevZaVerifikaciju zahtevZaVerifikaciju=zahtevZaVerifikacijuRepository.findOneById(idVerificationDTO.getId());
         zahtevZaVerifikaciju.setObradjen(true);
         zahtevZaVerifikaciju.setStatus(false);
-        return new ResponseEntity<>(zahtevZaVerifikaciju,HttpStatus.OK);
-
+        return new ResponseEntity<>(zahtevZaVerifikacijuRepository.save(zahtevZaVerifikaciju),HttpStatus.OK);
     }
-
-
-
-
-
 
 }
