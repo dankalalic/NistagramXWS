@@ -1,10 +1,7 @@
 package com.example.settingsservice.controller;
 
 import com.example.settingsservice.dto.ZahtevZaVerifikacijudto;
-import com.example.settingsservice.model.RegisteredUser;
-import com.example.settingsservice.model.ZahtevZaVerifikaciju;
-import com.example.settingsservice.model.idDTO;
-import com.example.settingsservice.model.idVerificationDTO;
+import com.example.settingsservice.model.*;
 import com.example.settingsservice.repository.ZahtevZaVerifikacijuRepository;
 import com.example.settingsservice.service.ZahtevZaRegistracijuService;
 import com.example.settingsservice.service.ZahtevZaVerifikacijuService;
@@ -26,14 +23,14 @@ public class ZahtevZaVerifikacijuController {
     @Autowired
     private ZahtevZaVerifikacijuRepository zahtevZaVerifikacijuRepository;
 
-    /*@GetMapping(value="/getAll",consumes = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value="/getAll")
     public ResponseEntity<List<ZahtevZaVerifikaciju>> getAll() {
 
         List<ZahtevZaVerifikaciju> zahtevZaVerifikacijuList = zahtevZaVerifikacijuRepository.getAllByObradjen(false);
 
         return new ResponseEntity<>(zahtevZaVerifikacijuList,HttpStatus.OK);
 
-    }*/
+    }
 
     @CrossOrigin(origins = "http://localhost:4200")
     @PostMapping(value="/createzahtev",consumes = MediaType.APPLICATION_JSON_VALUE)
@@ -52,7 +49,7 @@ public class ZahtevZaVerifikacijuController {
     }
 
     @PostMapping(value="/approve",consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<ZahtevZaVerifikaciju> approve(idVerificationDTO idVerificationDTO) {
+    public ResponseEntity<ZahtevZaVerifikaciju> approve(@RequestBody IdVerDTO idVerificationDTO) {
 
         ZahtevZaVerifikaciju zahtevZaVerifikaciju=zahtevZaVerifikacijuRepository.findOneById(idVerificationDTO.getId());
         zahtevZaVerifikaciju.setObradjen(true);
@@ -63,7 +60,7 @@ public class ZahtevZaVerifikacijuController {
 
 
     @PostMapping(value="/decline",consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<ZahtevZaVerifikaciju> decline(idVerificationDTO idVerificationDTO) {
+    public ResponseEntity<ZahtevZaVerifikaciju> decline(@RequestBody IdVerDTO idVerificationDTO) {
 
         ZahtevZaVerifikaciju zahtevZaVerifikaciju=zahtevZaVerifikacijuRepository.findOneById(idVerificationDTO.getId());
         zahtevZaVerifikaciju.setObradjen(true);
