@@ -1,4 +1,4 @@
-package com.example.PostService;
+package com.example.CampaignService;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -8,12 +8,12 @@ import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
 import org.springframework.context.annotation.Bean;
 import org.springframework.web.client.RestTemplate;
 
-@SpringBootApplication
 @EnableEurekaClient
-public class PostServiceApplication {
+@SpringBootApplication
+public class CampaignServiceApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(PostServiceApplication.class, args);
+		SpringApplication.run(CampaignServiceApplication.class, args);
 	}
 
 	@Bean
