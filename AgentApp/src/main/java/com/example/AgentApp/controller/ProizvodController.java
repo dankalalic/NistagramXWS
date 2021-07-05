@@ -13,10 +13,14 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
+@CrossOrigin(origins = "http://localhost:4200")
 @RestController
 @RequestMapping(value = "/proizvod")
 public class ProizvodController {
@@ -36,9 +40,6 @@ public class ProizvodController {
     public void setProdavnicaRepository(ProdavnicaRepository prodavnicaRepository) {
         this.prodavnicaRepository = prodavnicaRepository;
     }
-
-
-
 
     @Autowired
     public void setKorpaRepository(KorpaRepository korpaRepository) {
@@ -75,6 +76,9 @@ public class ProizvodController {
         this.proizvodService = proizvodService;
     }
 
+    @Autowired
+    public SlikaRepository slikaRepository;
+
     @PostMapping(value="/createproizvod",consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Proizvod> create(@RequestBody ProizvodDto proizvodDto,@RequestHeader(value="Authorization") String token) {
         Integer userId = tokenUtils.getIdFromToken(token);
@@ -83,10 +87,11 @@ public class ProizvodController {
         Prodavnica prodavnica=agent.getProdavnica();
         proizvod.setProdavnica(prodavnica);
         proizvod.setAgent(agent);
-        proizvodRepository.save(proizvod);
+        proizvod = proizvodRepository.save(proizvod);
 
-
-
+        Slika slika = slikaRepository.findOneById(proizvodDto.getSlika());
+        slika.setProizvod(proizvod);
+        slikaRepository.save(slika);
         return new ResponseEntity<>(proizvod, HttpStatus.OK);
     }
 
@@ -116,9 +121,6 @@ public class ProizvodController {
     public ResponseEntity<Set<Proizvod>> dobaviproizvode(@RequestBody IdDTO idDTO) {
 
         Prodavnica prodavnica=prodavnicaRepository.findOneById(idDTO.getId());
-        
-
-
         return new ResponseEntity<>(prodavnica.getProizvodi(), HttpStatus.OK);
     }
 
@@ -148,4 +150,21 @@ public class ProizvodController {
         return new ResponseEntity<>(korpa, HttpStatus.OK);
     }
 
+    @CrossOrigin(origins = "http://localhost:4200")
+    @PostMapping("/upload")
+    public Integer uploadImage(@RequestParam("imageFile") MultipartFile file) throws IOException {
+
+        System.out.println("Original Image Byte Size - " + file.getBytes().length);
+        Slika slika= new Slika(file.getOriginalFilename(),file.getBytes(),file.getSize());
+
+        this.slikaRepository.save(slika);
+
+        return slika.getId();
+    }
+
+    @GetMapping(value="/getByAgent")
+    public List<Proizvod> getByAgent(@RequestHeader(value="Authorization") String token) {
+        Integer userId = tokenUtils.getIdFromToken(token);
+        return proizvodService.findByAgent(userId);
+    }
 }

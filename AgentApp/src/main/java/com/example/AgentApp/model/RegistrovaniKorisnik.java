@@ -5,8 +5,14 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import javax.persistence.*;
 import java.util.Set;
 
+import static javax.persistence.DiscriminatorType.STRING;
+
 @Entity
+@Inheritance(strategy=InheritanceType.SINGLE_TABLE)
+@DiscriminatorColumn(name="rolee", discriminatorType=STRING)
+@Table(name="users")
 public class RegistrovaniKorisnik {
+
     @Id
     private Integer id;
 

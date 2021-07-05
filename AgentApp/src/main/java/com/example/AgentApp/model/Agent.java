@@ -7,7 +7,8 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-public class Agent {
+@DiscriminatorValue("agent")
+public class Agent extends RegistrovaniKorisnik{
     @Id
     private Integer id;
 

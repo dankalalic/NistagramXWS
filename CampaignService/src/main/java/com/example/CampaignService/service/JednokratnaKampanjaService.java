@@ -11,7 +11,9 @@ import org.springframework.web.client.RestTemplate;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Service
 public class JednokratnaKampanjaService {
@@ -39,12 +41,12 @@ public class JednokratnaKampanjaService {
             ciljnaGrupa.setPol(jednokratnaDTO.getPol());
             ciljnaGrupa.setGodinePocetka(jednokratnaDTO.getGodinePocetka());
             ciljnaGrupa.setGodineKraja(jednokratnaDTO.getGodineKraja());
+            ciljnaGrupaRepository.save(ciljnaGrupa);
         } else {
             ciljnaGrupa = ciljnaGrupaRepository.findByPolAndGodinePocetkaAndGodineKraja(jednokratnaDTO.getPol(), jednokratnaDTO.getGodinePocetka(), jednokratnaDTO.getGodineKraja());
         }
 
         kampanja.setCiljnaGrupa(ciljnaGrupa);
-        kampanja.setAgent(agentRepository.findOneById(id));
 
         String url="http://postservice/reklame/saveAll";
 
@@ -54,19 +56,39 @@ public class JednokratnaKampanjaService {
 
         int counter = 0;
         List<ReklamaDTO> reklamaDTOs = new ArrayList<>();
-        for (MultipartFile multipartFile : jednokratnaDTO.getSlike()) {
-            ReklamaDTO reklamaDTO = new ReklamaDTO(multipartFile, jednokratnaDTO.getLinkovi().get(counter));
+        for (Slika slika : jednokratnaDTO.getSlike()) {
+            ReklamaDTO reklamaDTO = new ReklamaDTO(slika, jednokratnaDTO.getLinkovi().get(counter));
             counter++;
             reklamaDTOs.add(reklamaDTO);
         }
 
         reklamaListDTO.setReklamaDTOS(reklamaDTOs);
+        reklamaListDTO.setAgentId(id);
         ListIntegerWrapper reklameIds = restTemplate.postForObject(url,reklamaListDTO, ListIntegerWrapper.class);
 
+        Set<Reklama> reklamas = new HashSet<>();
         counter = 0;
         for (Integer reklamaId : reklameIds.getIntegerList()) {
             Reklama reklama = new Reklama(reklamaId, jednokratnaDTO.getLinkovi().get(counter));
             counter++;
+            reklamaRepository.save(reklama);
+            reklamas.add(reklama);
+        }
+
+        //kampanja.setReklame(reklamas);
+
+
+        Agent agent = agentRepository.findOneById(id);
+        kampanja.setAgent(agent);
+        //JednokratnaKampanja jednokratnaKampanja = jednokratnaKampanjaRepository.save(kampanja);
+        Set<Kampanja> kampanje = agent.getKampanje();
+        kampanje.add(kampanja);
+        agent.setKampanje(kampanje);
+        agentRepository.save(agent);
+
+        //set kampanja id in reklama
+        for (Reklama reklama : reklamas) {
+            reklama.setKampanja(kampanja);
             reklamaRepository.save(reklama);
         }
 

@@ -32,25 +32,39 @@ public class ReklamaController {
 
     @CrossOrigin(origins = "http://localhost:8085")
     @PostMapping("/saveAll")
-    public ListIntegerWrapper saveAll (@RequestBody ReklamaListDTO reklamaListDTO) throws IOException {
-        List<Reklama> reklame = new ArrayList<>();
+    public ListIntegerWrapper saveAll (@RequestBody ReklamaListDTO reklamaListDTO){
+
+        List<Reklama> reklamas = new ArrayList<>();
+        List<Integer> integers = new ArrayList<>();
+        Agent agent = agentRepository.findOneById(reklamaListDTO.getAgentId());
 
         for (ReklamaDTO reklamaDTO : reklamaListDTO.getReklamaDTOS()) {
             Reklama reklama = new Reklama();
+
             reklama.setKreator(agentRepository.findOneById(reklamaListDTO.getAgentId()));
 
-            Set<Slika> slikeId = new HashSet<>();
-            Integer slikaId = sadrzajService.upload(reklamaDTO.getSlika());
-            Slika slika = slikaRepository.findOneById(slikaId);
-            slikeId.add(slika);
-            reklama.setSlike(slikeId);
+            Set<Slika> slike = new HashSet<>();
+            slike.add(reklamaDTO.getSlika());
 
-            reklame.add(reklama);
+            slikaRepository.saveAll(slike);
+            reklama.setSlike(slike);
+
+            Integer reklamaId = reklamaService.save(reklama);
+            for (Slika slika : slike) {
+                slika.setSadrzaj(reklama);
+                slikaRepository.save(slika);
+            }
+
+            integers.add(reklamaId);
+            reklamas.add(reklama);
         }
-        List<Integer> integers = reklamaService.saveAll(reklame);
-        ListIntegerWrapper listIntegerWrapper = new ListIntegerWrapper(integers);
 
-        return listIntegerWrapper;
+        Set<Reklama> reklame = agent.getReklame();
+        reklame.addAll(reklamas);
+        agent.setReklame(reklame);
+        agentRepository.save(agent);
+
+        return new ListIntegerWrapper(integers);
     }
 
 }

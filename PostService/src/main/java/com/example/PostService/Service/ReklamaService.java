@@ -24,4 +24,8 @@ public class ReklamaService {
         return reklameIds;
     }
 
+    public Integer save(Reklama reklama) {
+        Reklama reklama1 = reklamaRepository.save(reklama);
+        return reklama1.getId();
+    }
 }

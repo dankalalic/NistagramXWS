@@ -8,6 +8,7 @@ import java.util.Set;
 
 @Entity
 public class Proizvod {
+
     @Id
     @SequenceGenerator(name = "seq_proizvod", sequenceName = "seq_proizvod", initialValue = 1, allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_proizvod")
@@ -15,10 +16,16 @@ public class Proizvod {
 
     @Column
     private Integer cena;
+
     @Column
     private Integer raspolozivoStanje;
+
     @Column
-    private Integer slika;
+    private Integer  naziv;
+
+    @Lob
+    @OneToOne(mappedBy = "proizvod", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private Slika slika;
 
     @Column
     private Integer kolicinazaporudzbinu;
@@ -68,7 +75,6 @@ public class Proizvod {
     public Proizvod(Integer cena, Integer raspolozivoStanje, Integer slika) {
     }
 
-
     public Integer getRaspolozivoStanje() {
         return raspolozivoStanje;
     }
@@ -77,21 +83,20 @@ public class Proizvod {
         this.raspolozivoStanje = raspolozivoStanje;
     }
 
-    public Integer getSlika() {
+    public Slika getSlika() {
         return slika;
     }
 
-    public void setSlika(Integer slika) {
+    public void setSlika(Slika slika) {
         this.slika = slika;
     }
 
     public Proizvod() {
     }
 
-    public Proizvod(Integer id, Integer cena, Integer slika, Agent agent, Set<Narudzbina> narudzbina) {
+    public Proizvod(Integer id, Integer cena, Agent agent, Set<Narudzbina> narudzbina) {
         this.id = id;
         this.cena = cena;
-        this.slika = slika;
         this.agent = agent;
         this.narudzbina = narudzbina;
     }
@@ -128,4 +133,13 @@ public class Proizvod {
     public void setNarudzbina(Set<Narudzbina> narudzbina) {
         this.narudzbina = narudzbina;
     }
+
+    public Integer getNaziv() {
+        return naziv;
+    }
+
+    public void setNaziv(Integer naziv) {
+        this.naziv = naziv;
+    }
+
 }

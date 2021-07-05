@@ -12,14 +12,14 @@ public class JednokratnaDTO {
     private Integer godinePocetka;
     private Integer godineKraja;
     @Lob
-    private MultipartFile[] slike;
+    private List<Slika> slike;
     private List<String> linkovi;
     private Date datumPrikazivanja;
 
     public JednokratnaDTO() {
     }
 
-    public JednokratnaDTO(String pol, Integer godinePocetka, Integer godineKraja, MultipartFile[] slike, List<String> linkovi, Date datumPrikazivanja) {
+    public JednokratnaDTO(String pol, Integer godinePocetka, Integer godineKraja, List<Slika> slike, List<String> linkovi, Date datumPrikazivanja) {
         this.pol = pol;
         this.godinePocetka = godinePocetka;
         this.godineKraja = godineKraja;
@@ -52,11 +52,11 @@ public class JednokratnaDTO {
         this.godineKraja = godineKraja;
     }
 
-    public MultipartFile[] getSlike() {
+    public List<Slika> getSlike() {
         return slike;
     }
 
-    public void setSlike(MultipartFile[] slike) {
+    public void setSlike(List<Slika> slike) {
         this.slike = slike;
     }
 

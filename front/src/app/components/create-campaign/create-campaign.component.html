@@ -32,13 +32,13 @@
         <input type="date" [(ngModel)]="datum" name="datum" id="datum"/>
       </div>
     </div>
-    <div class="row">
-      <div class="col-25">
-        <label for="slika" >Slika</label>
-      </div>
-      <div class="col-75">
-        <input type="file" [(ngModel)]="slika" name="slika" id="slika"/>
-      </div>
+    <div>
+      <label *ngFor="let item of proizvodi">
+        <input type="checkbox">{{item['naziv']}}
+        <!--<li>
+          <img alt="slika" style="width : 100%" [src]="sanitize('data:image/jpg;base64,' + item['slika'].url)"/>
+        </li>-->
+      </label>
     </div>
     <app-button text="Submit" color="green" type="submit"></app-button>
     <!--<app-button text="Registracija" color="green" type="button" [routerLink]="['/newsfeed']"></app-button>
