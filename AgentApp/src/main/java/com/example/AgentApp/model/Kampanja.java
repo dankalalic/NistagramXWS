@@ -13,8 +13,7 @@ public class Kampanja {
     @SequenceGenerator(name = "seq_kampanja", sequenceName = "seq_kampanja", initialValue = 1, allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_kampanja")
     private Integer id;
-
-
+    
     @JsonIgnore
     @ManyToOne(cascade = CascadeType.MERGE, fetch = FetchType.LAZY)
     private Agent agent;
