@@ -4,10 +4,7 @@ import com.example.AgentApp.TokenUtils;
 import com.example.AgentApp.dto.IdDTO;
 import com.example.AgentApp.dto.PorudzbinaDTO;
 import com.example.AgentApp.dto.ProizvodDto;
-import com.example.AgentApp.model.Agent;
-import com.example.AgentApp.model.Korpa;
-import com.example.AgentApp.model.Proizvod;
-import com.example.AgentApp.model.RegistrovaniKorisnik;
+import com.example.AgentApp.model.*;
 import com.example.AgentApp.repository.AgentRepository;
 import com.example.AgentApp.repository.KorpaRepository;
 import com.example.AgentApp.repository.ProizvodRepository;
@@ -77,8 +74,11 @@ public class ProizvodController {
         Integer userId = tokenUtils.getIdFromToken(token);
         Proizvod proizvod=proizvodService.create(proizvodDto);
         Agent agent =agentRepository.findOneById(userId);
+        Prodavnica prodavnica=agent.getProdavnica();
+        proizvod.setProdavnica(prodavnica);
         proizvod.setAgent(agent);
         proizvodRepository.save(proizvod);
+
 
 
         return new ResponseEntity<>(proizvod, HttpStatus.OK);
@@ -107,8 +107,17 @@ public class ProizvodController {
     }
 
     @PostMapping(value="/dodajukorpu",consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Korpa> ubaciukorpu(@RequestBody PorudzbinaDTO idDTO, @RequestHeader(value="Authorization") String token) {
+    public ResponseEntity<Korpa> ubaciukorpu(@RequestBody PorudzbinaDTO idDTO, @RequestHeader(value="Authorization") String token) throws Exception {
+
         Proizvod proizvod=proizvodService.findById(idDTO.getId());
+
+        if(proizvod.getRaspolozivoStanje()-idDTO.getKolicinazaporudzbinu()<0){
+            throw new Exception("prozivoda nema na stanju");
+        }
+        else {
+
+            proizvod.setRaspolozivoStanje(proizvod.getRaspolozivoStanje()- idDTO.getKolicinazaporudzbinu());
+        }
         proizvod.setKolicinazaporudzbinu(idDTO.getKolicinazaporudzbinu());
         Integer userId = tokenUtils.getIdFromToken(token);
         RegistrovaniKorisnik registrovaniKorisnik=registrovaniKorisnikRepository.findOneById(userId);

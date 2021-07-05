@@ -15,6 +15,17 @@ public class Prodavnica {
     @OneToMany(mappedBy = "prodavnica", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Set<Proizvod> proizvodi = new HashSet<>();
 
+    @OneToOne(mappedBy = "prodavnica")
+    private Agent agent;
+
+    public Agent getAgent() {
+        return agent;
+    }
+
+    public void setAgent(Agent agent) {
+        this.agent = agent;
+    }
+
     public Prodavnica() {
     }
 

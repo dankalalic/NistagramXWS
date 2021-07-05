@@ -38,6 +38,22 @@ public class Proizvod {
     @ManyToMany(mappedBy = "proizvod")
     private Set<Narudzbina> narudzbina = new HashSet<Narudzbina>();
 
+    public Prodavnica getProdavnica() {
+        return prodavnica;
+    }
+
+    public void setProdavnica(Prodavnica prodavnica) {
+        this.prodavnica = prodavnica;
+    }
+
+    public Korpa getKorpa() {
+        return korpa;
+    }
+
+    public void setKorpa(Korpa korpa) {
+        this.korpa = korpa;
+    }
+
     public Integer getKolicinazaporudzbinu() {
         return kolicinazaporudzbinu;
     }
