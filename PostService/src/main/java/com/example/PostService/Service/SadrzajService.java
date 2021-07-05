@@ -65,6 +65,9 @@ public class SadrzajService {
     @Autowired
     public SlikaRepository setSlikaRepository(SlikaRepository slikaRepository) { return this.slikaRepository = slikaRepository; }
 
+    @Autowired
+    private RestTemplate restTemplate;
+
     public List<Sadrzaj> findByLokacija(String lokacija) {
         Lokacija lokacija1 = lokacijaRepository.findByNaziv(lokacija);
         return sadrzajRepository.findByLokacija(lokacija1);
@@ -82,11 +85,14 @@ public class SadrzajService {
         RegistrovaniKorisnik registrovaniKorisnik = registrovaniKorisnikRepository.findOneByUsername(username);
         List<Sadrzaj> sadrzajs = new ArrayList<>();
 
-        /*Boolean isPrivate =
-                new RestTemplate().postForObject(
-                        "http://localhost:8082/follower/isPrivate", id, Boolean.class);
+        String url="http://followerservice/follower/isPrivate";
+
+        /*IdDTO idDTO = new IdDTO(registrovaniKorisnik.getId());
+        Boolean isPrivate= restTemplate.postForObject(url,idDTO,Boolean.class);
+
         if (isPrivate) {
-            sadrzajs = sadrzajRepository.findByKreator(registrovaniKorisnik);
+            if (registrovaniKorisnik instanceof RegistrovaniKorisnik)
+                sadrzajs = postRepository.findByKreator(registrovaniKorisnik);
         } else {
             System.out.println("Profil je privatan!");
         }*/
@@ -118,15 +124,6 @@ public class SadrzajService {
         registrovaniKorisnik.setDislajkovan(dislajkovano);
 
         registrovaniKorisnikRepository.save(registrovaniKorisnik);
-
-        /*if(sadrzaj.getDislajkovali().contains(registrovaniKorisnik)) {
-            dislajkovali.remove(registrovaniKorisnik);
-        }
-
-        sadrzaj.setLajkovali(lajkovali);
-        sadrzaj.setDislajkovali(dislajkovali);
-
-        this.sadrzajRepository.saveAndFlush(sadrzaj);*/
 
         return sadrzajRepository.save(sadrzaj);
     }
@@ -163,27 +160,6 @@ public class SadrzajService {
         String s = "Uspesno ste prijavili neprikladan sadrzaj";
         return s;
     }
-    /*public Sadrzaj create(SadrzajDTO sadrzajDTO) {
-        Sadrzaj sadrzaj = new Sadrzaj();
-        sadrzaj.setKreator(registrovaniKorisnikRepository.findOneById(sadrzajDTO.getUserId()));
-        sadrzaj.setLokacija(lokacijaRepository.findByNaziv(sadrzajDTO.getLokacija()));
-        Set<Slika> slike1 = new HashSet<>();
-        for (String slika : sadrzajDTO.getSlike()) {
-            Slika slika1 = new Slika();
-            slika1.setUrl(slika);
-            slike1.add(slika1);
-        }
-
-
-        sadrzaj.setSlike(slike1);
-
-        sadrzaj = sadrzajRepository.save(sadrzaj);
-        for (Slika slika : sadrzaj.getSlike()) {
-            slika.setSadrzaj(sadrzaj);
-        }
-        return sadrzaj;
-    }*/
-
 
     public Integer upload (MultipartFile multipartFile) throws IOException {
         try {

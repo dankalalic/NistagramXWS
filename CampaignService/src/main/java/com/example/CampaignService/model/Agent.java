@@ -3,6 +3,7 @@ package com.example.CampaignService.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -13,7 +14,7 @@ public class Agent {
 
     @JsonIgnore
     @OneToMany(mappedBy = "agent", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private Set<Kampanja> kampanje;
+    private Set<Kampanja> kampanje = new HashSet<>();
 
     public Agent(Integer id) {
         this.id = id;
