@@ -5,10 +5,7 @@ import com.example.AgentApp.dto.IdDTO;
 import com.example.AgentApp.dto.PorudzbinaDTO;
 import com.example.AgentApp.dto.ProizvodDto;
 import com.example.AgentApp.model.*;
-import com.example.AgentApp.repository.AgentRepository;
-import com.example.AgentApp.repository.KorpaRepository;
-import com.example.AgentApp.repository.ProizvodRepository;
-import com.example.AgentApp.repository.RegistrovaniKorisnikRepository;
+import com.example.AgentApp.repository.*;
 import com.example.AgentApp.service.KorpaService;
 import com.example.AgentApp.service.ProizvodService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,11 +25,20 @@ public class ProizvodController {
 
     private ProizvodRepository proizvodRepository;
 
+    private ProdavnicaRepository prodavnicaRepository;
+
     private KorpaService korpaService;
 
     private RegistrovaniKorisnikRepository registrovaniKorisnikRepository;
 
     private KorpaRepository korpaRepository;
+    @Autowired
+    public void setProdavnicaRepository(ProdavnicaRepository prodavnicaRepository) {
+        this.prodavnicaRepository = prodavnicaRepository;
+    }
+
+
+
 
     @Autowired
     public void setKorpaRepository(KorpaRepository korpaRepository) {
@@ -104,6 +110,16 @@ public class ProizvodController {
 
 
         return new ResponseEntity<>(proizvod, HttpStatus.OK);
+    }
+
+    @PostMapping(value="/dobaviproizvode",consumes = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Set<Proizvod>> dobaviproizvode(@RequestBody IdDTO idDTO) {
+
+        Prodavnica prodavnica=prodavnicaRepository.findOneById(idDTO.getId());
+        
+
+
+        return new ResponseEntity<>(prodavnica.getProizvodi(), HttpStatus.OK);
     }
 
     @PostMapping(value="/dodajukorpu",consumes = MediaType.APPLICATION_JSON_VALUE)
