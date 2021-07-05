@@ -22,6 +22,7 @@ import { LajkovanoComponent } from './components/lajkovano/lajkovano.component';
 import { DislajkovanoComponent } from './components/dislajkovano/dislajkovano.component';
 import { SearchChoiceComponent } from './components/search-choice/search-choice.component';
 import { ErrorComponent } from './components/error/error.component';
+import { CreateCampaignComponent } from './components/create-campaign/create-campaign.component';
 
 @NgModule({
   declarations: [
@@ -38,7 +39,8 @@ import { ErrorComponent } from './components/error/error.component';
     LajkovanoComponent,
     DislajkovanoComponent,
     SearchChoiceComponent,
-    ErrorComponent
+    ErrorComponent,
+    CreateCampaignComponent
   ],
   imports: [
     BrowserModule,

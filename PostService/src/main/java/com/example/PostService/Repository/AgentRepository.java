@@ -1,9 +1,8 @@
-package com.example.CampaignService.repository;
+package com.example.PostService.Repository;
 
-import com.example.CampaignService.model.Agent;
+import com.example.PostService.Model.Agent;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface AgentRepository extends JpaRepository<Agent, Integer> {
-
     Agent findOneById(Integer id);
 }

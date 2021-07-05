@@ -1,11 +1,9 @@
-package com.example.settingsservice.model;
+package com.example.PostService.Model;
 
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
-import javax.persistence.Id;
 
 @Entity
 @DiscriminatorValue("agent")
-public class Agent extends RegisteredUser{
-
+public class Agent extends RegistrovaniKorisnik{
 }

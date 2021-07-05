@@ -20,7 +20,6 @@ export class LoginFormComponent implements OnInit {
   ngOnInit(): void {
   }
 
-
   onSubmit() {
 
     const user : UserLogin = {
@@ -43,6 +42,8 @@ export class LoginFormComponent implements OnInit {
         this.router.navigate(['/newsfeed']);
       } else if (result.role == 'admin') {
 
+      } else if (result.role == 'agent') {
+        this.router.navigate(['/createCampaign']);
       }
     }, err => {
       this.router.navigate(['/error']);
