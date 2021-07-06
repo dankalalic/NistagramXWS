@@ -23,11 +23,16 @@ export class PostService {
   private contentReport : string;
   private liked : string;
   private disliked : string;
+  private neprikladanSadrzaj :string;
+  private ukloniSadrzaj : string;
 
   constructor(private http: HttpClient) {
     this.contentReport = 'http://localhost:8083/sadrzaj/neprikladanSadrzaj';
     this.liked = 'http://localhost:8083/sadrzaj/sadrzajKorisnikLajkovao';
     this.disliked = 'http://localhost:8083/sadrzaj/sadrzajKorisnikDislajkovao';
+    this.neprikladanSadrzaj = 'http://localhost:8083/posts/pregledNeprikladnogSadrzaja';
+    this.ukloniSadrzaj = 'http://localhost:8083/posts/ukloniSadrzaj';
+
   }
 
   report(id: Id) {
@@ -44,5 +49,17 @@ export class PostService {
     console.log('ok')
     return this.http.get<any>(this.disliked, options);
   }
+
+  getNeprikladanSadrzaj(){
+    console.log('ok');
+    return this.http.get<any>(this.neprikladanSadrzaj, options);
+  }
+
+  ukloni(id:Id){
+    console.log('ok')
+    return this.http.post<any>(this.ukloniSadrzaj, id, options);
+  }
+
+
 
 }

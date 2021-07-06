@@ -39,10 +39,10 @@ export class LoginFormComponent implements OnInit {
     {
       sessionStorage.setItem('token', result.accessToken);
       sessionStorage.setItem('role', result.role);
-      if (result.role == 'user') {
+      if (result.role == 'user' && result.enabled == true) {
         this.router.navigate(['/newsfeed']);
       } else if (result.role == 'admin') {
-
+        this.router.navigate(['/neprikladansadrzaj']);
       }
     }, err => {
       this.router.navigate(['/error']);

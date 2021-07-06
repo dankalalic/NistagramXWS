@@ -5,6 +5,7 @@ import com.example.AuthService.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
 
 import java.nio.file.AccessDeniedException;
 import java.util.HashSet;
@@ -26,6 +27,9 @@ public class UserService {
 
     @Autowired
     private AuthorityService authService;
+
+    @Autowired
+    private RestTemplate restTemplate;
 
     public User findById(Integer id) throws AccessDeniedException {
         User u = userRepository.findById(id).orElseGet(null);
@@ -54,5 +58,24 @@ public class UserService {
 
     public User findByUsername(String username) {
         return userRepository.findByUsername(username);
+    }
+
+    public StringDTO ugasiProfil(String username){
+        User user = findByUsername(username);
+        user.setEnabled(false);
+        this.userRepository.save(user);
+
+
+        StringDTO stringDTO = new StringDTO(username);
+        Boolean bolean= restTemplate.postForObject("http://postservice/posts/ugasiSvePostoveUsera",stringDTO,Boolean.class);
+
+        if(bolean) {
+            String s = "Uspesno ste ugasili profil";
+            StringDTO returnString = new StringDTO(s);
+            return returnString;
+        }else {
+            return null;
+        }
+
     }
 }

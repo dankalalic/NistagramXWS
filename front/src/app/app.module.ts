@@ -22,6 +22,9 @@ import { LajkovanoComponent } from './components/lajkovano/lajkovano.component';
 import { DislajkovanoComponent } from './components/dislajkovano/dislajkovano.component';
 import { SearchChoiceComponent } from './components/search-choice/search-choice.component';
 import { ErrorComponent } from './components/error/error.component';
+import { NavbaradminComponent } from './components/navbaradmin/navbaradmin.component';
+import { NeprikladansadrzajComponent } from './components/neprikladansadrzaj/neprikladansadrzaj.component';
+import { ContentadminComponent } from './components/contentadmin/contentadmin.component';
 
 @NgModule({
   declarations: [
@@ -38,7 +41,10 @@ import { ErrorComponent } from './components/error/error.component';
     LajkovanoComponent,
     DislajkovanoComponent,
     SearchChoiceComponent,
-    ErrorComponent
+    ErrorComponent,
+    NavbaradminComponent,
+    NeprikladansadrzajComponent,
+    ContentadminComponent
   ],
   imports: [
     BrowserModule,

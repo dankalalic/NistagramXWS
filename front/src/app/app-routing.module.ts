@@ -13,6 +13,8 @@ import {LajkovanoComponent} from "./components/lajkovano/lajkovano.component";
 import {DislajkovanoComponent} from "./components/dislajkovano/dislajkovano.component";
 import {SearchChoiceComponent} from "./components/search-choice/search-choice.component";
 import {ErrorComponent} from "./components/error/error.component";
+import {NavbaradminComponent} from "./components/navbaradmin/navbaradmin.component";
+import {NeprikladansadrzajComponent} from "./components/neprikladansadrzaj/neprikladansadrzaj.component";
 
 
 const routes: Routes = [
@@ -26,7 +28,9 @@ const routes: Routes = [
   {path: 'dislajkovano', component: DislajkovanoComponent},
   { path: 'search', component: SearchChoiceComponent},
   { path: 'error', component : ErrorComponent},
-  { path: 'post', component: PostComponent }
+  { path: 'post', component: PostComponent },
+  {path: 'navbaradmin', component: NavbaradminComponent},
+  {path: 'neprikladansadrzaj', component:NeprikladansadrzajComponent}
 ];
 
 @NgModule({

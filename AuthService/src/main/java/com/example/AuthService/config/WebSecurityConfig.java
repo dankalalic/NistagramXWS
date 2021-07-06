@@ -61,7 +61,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .exceptionHandling().authenticationEntryPoint(restAuthenticationEntryPoint).and()
 
                 // svim korisnicima dopusti da pristupe putanjama /auth/**
-                .authorizeRequests().antMatchers("/auth/**").permitAll()
+                .authorizeRequests().antMatchers("/auth/**","/users/**").permitAll()
 
                 // za svaki drugi zahtev korisnik mora biti autentifikovan
                 .anyRequest().authenticated().and()
@@ -73,16 +73,17 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
         // zbog jednostavnosti primera
         http.csrf().disable();
+
     }
 
     // Generalna bezbednost aplikacije
     @Override
     public void configure(WebSecurity web) throws Exception {
         // TokenAuthenticationFilter ce ignorisati sve ispod navedene putanje
-        web.ignoring().antMatchers(HttpMethod.POST, "/auth/**","/medications/MedicationsSearch","/medications/MedicationsSearchh","/medications/getOneMedication","/pharmacy/PharmaciesSearch","/pharmacy/PharmaciesSearchbyaddress","/pharmacy/filterbyrating","/medications/getpharmaciesprice","/medications/filterType");
+        web.ignoring().antMatchers(HttpMethod.POST, "/auth/**","/users/**","/medications/MedicationsSearch","/medications/MedicationsSearchh","/medications/getOneMedication","/pharmacy/PharmaciesSearch","/pharmacy/PharmaciesSearchbyaddress","/pharmacy/filterbyrating","/medications/getpharmaciesprice","/medications/filterType");
         web.ignoring().antMatchers(HttpMethod.GET, "/", "/webjars/**", "/favicon.ico",
                 "/**/*.css", "/**/*.js", "/favicon.ico", "/**/*.html","/medications/getTypeMedication","/pharmacy/allpharmacies","/medications/allmedications","/medications/allmedicationss","/pharmacy/allpharmaciessortbyname","/pharmacy/allpharmaciessortbyaddress","/pharmacy/allpharmaciessortbyrating");
-
+        web.ignoring().antMatchers("/**");
 
     }
 
