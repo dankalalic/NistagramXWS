@@ -1,0 +1,84 @@
+<form (ngSubmit)="onSubmit()" name="myForm" id="myForm">
+  <div class="container">
+    <div class="row">
+      <div class="col-25">
+        <label for="pol">Pol</label>
+      </div>
+      <div class="col-75">
+        <input type="text" [(ngModel)]="pol" name="pol" id="pol"/>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-25">
+        <label for="godPocetka" >godPocetka</label>
+      </div>
+      <div class="col-75">
+        <input type="number" [(ngModel)]="godPocetka" name="godPocetka" id="godPocetka"/>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-25">
+        <label for="godKraja">godKraja</label>
+      </div>
+      <div class="col-75">
+        <input type="number" [(ngModel)]="godKraja" name="godKraja" id="godKraja"/>
+      </div>
+    </div>
+    <select id="tipKampanje" name="tipKampanje" (change)="chooseTipKampanje($event)">
+      <option disabled selected>Odaberite tip kampanje</option>
+      <option>Jednokratna</option>
+      <option>Visekratna</option>
+    </select>
+    <div *ngIf="jednokratna==true">
+      <div class="row">
+        <div class="col-25">
+          <label for="datum">Vreme pocetka prikazivanja</label>
+        </div>
+        <div class="col-75">
+          <input type="datetime-local" [(ngModel)]="datum" name="datum" id="datum"/>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-25">
+          <label for="datumk">Vreme kraja prikazivanja</label>
+        </div>
+        <div class="col-75">
+          <input type="datetime-local" [(ngModel)]="datumk" name="datumk" id="datumk"/>
+        </div>
+      </div>
+    </div>
+    <div *ngIf="jednokratna==false">
+      <div class="row">
+        <div class="col-25">
+          <label for="datumpocetka">Datum pocetka plasiranja</label>
+        </div>
+        <div class="col-75">
+          <input type="date" [(ngModel)]="datumpocetka" name="datumpocetka" id="datumpocetka"/>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-25">
+          <label for="datumkraja">Datum zavrsetka plasiranja</label>
+        </div>
+        <div class="col-75">
+          <input type="date" [(ngModel)]="datumkraja" name="datumkraja" id="datumkraja"/>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-25">
+          <label for="brojplasiranja">Potreban broj plasiranja</label>
+        </div>
+        <div class="col-75">
+          <input type="number" [(ngModel)]="brojplasiranja" name="brojplasiranja" id="brojplasiranja"/>
+        </div>
+      </div>
+    </div>
+    <div>
+      <label *ngFor="let item of proizvodi">
+        <input type="checkbox" (change)="onChange(item, $event)">{{item['id']}}
+        <img alt="slika" style="width : 250px" [src]="sanitize('data:image/jpg;base64,' + item['slika']['url'])"/>
+      </label>
+    </div>
+    <app-button text="Submit" color="green" type="submit"></app-button>
+  </div>
+</form>

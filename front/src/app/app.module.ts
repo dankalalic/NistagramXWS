@@ -22,6 +22,10 @@ import { LajkovanoComponent } from './components/lajkovano/lajkovano.component';
 import { DislajkovanoComponent } from './components/dislajkovano/dislajkovano.component';
 import { SearchChoiceComponent } from './components/search-choice/search-choice.component';
 import { ErrorComponent } from './components/error/error.component';
+import { CreateCampaignComponent } from './components/create-campaign/create-campaign.component';
+import { NavbarAgentComponent } from './components/navbar-agent/navbar-agent.component';
+import { KampanjePregledComponent } from './components/kampanje-pregled/kampanje-pregled.component';
+import { CampaignChangeComponent } from './components/campaign-change/campaign-change.component';
 
 @NgModule({
   declarations: [
@@ -38,7 +42,11 @@ import { ErrorComponent } from './components/error/error.component';
     LajkovanoComponent,
     DislajkovanoComponent,
     SearchChoiceComponent,
-    ErrorComponent
+    ErrorComponent,
+    CreateCampaignComponent,
+    NavbarAgentComponent,
+    KampanjePregledComponent,
+    CampaignChangeComponent
   ],
   imports: [
     BrowserModule,

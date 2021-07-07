@@ -8,8 +8,8 @@ insert into TAGOVI(id, naziv) values (nextval('seq_tagovi'), 'ker');
 insert into LOKACIJA(id, naziv) values (nextval('seq_post'), 'Novi Sad');
 insert into LOKACIJA(id, naziv) values (nextval('seq_post'), 'Zrenjanin');
 
-insert into REGISTROVANIKORISNIK (id, username) values (1, 'd');
-insert into REGISTROVANIKORISNIK (id, username) values (2, 'v');
+insert into USERS (id, username, rolee) values (1, 'd', 'user');
+insert into USERS (id, username, rolee) values (2, 'v', 'agent');
 
 insert into SADRZAJ(id, tip, lokacija_id, kreator_id, brojreportova) values (nextval('seq_sadrzaj'), 'post', 1, 1, 0);
 insert into SADRZAJ(id, tip, lokacija_id, kreator_id, brojreportova) values (nextval('seq_sadrzaj'), 'post', 1, 1, 1);

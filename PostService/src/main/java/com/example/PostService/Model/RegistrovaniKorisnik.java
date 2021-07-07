@@ -6,11 +6,11 @@ import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
 
-@Entity
-public class RegistrovaniKorisnik {
+import static javax.persistence.DiscriminatorType.STRING;
 
-    @Id
-    private Integer id;
+@Entity
+@DiscriminatorValue("user")
+public class RegistrovaniKorisnik extends User{
 
     @Column(unique = true)
     private String username;
@@ -35,14 +35,6 @@ public class RegistrovaniKorisnik {
 
 
     public RegistrovaniKorisnik() {
-    }
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
     }
 
     public Set<Post> getPosts() {

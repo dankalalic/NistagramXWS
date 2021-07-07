@@ -1,7 +1,6 @@
 <ul style="list-style-type: none">
 <div class="polaroid">
   <li *ngFor="let content of contents">
-
     <div class="container1">
       <div>{{content['kreator']['username']}}</div>
     </div>
@@ -15,7 +14,7 @@
       <div>{{content['lokacija']['naziv']}}</div>
     </div>
     <app-button text="Like" color="green" type="button" (btnClick)="like(content['id'])"></app-button>
-    <app-button text="Disike" color="green" type="button" (btnClick)="dislike(content['id'])"></app-button>
+    <app-button text="Dislike" color="green" type="button" (btnClick)="dislike(content['id'])"></app-button>
   </li>
 </div>
 </ul>
