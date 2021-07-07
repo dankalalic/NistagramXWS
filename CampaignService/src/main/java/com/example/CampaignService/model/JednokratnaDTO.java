@@ -12,6 +12,7 @@ import java.util.List;
 
 public class JednokratnaDTO {
 
+    private Integer id;
     private String pol;
     private Integer godinePocetka;
     private Integer godineKraja;
@@ -31,6 +32,14 @@ public class JednokratnaDTO {
         this.slike = slike;
         this.pocetakPrikazivanja = pocetakPrikazivanja;
         this.krajPrikazivanja = krajPrikazivanja;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public String getPol() {

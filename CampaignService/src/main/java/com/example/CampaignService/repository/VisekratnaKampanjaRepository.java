@@ -10,4 +10,6 @@ import java.util.List;
 public interface VisekratnaKampanjaRepository extends JpaRepository<VisekratnaKampanja, Integer>{
 
     List<VisekratnaKampanja> getAllByAgent(Agent agent);
+
+    VisekratnaKampanja findOneById(Integer id);
 }

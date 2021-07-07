@@ -69,7 +69,8 @@ public class AuthenticationController {
 
         // Kreiraj token za tog korisnika
         User user = (User) authentication.getPrincipal();
-        String jwt = tokenUtils.generateToken(user.getId());
+        String role = user.getRole();
+        String jwt = tokenUtils.generateToken(user.getId(), role);
         int expiresIn = tokenUtils.getExpiredIn();
 
         Boolean enabled= user.isEnabled();

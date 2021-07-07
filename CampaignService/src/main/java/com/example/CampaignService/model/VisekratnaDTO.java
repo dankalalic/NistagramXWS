@@ -8,6 +8,7 @@ import java.util.Date;
 import java.util.List;
 
 public class VisekratnaDTO {
+    private Integer id;
     private String pol;
     private Integer godinePocetka;
     private Integer godineKraja;
@@ -29,6 +30,14 @@ public class VisekratnaDTO {
     }
 
     public VisekratnaDTO() {
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public String getPol() {
