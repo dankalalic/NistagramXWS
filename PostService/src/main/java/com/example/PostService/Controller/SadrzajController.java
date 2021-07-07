@@ -149,7 +149,7 @@ public class SadrzajController {
 
 
     @CrossOrigin(origins = "http://localhost:4200")
-    @GetMapping(value="/getReklamaById")
+    @PostMapping(value="/getReklamaById")
     public ResponseEntity<SadrzajjDTO> getAll(@RequestBody IdDTO idDTO){
 
         Sadrzaj sadrzaj=this.sadrzajRepository.getOne(idDTO.getId());

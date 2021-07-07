@@ -3,6 +3,7 @@ package com.example.CampaignService.controller;
 import com.example.CampaignService.TokenUtils;
 import com.example.CampaignService.model.*;
 import com.example.CampaignService.repository.AgentRepository;
+import com.example.CampaignService.repository.JednokratnaKampanjaRepository;
 import com.example.CampaignService.repository.KampanjaRepository;
 import com.example.CampaignService.service.ReklamaService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,6 +35,7 @@ public class ReklamaController {
 
     private KampanjaRepository kampanjaRepository;
     private AgentRepository agentRepository;
+    private JednokratnaKampanjaRepository jednokratnaKampanjaRepository;
 
     @Autowired
     public void setSlikaRepository(KampanjaRepository kampanjaRepository) {
@@ -45,12 +47,13 @@ public class ReklamaController {
         this.agentRepository = agentRepository;
     }
 
-
+    @Autowired
+    public void setJednokratnaKampanjaRepository(JednokratnaKampanjaRepository jednokratnaKampanjaRepository){this.jednokratnaKampanjaRepository=jednokratnaKampanjaRepository;}
 
     @GetMapping(value="/getAllKampanje")
-    public ResponseEntity<Set<SadrzajjDTO>> getAll(@RequestBody IdDTO idDTO){
+    public ResponseEntity<Set<SadrzajjDTO>> getAll(@RequestHeader(value="Authorization") String token){
 
-        Integer userId = idDTO.getId();
+        Integer userId = tokenUtils.getIdFromToken(token);
 
         List<Agent> agenti= this.agentRepository.findAll();
 
@@ -61,7 +64,7 @@ public class ReklamaController {
         for (Agent agent: agenti){
 
             IdDoubleDTO idDoubleDTO= new IdDoubleDTO(userId, agent.getId());
-            Boolean bool= restTemplate.postForObject("http://followeservice/follower/doIFollow",idDoubleDTO,Boolean.class);
+            Boolean bool= restTemplate.postForObject("http://followerservice/follower/doIFollow",idDoubleDTO,Boolean.class);
             LocalDateTime now= LocalDateTime.now();
             Date now1= new Date();
 
@@ -98,10 +101,10 @@ public class ReklamaController {
 
             }
             else{
-                Set<Kampanja> kampanjee= agent.getKampanje();
+                List<Kampanja> kampanjee= kampanjaRepository.getAllByAgent(agent);
                 for (Kampanja kampanja: kampanjee) {
                     TargetGroupDTO targetGroupDTO= new TargetGroupDTO(userId, kampanja.getCiljnaGrupa().getGodinePocetka(),kampanja.getCiljnaGrupa().getGodineKraja());
-                    Boolean bool1 = restTemplate.postForObject("http://authservice/users/targetAge", idDoubleDTO, Boolean.class);
+                    Boolean bool1 = restTemplate.postForObject("http://authservice/users/targetAge", targetGroupDTO, Boolean.class);
                     if (bool1 == true) {
                         if (kampanja instanceof JednokratnaKampanja) {
 

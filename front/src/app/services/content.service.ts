@@ -28,6 +28,7 @@ export class ContentService {
   private newsfeedUrl : string;
   private likeUrl : string;
   private dislikeUrl : string;
+  private kampanjaUrl : string;
 
   //private token : string | null;
 
@@ -36,10 +37,15 @@ export class ContentService {
     this.newsfeedUrl = 'http://localhost:8083/sadrzaj/getAll';
     this.likeUrl = 'http://localhost:8083/sadrzaj/like';
     this.dislikeUrl = 'http://localhost:8083/sadrzaj/dislike';
+    this.kampanjaUrl = 'http://localhost:8085/reklame/getAllKampanje';
   }
 
   getNewsfeed() {
     return this.http.get<any>(this.newsfeedUrl, options);
+  }
+
+  getKampanje() {
+    return this.http.get<any>(this.kampanjaUrl, options);
   }
 
   like(id : Id) {

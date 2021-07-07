@@ -14,8 +14,10 @@ export class NewsfeedComponent implements OnInit {
   isAgent : any;
   public contents : any = [];
 
+
   constructor(private contentService : ContentService, private sanitizer:DomSanitizer) {
   }
+
 
   ngOnInit(): void {
 
@@ -24,6 +26,15 @@ export class NewsfeedComponent implements OnInit {
     this.contentService.getNewsfeed().subscribe(result =>
     {
       this.contents = result;
+      console.log('success', result);
+
+    }, err => {
+      console.log('err', err);
+    })
+
+    this.contentService.getKampanje().subscribe(result =>
+    {
+      this.contents.push(result);
       console.log('success', result);
 
     }, err => {

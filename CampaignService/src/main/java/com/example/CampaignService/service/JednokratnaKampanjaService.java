@@ -85,6 +85,8 @@ public class JednokratnaKampanjaService {
         kampanja.setReklame(reklamas);
         kampanja.setPocetakPrikazivanja(jednokratnaDTO.getPocetakPrikazivanja());
         kampanja.setKrajPrikazivanja(jednokratnaDTO.getKrajPrikazivanja());
+
+
         //JednokratnaKampanja jednokratnaKampanja = jednokratnaKampanjaRepository.save(kampanja);
         //Set<Kampanja> kampanje = agent.getKampanje();
         //kampanje.add(kampanja);
@@ -97,7 +99,14 @@ public class JednokratnaKampanjaService {
             //reklamaRepository.save(reklama);
         }
 
-        return jednokratnaKampanjaRepository.save(kampanja);
+        Set<Kampanja> kampanjas=agent.getKampanje();
+        kampanjas.add(kampanja);
+        agent.setKampanje(kampanjas);
+      //  agentRepository.save(agent);
+
+        kampanja=jednokratnaKampanjaRepository.save(kampanja);
+
+        return kampanja;
     }
 
     public List<KampanjaReturnDTO> getAllByAgent(Agent agent) {

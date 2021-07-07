@@ -12,9 +12,9 @@ public class Agent {
     @Id
     private Integer id;
 
-    /*@JsonIgnore
+    @JsonIgnore
     @OneToMany(mappedBy = "agent", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private Set<Kampanja> kampanje = new HashSet<>();*/
+    private Set<Kampanja> kampanje = new HashSet<>();
 
     public Agent(Integer id) {
         this.id = id;
@@ -31,11 +31,11 @@ public class Agent {
         this.id = id;
     }
 
-    /*public Set<Kampanja> getKampanje() {
+    public Set<Kampanja> getKampanje() {
         return kampanje;
     }
 
     public void setKampanje(Set<Kampanja> kampanje) {
         this.kampanje = kampanje;
-    }*/
+    }
 }

@@ -16,20 +16,14 @@ public class JednokratnaKampanja extends Kampanja {
     //promenite ako smeta ne znam kako treba
     @Column
     private LocalDateTime pocetakPrikazivanja;
-<<<<<<< HEAD
+
 
     @Column
     private LocalDateTime krajPrikazivanja;
 
 
-
-
-
-    public void setPocetakPrikazivanja(LocalDateTime pocetakPrikazivanja) {
-=======
-
-    @Column
-    private LocalDateTime krajPrikazivanja;
+    public JednokratnaKampanja() {
+    }
 
     public JednokratnaKampanja(LocalDateTime pocetakPrikazivanja, LocalDateTime krajPrikazivanja) {
         this.pocetakPrikazivanja = pocetakPrikazivanja;
@@ -37,7 +31,7 @@ public class JednokratnaKampanja extends Kampanja {
     }
 
     public JednokratnaKampanja(LocalDateTime pocetakPrikazivanja) {
->>>>>>> master
+
         this.pocetakPrikazivanja = pocetakPrikazivanja;
     }
 
@@ -47,24 +41,19 @@ public class JednokratnaKampanja extends Kampanja {
 
     public LocalDateTime getPocetakPrikazivanja() {
         return pocetakPrikazivanja;
-<<<<<<< HEAD
+
     }
 
     public LocalDateTime getKrajPrikazivanja() {
         return krajPrikazivanja;
-=======
+
     }
 
     public void setPocetakPrikazivanja(LocalDateTime pocetakPrikazivanja) {
         this.pocetakPrikazivanja = pocetakPrikazivanja;
     }
 
-    public LocalDateTime getKrajPrikazivanja() {
-        return krajPrikazivanja;
-    }
 
-    public void setKrajPrikazivanja(LocalDateTime krajPrikazivanja) {
-        this.krajPrikazivanja = krajPrikazivanja;
->>>>>>> master
-    }
+
+
 }
