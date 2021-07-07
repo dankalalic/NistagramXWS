@@ -1,0 +1,25 @@
+<div class="container row">
+  <div class="col-md-12">
+    <h1>Upload Image</h1>
+  </div>
+</div>
+
+<div class="container row">
+  <div class="col-md-6">
+    <input type="file" (change)="onFileChanged($event)">
+    <div class="col-75">
+      <label for="naziv">naziv</label>
+      <input type="text" [(ngModel)]="naziv" name="naziv" id="naziv"/>
+      <label for="cena">Cena</label>
+      <input type="text" [(ngModel)]="cena" name="cena" id="cena"/>
+      <label for="raspolozivoStanje">Raspolozivo stanje</label>
+      <input type="text" [(ngModel)]="raspolozivoStanje" name="raspolozivoStanje" id="raspolozivoStanje"/>
+    </div>
+  </div>
+  <div class="col-md-6">
+    <input type="button" (click)="onUpload()" value="upload">
+  </div>
+  <div class="col-md-6">
+    <app-button type="button" (btnClick)="createProizvod()" ></app-button>
+  </div>
+</div>

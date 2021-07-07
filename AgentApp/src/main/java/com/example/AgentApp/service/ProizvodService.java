@@ -42,6 +42,7 @@ public class ProizvodService {
         proizvod.setCena(proizvodDto.getCena());
         //proizvod.setSlika(proizvodDto.getSlika());
         proizvod.setRaspolozivoStanje(proizvodDto.getRaspolozivoStanje());
+        proizvod.setNaziv(proizvodDto.getNaziv());
         proizvodRepository.save(proizvod);
         return proizvod;
     }

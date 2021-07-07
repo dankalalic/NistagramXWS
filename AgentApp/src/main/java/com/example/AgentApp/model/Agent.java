@@ -8,7 +8,7 @@ import java.util.Set;
 
 @Entity
 @DiscriminatorValue("agent")
-public class Agent extends RegistrovaniKorisnik{
+public class Agent extends User{
     @Id
     private Integer id;
 

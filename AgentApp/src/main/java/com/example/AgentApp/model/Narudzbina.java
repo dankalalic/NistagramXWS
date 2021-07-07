@@ -20,22 +20,23 @@ public class Narudzbina {
 
 
     @Column
-    private Date datum;
+    private LocalDate datum;
 
     @ManyToOne(cascade = CascadeType.MERGE, fetch = FetchType.LAZY)
     private RegistrovaniKorisnik registrovaniKorisnik;
 
 
     @JsonIgnore
-    @ManyToMany(fetch = FetchType.LAZY, cascade={CascadeType.PERSIST, CascadeType.MERGE})
-    @JoinTable(name = "proizvodi", joinColumns = @JoinColumn(name = "narudzbina_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "proizvod_id", referencedColumnName = "id"))
+    @ManyToMany(fetch = FetchType.LAZY, cascade={CascadeType.PERSIST, CascadeType.ALL})
+    @JoinTable(name = "poruceni_proizvodi", joinColumns = @JoinColumn(name = "narudzbina_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "proizvod_id", referencedColumnName = "id"))
     private Set<Proizvod> proizvod = new HashSet<Proizvod>();
 
     public Narudzbina() {
     }
 
 
-    public Narudzbina(Integer id, Integer kolicina, Date datum, RegistrovaniKorisnik registrovaniKorisnik, Set<Proizvod> proizvod) {
+
+    public Narudzbina(Integer id, Integer kolicina, LocalDate datum, RegistrovaniKorisnik registrovaniKorisnik, Set<Proizvod> proizvod) {
         this.id = id;
         this.kolicina = kolicina;
         this.datum = datum;
@@ -59,11 +60,11 @@ public class Narudzbina {
         this.kolicina = kolicina;
     }
 
-    public Date getDatum() {
+    public LocalDate getDatum() {
         return datum;
     }
 
-    public void setDatum(Date datum) {
+    public void setDatum(LocalDate datum) {
         this.datum = datum;
     }
 

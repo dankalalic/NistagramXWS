@@ -14,6 +14,7 @@ import {DislajkovanoComponent} from "./components/dislajkovano/dislajkovano.comp
 import {SearchChoiceComponent} from "./components/search-choice/search-choice.component";
 import {ErrorComponent} from "./components/error/error.component";
 import {CreateCampaignComponent} from "./components/create-campaign/create-campaign.component";
+import {ProizvodComponent} from "./components/proizvod/proizvod.component";
 
 
 const routes: Routes = [
@@ -28,7 +29,8 @@ const routes: Routes = [
   { path: 'search', component: SearchChoiceComponent},
   { path: 'error', component : ErrorComponent},
   { path: 'post', component: PostComponent },
-  { path: 'createCampaign', component: CreateCampaignComponent}
+  { path: 'createCampaign', component: CreateCampaignComponent},
+  { path: 'createProizvod', component: ProizvodComponent}
 ];
 
 @NgModule({

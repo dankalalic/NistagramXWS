@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -87,9 +88,12 @@ public class ProizvodController {
         Prodavnica prodavnica=agent.getProdavnica();
         proizvod.setProdavnica(prodavnica);
         proizvod.setAgent(agent);
-        proizvod = proizvodRepository.save(proizvod);
+        proizvod.setNaziv(proizvodDto.getNaziv());
+
 
         Slika slika = slikaRepository.findOneById(proizvodDto.getSlika());
+        proizvod.setSlika(slika);
+        proizvod = proizvodRepository.save(proizvod);
         slika.setProizvod(proizvod);
         slikaRepository.save(slika);
         return new ResponseEntity<>(proizvod, HttpStatus.OK);
@@ -139,11 +143,16 @@ public class ProizvodController {
         proizvod.setKolicinazaporudzbinu(idDTO.getKolicinazaporudzbinu());
         Integer userId = tokenUtils.getIdFromToken(token);
         RegistrovaniKorisnik registrovaniKorisnik=registrovaniKorisnikRepository.findOneById(userId);
-        Korpa korpa=registrovaniKorisnik.getKorpa();
+        Korpa korpa=new Korpa();
+        korpa.setRegistrovaniKorisnik(registrovaniKorisnik);
         Set<Proizvod> proizvodi=new HashSet<>();
         proizvodi.add(proizvod);
         korpa.setProizvodi(proizvodi);
         korpaRepository.save(korpa);
+        registrovaniKorisnik.setKorpa(korpa);
+        registrovaniKorisnikRepository.save(registrovaniKorisnik);
+
+
 
 
 

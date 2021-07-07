@@ -8,10 +8,8 @@ import java.util.Set;
 import static javax.persistence.DiscriminatorType.STRING;
 
 @Entity
-@Inheritance(strategy=InheritanceType.SINGLE_TABLE)
-@DiscriminatorColumn(name="rolee", discriminatorType=STRING)
-@Table(name="users")
-public class RegistrovaniKorisnik {
+@DiscriminatorValue("user")
+public class RegistrovaniKorisnik extends User {
 
     @Id
     private Integer id;
