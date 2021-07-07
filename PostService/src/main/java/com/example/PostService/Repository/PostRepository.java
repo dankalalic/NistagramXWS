@@ -13,5 +13,5 @@ public interface PostRepository extends JpaRepository<Post,Integer> {
     //Set<Post> findAllByRegistrovaniKorisnik(RegistrovaniKorisnik registraniKorisnik);
 
     List<Post> findByKreator(RegistrovaniKorisnik registrovaniKorisnik);
-
+    Post findOneById(Integer id);
 }

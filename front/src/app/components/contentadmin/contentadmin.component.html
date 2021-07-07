@@ -1,0 +1,24 @@
+<ul style="list-style-type: none">
+  <div class="polaroid">
+    <li *ngFor="let contentadmin of admincontents">
+
+      <div class="container1">
+        <div>{{contentadmin['kreator']['username']}}</div>
+      </div>
+      <ul style="list-style-type: none">
+        <li *ngFor="let image of contentadmin['slike']">
+          <img alt="slika" style="width : 100%" [src]="sanitize('data:image/jpg;base64,' + image.url)"/>
+        </li>
+      </ul>
+      <div class="container1">
+        <div>{{contentadmin['lokacija']['naziv']}}</div>
+        <div>broj prijava: {{contentadmin['brojreportova']}}</div>
+      </div>
+      <!--<app-button text="Disike" color="green" type="button" (btnClick)="dislike(contentadmin['id'])"></app-button>
+    -->
+      <app-button text="Ukloni sadrzaj" color="blue" type="button" (btnClick)="ukloniSadrzaj(contentadmin['id'])"></app-button>
+      <app-button text="Ugasi profil" color="blue" type="button" (btnClick)="ugasiProfil(contentadmin['kreator']['username'])"></app-button>
+
+    </li>
+  </div>
+</ul>

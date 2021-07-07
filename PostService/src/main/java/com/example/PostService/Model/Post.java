@@ -12,6 +12,8 @@ public class Post extends Sadrzaj {
     @ManyToOne(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
     private RegistrovaniKorisnik kreator;
 
+
+
     public Post() {
     }
 

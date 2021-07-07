@@ -5,7 +5,9 @@ import com.example.PostService.Repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.Id;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Service
@@ -15,6 +17,9 @@ public class PostService {
     private LokacijaRepository lokacijaRepository;
     private SlikaRepository slikaRepository;
     private TagRepository tagoviRepository;
+
+    @Autowired
+    private SadrzajRepository sadrzajRepository;
 
     @Autowired
     public void setTagoviRepository(TagRepository tagoviRepository) {
@@ -49,6 +54,7 @@ public class PostService {
         sadrzaj.setKreator(registrovaniKorisnikRepository.findOneById(sadrzajDTO.getUserId()));
         sadrzaj.setLokacija(lokacijaRepository.findByNaziv(sadrzajDTO.getLokacija()));
         sadrzaj.setTagovi(tagoviRepository.findAllByNaziv(sadrzajDTO.getTag()));
+        sadrzaj.setUklonjeno(false);
         sadrzaj.setBrojreportova(0);
         Set<Slika> slike1 = new HashSet<>();
         for (Integer slika : sadrzajDTO.getSlike()) {
@@ -66,6 +72,43 @@ public class PostService {
 
 
         return sadrzaj;
+    }
+
+    public Set<SadrzajReturnDTO> PregledNeprikladnogSadrzaja(){
+        List<Post> posts = postRepository.findAll();
+
+        Set<SadrzajReturnDTO> sadrzajReturnDTOS = new HashSet<>();
+
+        for (Post p : posts) {
+            if (p.getBrojreportova() != 0 && p.getUklonjeno().equals(false)){
+                SadrzajReturnDTO sadrzajReturnDTO = new SadrzajReturnDTO(p.getId(), p.getKreator(), p.getBrojreportova(), p.getLajkovali(), p.getDislajkovali(), p.getLokacija(), p.getSlike(), p.getTagovi());
+                sadrzajReturnDTOS.add(sadrzajReturnDTO);
+            }
+        }
+
+        return sadrzajReturnDTOS;
+
+    }
+
+    public StringDTO ukloni(IdDTO idDTO){
+        Post post = postRepository.findOneById(idDTO.getId());
+        post.setUklonjeno(true);
+        postRepository.save(post);
+        String s = "Uspesno ste uklonili sadrzaj";
+        StringDTO stringDTO = new StringDTO(s);
+        return stringDTO;
+    }
+
+    public Boolean ugasiSvePostoveUsera(String username){
+        RegistrovaniKorisnik registrovaniKorisnik = registrovaniKorisnikRepository.findOneByUsername(username);
+        List<Post> posts = postRepository.findByKreator(registrovaniKorisnik);
+
+        for (Post p: posts) {
+            p.setUklonjeno(true);
+            postRepository.save(p);
+        }
+
+        return true;
     }
 
 }

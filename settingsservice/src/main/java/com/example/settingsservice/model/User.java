@@ -21,6 +21,9 @@ public class User{
     @Column
     private String lozinka;
 
+    @Column(name = "enabled")
+    private boolean enabled;
+
     public User() {
     }
 
@@ -52,5 +55,20 @@ public class User{
 
     public void setLozinka(String lozinka) {
         this.lozinka = lozinka;
+    }
+
+    @Transient
+    public String getDiscriminatorValue(){
+        DiscriminatorValue val = this.getClass().getAnnotation( DiscriminatorValue.class );
+
+        return val == null ? null : val.value();
+    }
+
+    public boolean isEnabled() {
+        return enabled;
+    }
+
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
     }
 }

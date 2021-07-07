@@ -76,7 +76,12 @@ public class SadrzajService {
     public List<Sadrzaj> findByTag(String tag) {
         Tagovi tagovi = tagRepository.findByNaziv(tag);
         List<Sadrzaj> sadrzaji = new ArrayList<>();
-        sadrzaji.addAll(tagovi.getSadrzaj());
+        for (Sadrzaj s: tagovi.getSadrzaj()) {
+            if (s.getUklonjeno().equals(false)){
+                sadrzaji.add(s);
+            }
+        }
+        //sadrzaji.addAll(tagovi.getSadrzaj());
 
         return sadrzaji;
     }
@@ -84,6 +89,13 @@ public class SadrzajService {
     public List<Sadrzaj> findByProfil(String username) {
         RegistrovaniKorisnik registrovaniKorisnik = registrovaniKorisnikRepository.findOneByUsername(username);
         List<Sadrzaj> sadrzajs = new ArrayList<>();
+        List<Post> sadrzajKorisnika = postRepository.findByKreator(registrovaniKorisnik);
+
+        for (Sadrzaj s: sadrzajKorisnika) {
+            if (s.getUklonjeno().equals(false)){
+                sadrzajs.add(s);
+            }
+        }
 
         String url="http://followerservice/follower/isPrivate";
 
@@ -96,7 +108,8 @@ public class SadrzajService {
         } else {
             System.out.println("Profil je privatan!");
         }*/
-        sadrzajs.addAll(postRepository.findByKreator(registrovaniKorisnik));
+
+        //sadrzajs.addAll(postRepository.findByKreator(registrovaniKorisnik));
         //dodaj i reklame kad
         return sadrzajs;
     }
@@ -180,10 +193,12 @@ public class SadrzajService {
         RegistrovaniKorisnik registrovaniKorisnik=registrovaniKorisnikRepository.findOneById(id);
         Set<SadrzajReturnDTO> sadrzajReturnDTOS= new HashSet<>();
         for (Post post : registrovaniKorisnik.getPosts()) {
-            SadrzajReturnDTO sadrzajReturnDTO = new SadrzajReturnDTO(post.getId(), post.getKreator(),
-                    post.getBrojreportova(), post.getLajkovali(), post.getDislajkovali(), post.getLokacija(),
-                    post.getSlike(), post.getTagovi());
-            sadrzajReturnDTOS.add(sadrzajReturnDTO);
+            if(post.getUklonjeno().equals(false)){
+                SadrzajReturnDTO sadrzajReturnDTO = new SadrzajReturnDTO(post.getId(), post.getKreator(),
+                        post.getBrojreportova(), post.getLajkovali(), post.getDislajkovali(), post.getLokacija(),
+                        post.getSlike(), post.getTagovi());
+                sadrzajReturnDTOS.add(sadrzajReturnDTO);
+            }
         }
 
         //dodaj reklame kasnije
@@ -195,7 +210,7 @@ public class SadrzajService {
         Set<SadrzajReturnDTO> sadrzajReturnDTOS = new HashSet<>();
         List<Post> posts = postRepository.findAll();
         for (Post post: posts) {
-            if(post.getLajkovali().contains(registrovaniKorisnik)){
+            if(post.getLajkovali().contains(registrovaniKorisnik) && post.getUklonjeno().equals(false)){
                 SadrzajReturnDTO sadrzajReturnDTO = new SadrzajReturnDTO(post.getId(), post.getKreator(),
                         post.getBrojreportova(), post.getLajkovali(), post.getDislajkovali(), post.getLokacija(),
                         post.getSlike(), post.getTagovi());
@@ -212,7 +227,7 @@ public class SadrzajService {
         Set<SadrzajReturnDTO> sadrzajReturnDTOS = new HashSet<>();
         List<Post> posts = postRepository.findAll();
         for (Post post: posts) {
-            if(post.getDislajkovali().contains(registrovaniKorisnik)){
+            if(post.getDislajkovali().contains(registrovaniKorisnik) && post.getUklonjeno().equals(false)){
                 SadrzajReturnDTO sadrzajReturnDTO = new SadrzajReturnDTO(post.getId(), post.getKreator(),
                         post.getBrojreportova(), post.getLajkovali(), post.getDislajkovali(), post.getLokacija(),
                         post.getSlike(), post.getTagovi());
@@ -225,10 +240,17 @@ public class SadrzajService {
     }
 
     public List<Sadrzaj> getAll() {
-        List<Sadrzaj> sadrzajs = sadrzajRepository.findAll();
+        List<Sadrzaj> sadrzajs = sadrzajRepository.findByUklonjeno(false);
         //dodaj reklame kasnije
+        /*for (Sadrzaj s : sadrzajs) {
+            if(s.getUklonjeno().equals(true)){
+                sadrzajs.remove(s);
+            }
+        }*/
         return sadrzajs;
 
     }
+
+
 
 }

@@ -38,13 +38,12 @@ export class LoginFormComponent implements OnInit {
     {
       sessionStorage.setItem('token', result.accessToken);
       sessionStorage.setItem('role', result.role);
-      if (result.role == 'user' || result.role == 'agent') {
+
+      if ((result.role == 'user' || result.role == 'agent') && result.enabled == true) {
         this.router.navigate(['/newsfeed']);
       } else if (result.role == 'admin') {
-
-      } /*else if (result.role == 'agent') {
-        this.router.navigate(['/createCampaign']);
-      }*/
+        this.router.navigate(['/neprikladansadrzaj']);
+      }
     }, err => {
       this.router.navigate(['/error']);
     })

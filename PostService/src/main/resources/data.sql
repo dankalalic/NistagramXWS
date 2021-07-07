@@ -11,17 +11,17 @@ insert into LOKACIJA(id, naziv) values (nextval('seq_post'), 'Zrenjanin');
 insert into USERS (id, username, rolee) values (1, 'd', 'user');
 insert into USERS (id, username, rolee) values (2, 'v', 'agent');
 
-insert into SADRZAJ(id, tip, lokacija_id, kreator_id, brojreportova) values (nextval('seq_sadrzaj'), 'post', 1, 1, 0);
-insert into SADRZAJ(id, tip, lokacija_id, kreator_id, brojreportova) values (nextval('seq_sadrzaj'), 'post', 1, 1, 1);
-insert into SADRZAJ(id, tip, lokacija_id, kreator_id, brojreportova) values (nextval('seq_sadrzaj'), 'post', 1, 1, 0);
-insert into SADRZAJ(id, tip, lokacija_id, kreator_id, brojreportova) values (nextval('seq_sadrzaj'), 'post', 2, 1, 0);
+insert into SADRZAJ(id, tip, lokacija_id, kreator_id, brojreportova, uklonjeno) values (nextval('seq_sadrzaj'), 'post', 1, 1, 0, false );
+insert into SADRZAJ(id, tip, lokacija_id, kreator_id, brojreportova, uklonjeno) values (nextval('seq_sadrzaj'), 'post', 1, 1, 1, false );
+insert into SADRZAJ(id, tip, lokacija_id, kreator_id, brojreportova, uklonjeno) values (nextval('seq_sadrzaj'), 'post', 1, 1, 0, false );
+insert into SADRZAJ(id, tip, lokacija_id, kreator_id, brojreportova, uklonjeno) values (nextval('seq_sadrzaj'), 'post', 2, 1, 0, false );
 --insert into SADRZAJ(id, tip, lokacija_id, kreator_id, brojreportova) values (nextval('seq_sadrzaj'), 'post', 2, 2, 0);
 
 --insert into SLIKA (id, url, sadrzaj_id) values (nextval('seq_slika'), 'https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/dog-puppy-on-garden-royalty-free-image-1586966191.jpg?crop=1.00xw:0.669xh;0,0.190xh&resize=1200:*', 1);
 --insert into SLIKA (id, url, sadrzaj_id) values (nextval('seq_slika'), 'macki.jpg', 1);
 
-insert into SADRZAJ(id, tip, lokacija_id, kreator_id, brojreportova) values (nextval('seq_sadrzaj'), 'post', 1, 2, 0);
-insert into SADRZAJ(id, tip, lokacija_id, kreator_id, brojreportova) values (nextval('seq_sadrzaj'), 'post', 2, 2, 0);
+insert into SADRZAJ(id, tip, lokacija_id, kreator_id, brojreportova, uklonjeno) values (nextval('seq_sadrzaj'), 'post', 1, 2, 0, false );
+insert into SADRZAJ(id, tip, lokacija_id, kreator_id, brojreportova, uklonjeno) values (nextval('seq_sadrzaj'), 'post', 2, 2, 0, false );
 
 insert into TAGOVANI(tagovi_id, sadrzaj_id) values (1, 1);
 

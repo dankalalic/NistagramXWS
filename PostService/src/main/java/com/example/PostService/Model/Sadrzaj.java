@@ -26,6 +26,9 @@ public abstract class Sadrzaj {
     @Column
     private Integer brojreportova;
 
+    @Column
+    private Boolean uklonjeno;
+
     @ManyToMany(mappedBy = "sadrzajlajkovani")
     private Set<RegistrovaniKorisnik> lajkovali = new HashSet<RegistrovaniKorisnik>();
 
@@ -110,5 +113,11 @@ public abstract class Sadrzaj {
         return slike;
     }
 
+    public Boolean getUklonjeno() {
+        return uklonjeno;
+    }
 
+    public void setUklonjeno(Boolean uklonjeno) {
+        this.uklonjeno = uklonjeno;
+    }
 }

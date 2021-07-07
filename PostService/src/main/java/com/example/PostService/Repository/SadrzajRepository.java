@@ -13,9 +13,10 @@ public interface SadrzajRepository extends JpaRepository<Sadrzaj,Integer> {
 
 
     List<Sadrzaj> findByLokacija(Lokacija lokacija);
-
+    List<Sadrzaj> findByUklonjeno(Boolean uklonjeno);
     //List<Sadrzaj> findByKreator(RegistrovaniKorisnik registrovaniKorisnik);
 
     Sadrzaj findOneById(Integer id);
+
 
 }

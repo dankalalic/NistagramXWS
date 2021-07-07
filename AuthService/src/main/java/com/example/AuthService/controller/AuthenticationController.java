@@ -131,7 +131,10 @@ public class AuthenticationController {
 
     @PostMapping(value="/checkToken")
     public Boolean checkToken(@RequestBody StringDTO stringDTO) {
-        return tokenUtils.isTokenExpired(stringDTO.getToken());
+        return tokenUtils.isTokenExpired(stringDTO.getString());
     }
+
+
+
 
 }

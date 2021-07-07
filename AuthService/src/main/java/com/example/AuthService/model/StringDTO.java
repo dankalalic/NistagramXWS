@@ -1,21 +1,22 @@
 package com.example.AuthService.model;
 
 public class StringDTO {
-    private String token;
 
-    public StringDTO(String token) {
-        this.token = token;
+    private String string;
+
+    public StringDTO(String string) {
+        this.string = string;
     }
 
     public StringDTO() {
     }
 
-    public String getToken() {
-        return token;
+    public String getString() {
+        return string;
     }
 
-    public void setToken(String token) {
-        this.token = token;
+    public void setString(String string) {
+        this.string = string;
     }
 
 }
