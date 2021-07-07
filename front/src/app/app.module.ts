@@ -25,6 +25,8 @@ import { ErrorComponent } from './components/error/error.component';
 import { NavbaradminComponent } from './components/navbaradmin/navbaradmin.component';
 import { NeprikladansadrzajComponent } from './components/neprikladansadrzaj/neprikladansadrzaj.component';
 import { ContentadminComponent } from './components/contentadmin/contentadmin.component';
+import { RegistracijaAgentaComponent } from './components/registracija-agenta/registracija-agenta.component';
+import { PregledZahtevaZaAgenteComponent } from './components/pregled-zahteva-za-agente/pregled-zahteva-za-agente.component';
 
 @NgModule({
   declarations: [
@@ -44,7 +46,9 @@ import { ContentadminComponent } from './components/contentadmin/contentadmin.co
     ErrorComponent,
     NavbaradminComponent,
     NeprikladansadrzajComponent,
-    ContentadminComponent
+    ContentadminComponent,
+    RegistracijaAgentaComponent,
+    PregledZahtevaZaAgenteComponent
   ],
   imports: [
     BrowserModule,

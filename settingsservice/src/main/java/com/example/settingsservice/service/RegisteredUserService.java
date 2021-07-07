@@ -62,6 +62,7 @@ public class RegisteredUserService {
         u.setDatumrodj(user.getDatumrodj());
         u.setBiografija(user.getBiografija());
         u.setWebsajt(user.getWebsajt());
+        u.setEnabled(true);
         // pre nego sto postavimo lozinku u atribut hesiramo je
         u.setLozinka(user.getLozinka());
 

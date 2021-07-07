@@ -15,6 +15,8 @@ import {SearchChoiceComponent} from "./components/search-choice/search-choice.co
 import {ErrorComponent} from "./components/error/error.component";
 import {NavbaradminComponent} from "./components/navbaradmin/navbaradmin.component";
 import {NeprikladansadrzajComponent} from "./components/neprikladansadrzaj/neprikladansadrzaj.component";
+import {RegistracijaAgentaComponent} from "./components/registracija-agenta/registracija-agenta.component";
+import {PregledZahtevaZaAgenteComponent} from "./components/pregled-zahteva-za-agente/pregled-zahteva-za-agente.component";
 
 
 const routes: Routes = [
@@ -30,7 +32,9 @@ const routes: Routes = [
   { path: 'error', component : ErrorComponent},
   { path: 'post', component: PostComponent },
   {path: 'navbaradmin', component: NavbaradminComponent},
-  {path: 'neprikladansadrzaj', component:NeprikladansadrzajComponent}
+  {path: 'neprikladansadrzaj', component:NeprikladansadrzajComponent},
+  {path: 'regAgent', component:RegistracijaAgentaComponent},
+  {path: 'zahteviZaAgente', component:PregledZahtevaZaAgenteComponent}
 ];
 
 @NgModule({

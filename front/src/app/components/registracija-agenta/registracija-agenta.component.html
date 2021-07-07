@@ -1,0 +1,13 @@
+<div class="container row">
+  <div class="col-md-6">
+    <div class="col-75">
+      <label for="email">Email</label>
+      <input type="email" [(ngModel)]="email" name="email" id="email"/>
+      <label for="websajt">Web</label>
+      <input type="text" [(ngModel)]="websajt" name="websajt" id="websajt"/>
+        </div>
+  </div>
+  <div>
+    <app-button text="Posalji zahtev" color="blue" type="button" (btnClick)="createRegistracija()"></app-button>
+  </div>
+</div>
