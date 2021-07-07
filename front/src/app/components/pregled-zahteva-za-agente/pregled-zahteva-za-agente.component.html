@@ -1,0 +1,18 @@
+<app-navbaradmin></app-navbaradmin>
+<ul style="list-style-type: none">
+  <div class="polaroid">
+    <li *ngFor="let zahtev of zahtevi">
+      <div class="container1">
+        <div>Ime: {{zahtev['ime']}}</div>
+        <div>Prezime: {{zahtev['prezime']}}</div>
+        <div>Username: {{zahtev['username']}}</div>
+        <div>Email: {{zahtev['email']}}</div>
+        <div>Websajt: {{zahtev['websajt']}}</div>
+      </div>
+      <!--<app-button text="Disike" color="green" type="button" (btnClick)="dislike(contentadmin['id'])"></app-button>
+    -->
+      <app-button text="Prihvati" color="blue" type="button" (btnClick)="prihvati(zahtev['id'])"></app-button>
+      <app-button text="Odbij" color="blue" type="button" (btnClick)="odbij(zahtev['id'])"></app-button>
+    </li>
+  </div>
+</ul>

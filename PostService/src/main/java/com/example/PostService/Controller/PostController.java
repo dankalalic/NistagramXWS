@@ -1,7 +1,6 @@
 package com.example.PostService.Controller;
 
-import com.example.PostService.Model.Post;
-import com.example.PostService.Model.SadrzajDTO;
+import com.example.PostService.Model.*;
 import com.example.PostService.Service.PostService;
 import com.example.PostService.Service.RegistrovaniKorisnikService;
 import com.example.PostService.Service.SadrzajService;
@@ -11,6 +10,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+import java.util.Set;
 
 @CrossOrigin(origins = "http://localhost:4200")
 @RestController
@@ -56,6 +58,24 @@ public class PostController {
         } else {
             throw new Exception("Zabranjeno");
         }
+    }
+
+    @CrossOrigin(origins = "http://localhost:4200")
+    @GetMapping(value="/pregledNeprikladnogSadrzaja")
+    public ResponseEntity<Set<SadrzajReturnDTO>> pregledNeprikladnogSadrzaja(){
+        return new ResponseEntity<>(postService.PregledNeprikladnogSadrzaja(), HttpStatus.OK);
+    }
+
+    @CrossOrigin(origins = "http://localhost:4200")
+    @PostMapping(value="/ukloniSadrzaj", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<StringDTO> ukloniSadrzaj(@RequestBody IdDTO idDTO){
+        return new ResponseEntity<>(postService.ukloni(idDTO), HttpStatus.OK);
+    }
+
+
+    @PostMapping(value="/ugasiSvePostoveUsera", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Boolean> ugasiSvePostoveUsera(@RequestBody StringDTO stringDTO){
+        return new ResponseEntity<>(postService.ugasiSvePostoveUsera(stringDTO.getString()), HttpStatus.OK);
     }
 
 }

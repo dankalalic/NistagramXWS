@@ -19,6 +19,11 @@ import {KampanjePregledComponent} from "./components/kampanje-pregled/kampanje-p
 import {CampaignChangeComponent} from "./components/campaign-change/campaign-change.component";
 import {ProizvodComponent} from "./components/proizvod/proizvod.component";
 
+import {NavbaradminComponent} from "./components/navbaradmin/navbaradmin.component";
+import {NeprikladansadrzajComponent} from "./components/neprikladansadrzaj/neprikladansadrzaj.component";
+import {RegistracijaAgentaComponent} from "./components/registracija-agenta/registracija-agenta.component";
+import {PregledZahtevaZaAgenteComponent} from "./components/pregled-zahteva-za-agente/pregled-zahteva-za-agente.component";
+import {AdminAddAgentComponent} from "./components/admin-add-agent/admin-add-agent.component";
 
 
 const routes: Routes = [
@@ -36,8 +41,13 @@ const routes: Routes = [
   { path: 'createCampaign', component: CreateCampaignComponent},
   { path: 'kampanjePregled', component: KampanjePregledComponent},
   { path: 'changeCampaign', component: CampaignChangeComponent},
-  { path: 'createProizvod', component: ProizvodComponent}
+  { path: 'createProizvod', component: ProizvodComponent},
 
+  {path: 'navbaradmin', component: NavbaradminComponent},
+  {path: 'neprikladansadrzaj', component:NeprikladansadrzajComponent},
+  {path: 'regAgent', component:RegistracijaAgentaComponent},
+  {path: 'zahteviZaAgente', component:PregledZahtevaZaAgenteComponent},
+  {path: 'dodajAgenta', component:AdminAddAgentComponent}
 ];
 
 @NgModule({

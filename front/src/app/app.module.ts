@@ -27,6 +27,12 @@ import { NavbarAgentComponent } from './components/navbar-agent/navbar-agent.com
 import { KampanjePregledComponent } from './components/kampanje-pregled/kampanje-pregled.component';
 import { CampaignChangeComponent } from './components/campaign-change/campaign-change.component';
 import { ProizvodComponent } from './components/proizvod/proizvod.component';
+import { NeprikladansadrzajComponent } from './components/neprikladansadrzaj/neprikladansadrzaj.component';
+import { ContentadminComponent } from './components/contentadmin/contentadmin.component';
+import { RegistracijaAgentaComponent } from './components/registracija-agenta/registracija-agenta.component';
+import { PregledZahtevaZaAgenteComponent } from './components/pregled-zahteva-za-agente/pregled-zahteva-za-agente.component';
+import { AdminAddAgentComponent } from './components/admin-add-agent/admin-add-agent.component';
+import { NavbaradminComponent } from './components/navbaradmin/navbaradmin.component';
 
 @NgModule({
   declarations: [
@@ -48,7 +54,13 @@ import { ProizvodComponent } from './components/proizvod/proizvod.component';
     NavbarAgentComponent,
     KampanjePregledComponent,
     CampaignChangeComponent,
-    ProizvodComponent
+    ProizvodComponent,
+    NavbaradminComponent,
+    NeprikladansadrzajComponent,
+    ContentadminComponent,
+    RegistracijaAgentaComponent,
+    PregledZahtevaZaAgenteComponent,
+    AdminAddAgentComponent
   ],
   imports: [
     BrowserModule,

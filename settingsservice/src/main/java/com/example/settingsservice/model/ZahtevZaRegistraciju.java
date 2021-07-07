@@ -8,21 +8,29 @@ import javax.persistence.*;
 public class ZahtevZaRegistraciju {
 
     @Id
+    @SequenceGenerator(name="seq_zahtevi_registracija", sequenceName = "seq_zahtevi_registracija", initialValue = 1, allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_zahtevi_registracija")
     private Integer id;
 
     @JsonIgnore
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "registeredUser_id", referencedColumnName = "id")
     private RegisteredUser registeredUser;
 
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @ManyToOne(cascade = CascadeType.MERGE, fetch = FetchType.LAZY)
     private Admin admin;
+
+    @Column
+    private Boolean odobren;
 
     public ZahtevZaRegistraciju() {
     }
 
-    public ZahtevZaRegistraciju(Integer id) {
+    public ZahtevZaRegistraciju(Integer id, RegisteredUser registeredUser, Admin admin, Boolean odobren) {
         this.id = id;
+        this.registeredUser = registeredUser;
+        this.admin = admin;
+        this.odobren = odobren;
     }
 
     public Integer getId() {
@@ -47,5 +55,13 @@ public class ZahtevZaRegistraciju {
 
     public void setAdmin(Admin admin) {
         this.admin = admin;
+    }
+
+    public Boolean getOdobren() {
+        return odobren;
+    }
+
+    public void setOdobren(Boolean odobren) {
+        this.odobren = odobren;
     }
 }
