@@ -21,6 +21,9 @@ export class KampanjePregledComponent implements OnInit {
   constructor(public activatedRoute: ActivatedRoute, private sanitizer:DomSanitizer, private campaignService : CampaignService, private router: Router) { }
 
   ngOnInit(): void {
+    if (sessionStorage.getItem("role") != "agent") {
+      this.router.navigate(['error']);
+    }
   }
 
   chooseTipKampanje(event:any) {

@@ -44,6 +44,9 @@ export class CampaignChangeComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    if (sessionStorage.getItem("role") != "agent") {
+      this.router.navigate(['error']);
+    }
   }
 
   sanitize(url:string){
@@ -87,12 +90,16 @@ export class CampaignChangeComponent implements OnInit {
   btnChangeJednokratna(kampanja : JednokratnaKampanja) {
     this.campaignService.changeJednokratna(kampanja).subscribe(result => {
       console.log('success');
+    }, err => {
+      this.router.navigate(['/error']);
     })
   }
 
   btnChangeVisekratna(kampanja : Visekratna) {
     this.campaignService.changeVisekratna(kampanja).subscribe(result => {
       console.log('success');
+    }, err => {
+      this.router.navigate(['/error']);
     })
   }
 

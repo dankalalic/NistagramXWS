@@ -71,6 +71,25 @@ public class TokenUtils {
         return refreshedToken;
     }
 
+    public String getRoleFromToken(String token) {
+        String role;
+        token = token.split(" ")[1];
+        try {
+            final Claims claims = this.getAllClaimsFromToken(token);
+            role = claims.get("role").toString();
+            /*Claims claims = Jwts.parser()
+                    .setSigningKey(SECRET)
+                    .parseClaimsJws(token).getBody();
+
+            // Reading Custom Claims
+            System.out.println("Role: " + claims.get("role"));
+            role = claims.get("role").toString();*/
+        } catch (Exception e) {
+            role = null;
+        }
+        return role;
+    }
+
     public boolean canTokenBeRefreshed(String token, Date lastPasswordReset) {
         final Date created = this.getIssuedAtDateFromToken(token);
         return (!(this.isCreatedBeforeLastPasswordReset(created, lastPasswordReset))

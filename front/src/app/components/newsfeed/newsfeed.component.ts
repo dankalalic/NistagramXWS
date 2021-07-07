@@ -3,6 +3,7 @@ import {Id} from "../../model/id";
 import {ContentService} from "../../services/content.service";
 import {DomSanitizer} from "@angular/platform-browser";
 import {StringDTO} from "../../model/stringDTO";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-newsfeed',
@@ -14,12 +15,15 @@ export class NewsfeedComponent implements OnInit {
   isAgent : any;
   public contents : any = [];
 
-
-  constructor(private contentService : ContentService, private sanitizer:DomSanitizer) {
+  constructor(private contentService : ContentService, private sanitizer:DomSanitizer, private router: Router) {
   }
 
-
   ngOnInit(): void {
+
+    if (sessionStorage.getItem("role") != "agent" && sessionStorage.getItem("role") != "user") {
+      this.router.navigate(['error']);
+      console.log("ne radi")
+    }
 
     this.isAgent = sessionStorage.getItem('role') != 'user';
 
@@ -29,7 +33,7 @@ export class NewsfeedComponent implements OnInit {
       console.log('success', result);
 
     }, err => {
-      console.log('err', err);
+      this.router.navigate(['/error']);
     })
 
     this.contentService.getKampanje().subscribe(result =>
@@ -38,7 +42,7 @@ export class NewsfeedComponent implements OnInit {
       console.log('success', result);
 
     }, err => {
-      console.log('err', err);
+      this.router.navigate(['/error']);
     })
   }
 

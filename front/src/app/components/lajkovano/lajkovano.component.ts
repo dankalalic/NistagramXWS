@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {PostService} from "../../services/post.service";
 import {Id} from "../../model/id";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-lajkovano',
@@ -10,26 +11,18 @@ import {Id} from "../../model/id";
 export class LajkovanoComponent implements OnInit {
 
   public contents : any = [];
-  constructor(private postService:PostService) { }
+  constructor(private postService:PostService, private router: Router) { }
 
   ngOnInit(): void {
-    const id : Id = {
-      id : 2
-    };
+    if (sessionStorage.getItem("role") != "agent" && sessionStorage.getItem("role") != "user") {
+      this.router.navigate(['error']);
+    }
     this.postService.getLajkovano().subscribe(result =>
     {
-      //this.router.navigate(['/newsfeed']);
-      //sessionStorage.setItem('token', result.accessToken);
-      this.contents = result;
-      /*for (let content of this.contents) {
-        for(let image of content.slike) {
-          this.images.push(image)
-        }
-      }*/
+      this.contents = result
       console.log('success', result);
-
     }, err => {
-      console.log('err', err);
+      this.router.navigate(['/error']);
     })
   }
 

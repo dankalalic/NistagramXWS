@@ -3,6 +3,7 @@ import {VerificationUploadService} from "../../services/verification-upload.serv
 import {DomSanitizer} from "@angular/platform-browser";
 import {Post} from "../../model/post";
 import {PostserviceService} from "../../services/postservice.service";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-post',
@@ -11,26 +12,19 @@ import {PostserviceService} from "../../services/postservice.service";
 })
 export class PostComponent implements OnInit {
 
-  constructor(private verificationService : VerificationUploadService, private sanitizer:DomSanitizer,private postService:PostserviceService) {
+  constructor(private verificationService : VerificationUploadService, private router: Router, private sanitizer:DomSanitizer,private postService:PostserviceService) {
   }
 
   ngOnInit(): void {
+    if (sessionStorage.getItem("role") != "agent" && sessionStorage.getItem("role") != "user") {
+      this.router.navigate(['error']);
+    }
   }
 
   selectedFile:any;
-  retrievedImage: any;
-  base64Data: any;
-  retrieveResonse: any;
-  message: any;
-  imageName: any;
   tag!: string;
   lokacija!: string;
   slike:Array<number>=[]
-
-
-
-  //Gets called when the user selects an image
-
 
   public onFileChanged(event:any) {
     //Select File
@@ -46,20 +40,12 @@ export class PostComponent implements OnInit {
 
     this.verificationService.upload(uploadImageData).subscribe(result =>
     {
-      //this.router.navigate(['/newsfeed']);
-      //sessionStorage.setItem('token', result.accessToken);
-
-      /*for (let content of this.contents) {
-        for(let image of content.slike) {
-          this.images.push(image)
-        }
-      }*/
       console.log('success', result);
       this.slike.push(result.body);
       console.log(this.slike);
 
     }, err => {
-      console.log('err', err);
+      this.router.navigate(['/error']);
     })
   }
 
@@ -72,6 +58,8 @@ export class PostComponent implements OnInit {
     }
     this.postService.createPost(post).subscribe(result =>{
       console.log(result);
+    }, err => {
+      this.router.navigate(['/error']);
     })
   }
 }

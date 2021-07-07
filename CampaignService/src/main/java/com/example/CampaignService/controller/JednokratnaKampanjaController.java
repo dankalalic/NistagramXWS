@@ -30,27 +30,49 @@ public class JednokratnaKampanjaController {
 
     @CrossOrigin(origins = "http://localhost:4200")
     @PostMapping("/create")
-    public ResponseEntity<JednokratnaKampanja> create(@RequestBody JednokratnaDTO jednokratnaDTO, @RequestHeader(value="Authorization") String token) {
-        Integer userId = tokenUtils.getIdFromToken(token);
-        return new ResponseEntity<>(jednokratnaKampanjaService.saveKampanja(jednokratnaDTO, userId), HttpStatus.OK);
+    public ResponseEntity<JednokratnaKampanja> create(@RequestBody JednokratnaDTO jednokratnaDTO, @RequestHeader(value="Authorization") String token) throws Exception {
+        String role = tokenUtils.getRoleFromToken(token);
+        if (role.equals("agent")) {
+            Integer userId = tokenUtils.getIdFromToken(token);
+            return new ResponseEntity<>(jednokratnaKampanjaService.saveKampanja(jednokratnaDTO, userId), HttpStatus.OK);
+        } else {
+            throw new Exception("Zabranjeno");
+        }
     }
 
     @CrossOrigin(origins = "http://localhost:4200")
     @GetMapping("/getAll")
-    public ResponseEntity<List<KampanjaReturnDTO>> getAll(@RequestHeader(value="Authorization") String token) {
-        Integer userId = tokenUtils.getIdFromToken(token);
-        return new ResponseEntity<>(jednokratnaKampanjaService.getAllByAgent(agentRepository.findOneById(userId)), HttpStatus.OK);
+    public ResponseEntity<List<KampanjaReturnDTO>> getAll(@RequestHeader(value="Authorization") String token) throws Exception {
+        String role = tokenUtils.getRoleFromToken(token);
+        if (role.equals("agent")) {
+            Integer userId = tokenUtils.getIdFromToken(token);
+            return new ResponseEntity<>(jednokratnaKampanjaService.getAllByAgent(agentRepository.findOneById(userId)), HttpStatus.OK);
+        } else {
+            throw new Exception("Zabranjeno");
+        }
     }
 
     @CrossOrigin(origins = "http://localhost:4200")
     @PostMapping("/change")
-    public ResponseEntity<JednokratnaKampanja> changeKampanja(@RequestBody JednokratnaDTO jednokratnaDTO) {
-        return new ResponseEntity<>(jednokratnaKampanjaService.changeKampanja(jednokratnaDTO), HttpStatus.OK);
+    public ResponseEntity<JednokratnaKampanja> changeKampanja(@RequestBody JednokratnaDTO jednokratnaDTO, @RequestHeader(value="Authorization") String token) throws Exception {
+        String role = tokenUtils.getRoleFromToken(token);
+        if (role.equals("agent")) {
+            Integer userId = tokenUtils.getIdFromToken(token);
+            return new ResponseEntity<>(jednokratnaKampanjaService.changeKampanja(jednokratnaDTO), HttpStatus.OK);
+        } else {
+            throw new Exception("Zabranjeno");
+        }
     }
 
     @CrossOrigin(origins = "http://localhost:4200")
     @PostMapping("/delete")
-    public void deleteKampanja(@RequestBody IdDTO idDTO) {
-        jednokratnaKampanjaService.deleteKampanja(idDTO);
+    public void deleteKampanja(@RequestBody IdDTO idDTO, @RequestHeader(value="Authorization") String token) throws Exception {
+        String role = tokenUtils.getRoleFromToken(token);
+        if (role.equals("agent")) {
+            Integer userId = tokenUtils.getIdFromToken(token);
+            jednokratnaKampanjaService.deleteKampanja(idDTO);
+        } else {
+            throw new Exception("Zabranjeno");
+        }
     }
 }

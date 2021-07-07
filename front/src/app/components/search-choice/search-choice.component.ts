@@ -10,7 +10,6 @@ import {StringDTO} from "../../model/stringDTO";
   styleUrls: ['./search-choice.component.css']
 })
 
-
 export class SearchChoiceComponent implements OnInit {
 
   public contents : any = [];
@@ -19,10 +18,12 @@ export class SearchChoiceComponent implements OnInit {
   public empty! : boolean;
   public isForProfile : boolean = true;
 
-
   constructor(private searchService : SearchService, private router: Router) { }
 
   ngOnInit(): void {
+    if (sessionStorage.getItem("role") != "agent" && sessionStorage.getItem("role") != "user") {
+      this.router.navigate(['error']);
+    }
     this.by = 'profile';
   }
 
@@ -52,9 +53,8 @@ export class SearchChoiceComponent implements OnInit {
       console.log('success', result);
 
     }, err => {
-      console.log('err', err);
+      this.router.navigate(['/error']);
     })
-
     this.search = '';
   }
 
@@ -64,9 +64,8 @@ export class SearchChoiceComponent implements OnInit {
       this.empty = this.contents.length == 0;
       this.isForProfile = false;
       console.log('success', result);
-
     }, err => {
-      console.log('err', err);
+      this.router.navigate(['/error']);
     })
     this.search = '';
   }
@@ -79,7 +78,7 @@ export class SearchChoiceComponent implements OnInit {
       console.log('success', result);
 
     }, err => {
-      console.log('err', err);
+      this.router.navigate(['/error']);
     })
     this.search = '';
   }

@@ -17,11 +17,4 @@ public class RegistrovaniKorisnikController {
     public void setRegistrovaniKorisnikService(RegistrovaniKorisnikService registrovaniKorisnikService) {
         this.registrovaniKorisnikService = registrovaniKorisnikService;
     }
-
-
-
-
-
-
-
 }

@@ -99,6 +99,24 @@ public class TokenUtils {
         return id;
     }
 
+     public String getRoleFromToken(String token) {
+        String role;
+        token = token.split(" ")[1];
+        try {
+            final Claims claims = this.getAllClaimsFromToken(token);
+            role = claims.get("role").toString();
+            /*Claims claims = Jwts.parser()
+                    .setSigningKey(SECRET)
+                    .parseClaimsJws(token).getBody();
+
+            // Reading Custom Claims
+            System.out.println("Role: " + claims.get("role"));
+            role = claims.get("role").toString();*/
+        } catch (Exception e) {
+            role = null;
+        }
+        return role;
+    }
     public Date getIssuedAtDateFromToken(String token) {
         Date issueAt;
         try {

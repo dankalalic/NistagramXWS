@@ -6,6 +6,7 @@ import {ZahtevkreiranjeService} from "../../services/zahtevkreiranje.service";
 import {Zahtev} from "../../model/zahtev";
 import {Proizvod} from "../../model/proizvod";
 import {ProizvodService} from "../../services/proizvod.service";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-proizvod',
@@ -14,18 +15,16 @@ import {ProizvodService} from "../../services/proizvod.service";
 })
 export class ProizvodComponent implements OnInit {
 
-  constructor(private proizvodService : ProizvodService, private sanitizer:DomSanitizer,private postService:PostserviceService,private zahtevkreiranjeservice:ZahtevkreiranjeService) {
+  constructor(private proizvodService : ProizvodService, private router: Router, private sanitizer:DomSanitizer,private postService:PostserviceService,private zahtevkreiranjeservice:ZahtevkreiranjeService) {
   }
 
   ngOnInit(): void {
+    if (sessionStorage.getItem("role") != "agent") {
+      this.router.navigate(['error']);
+    }
   }
 
   selectedFile:any;
-  retrievedImage: any;
-  base64Data: any;
-  retrieveResonse: any;
-  message: any;
-  imageName: any;
   cena! : number;
   raspolozivoStanje! : number;
   slika!:number;
@@ -33,40 +32,24 @@ export class ProizvodComponent implements OnInit {
   naziv!: string
   kategorija!:string;
 
-
-
-
-  //Gets called when the user selects an image
-
-
   public onFileChanged(event:any) {
-    //Select File
     this.selectedFile = event.target.files[0];
   }
 
   onUpload() {
     console.log(this.selectedFile);
-
     //FormData API provides methods and properties to allow us easily prepare form data to be sent with POST HTTP requests.
     const uploadImageData = new FormData();
     uploadImageData.append('imageFile', this.selectedFile, this.selectedFile.name);
 
     this.proizvodService.upload(uploadImageData).subscribe(result =>
     {
-      //this.router.navigate(['/newsfeed']);
-      //sessionStorage.setItem('token', result.accessToken);
-
-      /*for (let content of this.contents) {
-        for(let image of content.slike) {
-          this.images.push(image)
-        }
-      }*/
       console.log('success', result);
       this.slika=result.body;
       console.log(this.slika);
 
     }, err => {
-      console.log('err', err);
+      this.router.navigate(['/error']);
     })
   }
 
@@ -80,6 +63,8 @@ export class ProizvodComponent implements OnInit {
     }
     this.proizvodService.createProizvod(proizvod).subscribe(result =>{
       console.log(result);
+    }, err => {
+      this.router.navigate(['/error']);
     })
 
   }

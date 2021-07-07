@@ -27,8 +27,6 @@ public class KomentarController {
 
     @GetMapping
     public  ResponseEntity<List<Komentar>> getMedications(){
-        
-
         List<Komentar> nesto= komentarRepository.findAll();
         return new ResponseEntity<>(nesto, HttpStatus.OK);
     }

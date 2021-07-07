@@ -37,7 +37,7 @@ export class ContentService {
     this.newsfeedUrl = 'http://localhost:8083/sadrzaj/getAll';
     this.likeUrl = 'http://localhost:8083/sadrzaj/like';
     this.dislikeUrl = 'http://localhost:8083/sadrzaj/dislike';
-    this.kampanjaUrl = 'http://localhost:8085/reklame/getAllKampanje';
+    this.kampanjaUrl = 'http://localhost:8085/reklamice/getAllKampanje';
   }
 
   getNewsfeed() {

@@ -5,6 +5,7 @@ import com.example.PostService.Model.SadrzajDTO;
 import com.example.PostService.Service.PostService;
 import com.example.PostService.Service.RegistrovaniKorisnikService;
 import com.example.PostService.Service.SadrzajService;
+import com.example.PostService.TokenUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -25,8 +26,6 @@ public class PostController {
         this.sadrzajService = sadrzajService;
     }
 
-
-
     @Autowired
     public void setRegistrovaniKorisnikService(RegistrovaniKorisnikService registrovaniKorisnikService) {
         this.registrovaniKorisnikService = registrovaniKorisnikService;
@@ -37,6 +36,9 @@ public class PostController {
         this.postService = postService;
     }
 
+    @Autowired
+    private TokenUtils tokenUtils;
+
     /*@PostMapping(value="/getpictures", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Set<Sadrzaj>> getRegistrovaniKorisnikPictures(@RequestBody RegistrovaniKorisnikDto registrovaniKorisnikDto){
         RegistrovaniKorisnik registrovaniKorisnik=registrovaniKorisnikService.findonebyid(registrovaniKorisnikDto.getId());
@@ -46,8 +48,14 @@ public class PostController {
 
     @CrossOrigin(origins = "http://localhost:4200")
     @PostMapping(value="/createposts", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Post> createpost(@RequestBody SadrzajDTO sadrzajDTO){
-        return new ResponseEntity<>(postService.create(sadrzajDTO), HttpStatus.OK);
+    public ResponseEntity<Post> createpost(@RequestBody SadrzajDTO sadrzajDTO, @RequestHeader(value="Authorization") String token) throws Exception {
+        String role = tokenUtils.getRoleFromToken(token);
+        if (role.equals("agent") || role.equals("user")) {
+            Integer userId = tokenUtils.getIdFromToken(token);
+            return new ResponseEntity<>(postService.create(sadrzajDTO), HttpStatus.OK);
+        } else {
+            throw new Exception("Zabranjeno");
+        }
     }
 
 }

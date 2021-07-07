@@ -6,6 +6,7 @@ import {Post} from "../../model/post";
 import {Zahtev} from "../../model/zahtev";
 import{ZahtevService} from "../../services/zahtev.service";
 import {ZahtevkreiranjeService} from "../../services/zahtevkreiranje.service";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-zahtev',
@@ -14,29 +15,22 @@ import {ZahtevkreiranjeService} from "../../services/zahtevkreiranje.service";
 })
 export class ZahtevComponent implements OnInit {
 
-  constructor(private verificationService : VerificationUploadService, private sanitizer:DomSanitizer,private postService:PostserviceService,private zahtevkreiranjeservice:ZahtevkreiranjeService) {
+  constructor(private verificationService : VerificationUploadService, private router: Router, private sanitizer:DomSanitizer,private postService:PostserviceService,private zahtevkreiranjeservice:ZahtevkreiranjeService) {
   }
 
   ngOnInit(): void {
+    if (sessionStorage.getItem("role") != "agent" && sessionStorage.getItem("role") != "user") {
+      this.router.navigate(['error']);
+    }
   }
 
   selectedFile:any;
-  retrievedImage: any;
-  base64Data: any;
-  retrieveResonse: any;
-  message: any;
-  imageName: any;
   tag!: string;
   lokacija!: string;
   ime!:string;
   prezime!:string;
   kategorija!:string;
   slika!:number;
-
-
-
-  //Gets called when the user selects an image
-
 
   public onFileChanged(event:any) {
     //Select File
@@ -52,20 +46,12 @@ export class ZahtevComponent implements OnInit {
 
     this.verificationService.upload(uploadImageData).subscribe(result =>
     {
-      //this.router.navigate(['/newsfeed']);
-      //sessionStorage.setItem('token', result.accessToken);
-
-      /*for (let content of this.contents) {
-        for(let image of content.slike) {
-          this.images.push(image)
-        }
-      }*/
       console.log('success', result);
       this.slika=result.body;
       console.log(this.slika);
 
     }, err => {
-      console.log('err', err);
+      this.router.navigate(['/error']);
     })
   }
 
@@ -78,6 +64,8 @@ export class ZahtevComponent implements OnInit {
     }
     this.zahtevkreiranjeservice.createZahtev(zahtev).subscribe(result =>{
       console.log(result);
+    }, err => {
+      this.router.navigate(['/error']);
     })
 
   }

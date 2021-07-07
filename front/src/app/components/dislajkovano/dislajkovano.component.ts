@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import {Id} from "../../model/id";
 import {PostService} from "../../services/post.service";
+import {CampaignService} from "../../services/campaign.service";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-dislajkovano',
@@ -10,26 +12,20 @@ import {PostService} from "../../services/post.service";
 export class DislajkovanoComponent implements OnInit {
 
   public contents : any = [];
-  constructor(private postService:PostService) { }
+  constructor(private postService:PostService, private router: Router) { }
 
   ngOnInit(): void {
-    const id : Id = {
-      id : 2
-    };
+
+    if (sessionStorage.getItem("role") != "agent" && sessionStorage.getItem("role") != "user") {
+      this.router.navigate(['error']);
+    }
+
     this.postService.getDislajkovano().subscribe(result =>
     {
-      //this.router.navigate(['/newsfeed']);
-      //sessionStorage.setItem('token', result.accessToken);
       this.contents = result;
-      /*for (let content of this.contents) {
-        for(let image of content.slike) {
-          this.images.push(image)
-        }
-      }*/
       console.log('success', result);
-
     }, err => {
-      console.log('err', err);
+      this.router.navigate(['/error']);
     })
   }
 
