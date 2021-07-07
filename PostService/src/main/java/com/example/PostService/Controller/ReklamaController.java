@@ -67,4 +67,9 @@ public class ReklamaController {
         return new ListIntegerWrapper(integers);
     }
 
+    @CrossOrigin(origins = "http://localhost:8085")
+    @PostMapping("/getAll")
+    public KampanjaReturnDTO getByIds (@RequestBody ListIntegerWrapper integers) {
+        return reklamaService.getReklameById(integers.getIntegerList());
+    }
 }

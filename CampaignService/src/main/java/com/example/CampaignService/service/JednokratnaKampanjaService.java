@@ -57,7 +57,8 @@ public class JednokratnaKampanjaService {
         int counter = 0;
         List<ReklamaDTO> reklamaDTOs = new ArrayList<>();
         for (Slika slika : jednokratnaDTO.getSlike()) {
-            ReklamaDTO reklamaDTO = new ReklamaDTO(slika, jednokratnaDTO.getLinkovi().get(counter));
+            //ReklamaDTO reklamaDTO = new ReklamaDTO(slika, jednokratnaDTO.getLinkovi().get(counter));
+            ReklamaDTO reklamaDTO = new ReklamaDTO(slika, "g");
             counter++;
             reklamaDTOs.add(reklamaDTO);
         }
@@ -69,9 +70,10 @@ public class JednokratnaKampanjaService {
         Set<Reklama> reklamas = new HashSet<>();
         counter = 0;
         for (Integer reklamaId : reklameIds.getIntegerList()) {
-            Reklama reklama = new Reklama(reklamaId, jednokratnaDTO.getLinkovi().get(counter));
+            //Reklama reklama = new Reklama(reklamaId, jednokratnaDTO.getLinkovi().get(counter));
+            Reklama reklama = new Reklama(reklamaId, "g");
             counter++;
-            reklamaRepository.save(reklama);
+            //reklamaRepository.save(reklama);
             reklamas.add(reklama);
         }
 
@@ -80,18 +82,65 @@ public class JednokratnaKampanjaService {
 
         Agent agent = agentRepository.findOneById(id);
         kampanja.setAgent(agent);
+        kampanja.setReklame(reklamas);
+        kampanja.setPocetakPrikazivanja(jednokratnaDTO.getPocetakPrikazivanja());
+        kampanja.setKrajPrikazivanja(jednokratnaDTO.getKrajPrikazivanja());
         //JednokratnaKampanja jednokratnaKampanja = jednokratnaKampanjaRepository.save(kampanja);
-        Set<Kampanja> kampanje = agent.getKampanje();
-        kampanje.add(kampanja);
-        agent.setKampanje(kampanje);
-        agentRepository.save(agent);
+        //Set<Kampanja> kampanje = agent.getKampanje();
+        //kampanje.add(kampanja);
+        //agent.setKampanje(kampanje);
+        //agentRepository.save(agent);
 
         //set kampanja id in reklama
         for (Reklama reklama : reklamas) {
             reklama.setKampanja(kampanja);
-            reklamaRepository.save(reklama);
+            //reklamaRepository.save(reklama);
         }
 
         return jednokratnaKampanjaRepository.save(kampanja);
+    }
+
+    public List<KampanjaReturnDTO> getAllByAgent(Agent agent) {
+        List<JednokratnaKampanja> kampanje = jednokratnaKampanjaRepository.getAllByAgent(agent);
+        List<JednokratnaDTO> jednokratnaDTOS = new ArrayList<>();
+
+        List<Integer> integers = new ArrayList<>();
+        List<Integer> numOfReklamasPerKampanjaList = new ArrayList<>();
+        for (JednokratnaKampanja jednokratnaKampanja : kampanje) {
+            Integer numOfReklamasPerKampanja = 0;
+            for (Reklama reklama : jednokratnaKampanja.getReklame()) {
+                integers.add(reklama.getId());
+                numOfReklamasPerKampanja++;
+            }
+            numOfReklamasPerKampanjaList.add(numOfReklamasPerKampanja);
+        }
+
+        ListIntegerWrapper listIntegerWrapper = new ListIntegerWrapper(integers);
+        String url="http://postservice/reklame/getAll";
+        KampanjaReturnDTO kampanjaReturnDTO = restTemplate.postForObject(url,listIntegerWrapper, KampanjaReturnDTO.class);
+        /*List<Slika> slike = new ArrayList<>();
+        for(ReklamaReturnDTO reklamaReturnDTO : kampanjaReturnDTO.getReklame()) {
+            slike.addAll(reklamaReturnDTO.getSlike());
+        }*/
+
+        List<KampanjaReturnDTO> kampanjaReturnDTOS = new ArrayList<>();
+        int counter = 0;
+        int start = 0;
+        for (JednokratnaKampanja kampanja : kampanje) {
+            KampanjaReturnDTO kampanjaReturnDTO1 = new KampanjaReturnDTO();
+            kampanjaReturnDTO1.setReklame(kampanjaReturnDTO.getReklame().subList(start, start+numOfReklamasPerKampanjaList.get(counter)));
+            kampanjaReturnDTO1.setCiljnaGrupa(kampanja.getCiljnaGrupa());
+            kampanjaReturnDTO1.setPocetakPrikazivanja(kampanja.getPocetakPrikazivanja());
+            kampanjaReturnDTO1.setKrajPrikazivanja(kampanja.getKrajPrikazivanja());
+            kampanjaReturnDTO1.setLajkovali(kampanjaReturnDTO.getLajkovali());
+            kampanjaReturnDTO1.setDislajkovali(kampanjaReturnDTO.getDislajkovali());
+
+            kampanjaReturnDTOS.add(kampanjaReturnDTO1);
+            start += numOfReklamasPerKampanjaList.get(counter);
+            counter++;
+        }
+
+        return kampanjaReturnDTOS;
+
     }
 }

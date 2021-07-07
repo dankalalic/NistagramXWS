@@ -8,6 +8,9 @@ import {VerificationUploadService} from "../../services/verification-upload.serv
 import {DomSanitizer} from "@angular/platform-browser";
 import {Id} from "../../model/id";
 import {Slika} from "../../model/slika";
+import {FormArray, FormControl} from "@angular/forms";
+import {Visekratna} from "../../model/visekratna";
+import DateTimeFormat = Intl.DateTimeFormat;
 
 @Component({
   selector: 'app-create-campaign',
@@ -19,19 +22,19 @@ export class CreateCampaignComponent implements OnInit {
   pol!: string;
   godPocetka!: number;
   godKraja!: number;
-  datum!: Date;
+  datum!: DateTimeFormat;
+  datumk!: DateTimeFormat;
   slike: Array<Slika>=[];
   proizvodi! : [];
+  jednokratna : any;
+  datumpocetka!: Date;
+  datumkraja!: Date;
+  brojplasiranja!: number;
 
   constructor(private verificationService : VerificationUploadService, private sanitizer:DomSanitizer, private campaignService : CampaignService, private router: Router) { }
 
   ngOnInit(): void {
     this.getByAgent();
-  }
-
-  public onFileChanged(event:any) {
-    //Select File
-    this.slike = event.target.files[0];
   }
 
   sanitize(url:string){
@@ -40,38 +43,67 @@ export class CreateCampaignComponent implements OnInit {
 
   onSubmit() {
 
-    //this.onUpload();
+    if(this.jednokratna==true) {
+      const kampanja: JednokratnaKampanja = {
+        pol: this.pol,
+        godinePocetka: this.godPocetka,
+        godineKraja: this.godKraja,
+        slike: this.slike,
+        //linkovi: ['g', 'g'],
+        pocetakPrikazivanja: this.datum,
+        krajPrikazivanja: this.datumk
+      };
 
-    const kampanja : JednokratnaKampanja = {
-      pol: this.pol,
-      godinePocetka: this.godPocetka,
-      godineKraja: this.godKraja,
-      slike : this.slike,
-      linkovi: ['g'],
-      datumPrikazivanja: this.datum,
-    };
+      console.log(kampanja)
+      this.btnCreateJednokratna(kampanja)
 
+    } else if(this.jednokratna==false) {
+      const kampanja: Visekratna = {
+        pol: this.pol,
+        godinePocetka: this.godPocetka,
+        godineKraja: this.godKraja,
+        slike: this.slike,
+        //linkovi: ['g', 'g'],
+        pocetakPrikazivanja: this.datumpocetka,
+        krajPrikazivanja: this.datumkraja,
+        potrebanBrojPrikazivanja: this.brojplasiranja
+      };
 
-    this.btnCreate(kampanja)
+      this.btnCreateVisekratna(kampanja)
+    }
   }
 
-  /*onUpload() {
-    for (let slika in this.slike) {
-      const uploadImageData = new FormData();
-      uploadImageData.append('imageFile', slika, slika.name);
-
-      this.campaignService.upload(uploadImageData).subscribe(result => {
-        console.log('success', result);
-        this.slika = result.body;
-        console.log(this.slika);
-      }, err => {
-        console.log('err', err);
-      })
+  chooseTipKampanje(event:any) {
+    if(event.target.value == "Jednokratna") {
+      this.jednokratna=true;
+    } else if (event.target.value == "Visekratna") {
+      this.jednokratna=false;
     }
-  }*/
+    console.log(this.jednokratna);
+  }
 
-  btnCreate(kampanja : JednokratnaKampanja) {
+  onChange(proizvod:any, event:any) {
+    let slika : Slika = new Slika(proizvod['slika']['name'], proizvod['slika']['url'], proizvod['slika']['size']);
+
+    //console.log(slika)
+    if(event.target.checked) {
+      this.slike.push(slika);
+      console.log('pushed', this.slike)
+    } else {
+      let index = this.slike.findIndex(x => x.url == proizvod.slika.url)
+      this.slike.splice(index, 1);
+      console.log('popped', this.slike)
+    }
+  }
+
+  btnCreateJednokratna(kampanja : JednokratnaKampanja) {
     this.campaignService.create(kampanja).subscribe(result => {
+      console.log('success');
+    })
+  }
+
+  btnCreateVisekratna(kampanja : Visekratna) {
+    this.campaignService.createVisekatna(kampanja).subscribe(result => {
       console.log('success');
     })
   }
@@ -79,12 +111,12 @@ export class CreateCampaignComponent implements OnInit {
   getByAgent() {
     this.campaignService.getByAgent().subscribe(result => {
       this.proizvodi=result;
-      for (var i = 0; i < result.length; i++) {
-        let slika : Slika = new Slika(result[i].slika.name, result[i].slika.url, result[i].slika.size);
-        this.slike.push(slika);
-        console.log(slika);
+      //for (var i = 0; i < result.length; i++) {
+        //let slika : Slika = new Slika(result[i].slika.name, result[i].slika.url, result[i].slika.size);
+        //this.slike.push(slika);
+        //console.log(slika);
 
-      }
+      //}
       console.log('g',result)
     }, err => {
       this.router.navigate(['/error']);
