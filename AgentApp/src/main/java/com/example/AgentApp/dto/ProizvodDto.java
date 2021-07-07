@@ -8,6 +8,31 @@ public class ProizvodDto {
     private Integer cena;
     private Integer raspolozivoStanje;
     private Integer slika;
+    private String naziv;
+
+    public ProizvodDto(Integer id, Integer cena, Integer raspolozivoStanje, Integer slika, String naziv) {
+        this.id = id;
+        this.cena = cena;
+        this.raspolozivoStanje = raspolozivoStanje;
+        this.slika = slika;
+        this.naziv = naziv;
+    }
+
+
+    public ProizvodDto(Integer id, Integer cena, Integer raspolozivoStanje, String naziv) {
+        this.id = id;
+        this.cena = cena;
+        this.raspolozivoStanje = raspolozivoStanje;
+        this.naziv = naziv;
+    }
+
+    public String getNaziv() {
+        return naziv;
+    }
+
+    public void setNaziv(String naziv) {
+        this.naziv = naziv;
+    }
 
     public ProizvodDto() {
     }

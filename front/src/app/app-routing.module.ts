@@ -14,8 +14,11 @@ import {DislajkovanoComponent} from "./components/dislajkovano/dislajkovano.comp
 import {SearchChoiceComponent} from "./components/search-choice/search-choice.component";
 import {ErrorComponent} from "./components/error/error.component";
 import {CreateCampaignComponent} from "./components/create-campaign/create-campaign.component";
+
 import {KampanjePregledComponent} from "./components/kampanje-pregled/kampanje-pregled.component";
 import {CampaignChangeComponent} from "./components/campaign-change/campaign-change.component";
+import {ProizvodComponent} from "./components/proizvod/proizvod.component";
+
 
 
 const routes: Routes = [
@@ -32,7 +35,9 @@ const routes: Routes = [
   { path: 'post', component: PostComponent },
   { path: 'createCampaign', component: CreateCampaignComponent},
   { path: 'kampanjePregled', component: KampanjePregledComponent},
-  { path: 'changeCampaign', component: CampaignChangeComponent}
+  { path: 'changeCampaign', component: CampaignChangeComponent},
+  { path: 'createProizvod', component: ProizvodComponent}
+
 ];
 
 @NgModule({

@@ -21,7 +21,7 @@ public class Proizvod {
     private Integer raspolozivoStanje;
 
     @Column
-    private Integer  naziv;
+    private String  naziv;
 
     @Lob
     @OneToOne(mappedBy = "proizvod", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
@@ -42,11 +42,25 @@ public class Proizvod {
     @ManyToOne(cascade = CascadeType.MERGE, fetch = FetchType.LAZY)
     private Korpa korpa;
 
+    @JsonIgnore
     @ManyToMany(mappedBy = "proizvod")
     private Set<Narudzbina> narudzbina = new HashSet<Narudzbina>();
 
     public Prodavnica getProdavnica() {
         return prodavnica;
+    }
+
+    public Proizvod(Integer id, Integer cena, Integer raspolozivoStanje, String naziv, Slika slika, Integer kolicinazaporudzbinu, Agent agent, Prodavnica prodavnica, Korpa korpa, Set<Narudzbina> narudzbina) {
+        this.id = id;
+        this.cena = cena;
+        this.raspolozivoStanje = raspolozivoStanje;
+        this.naziv = naziv;
+        this.slika = slika;
+        this.kolicinazaporudzbinu = kolicinazaporudzbinu;
+        this.agent = agent;
+        this.prodavnica = prodavnica;
+        this.korpa = korpa;
+        this.narudzbina = narudzbina;
     }
 
     public void setProdavnica(Prodavnica prodavnica) {
@@ -134,11 +148,11 @@ public class Proizvod {
         this.narudzbina = narudzbina;
     }
 
-    public Integer getNaziv() {
+    public String getNaziv() {
         return naziv;
     }
 
-    public void setNaziv(Integer naziv) {
+    public void setNaziv(String naziv) {
         this.naziv = naziv;
     }
 
