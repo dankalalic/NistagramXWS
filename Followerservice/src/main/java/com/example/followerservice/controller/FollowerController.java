@@ -3,6 +3,7 @@ package com.example.followerservice.controller;
 import com.example.followerservice.TokenUtils;
 import com.example.followerservice.UserService;
 import com.example.followerservice.model.DTO.IdDTO;
+import com.example.followerservice.model.DTO.IdDoubleDTO;
 import com.example.followerservice.model.DTO.UserDTO;
 import com.example.followerservice.model.User;
 import com.example.followerservice.repository.FollowerRepository;
@@ -106,6 +107,22 @@ public class FollowerController {
     public Boolean isPrivate(@RequestBody IdDTO idDTO) {
         User user = userService.findById(idDTO.getId());
         return user.getPrivate().equals(true);
+    }
+
+
+    @PostMapping(value="/doIFollow",consumes = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Boolean> doFollow(@RequestBody IdDoubleDTO idDoubleDTO) {
+        User user = userService.findById(idDoubleDTO.getId1());
+        Set<User> users = user.getFollowing();
+        User user2 =userService.findById(idDoubleDTO.getId2());
+        Boolean bool=false;
+
+        if (users.contains(user2)){
+            bool=true;
+        }
+
+        return new ResponseEntity<>(bool,HttpStatus.OK);
+
     }
 
 }

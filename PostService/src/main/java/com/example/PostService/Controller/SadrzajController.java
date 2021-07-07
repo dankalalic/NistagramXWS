@@ -15,6 +15,7 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.persistence.Id;
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -25,6 +26,11 @@ public class SadrzajController {
 
     private SadrzajService sadrzajService;
     private SlikaRepository slikaRepository;
+    private SadrzajRepository sadrzajRepository;
+
+    @Autowired
+    public void setSadrzajRepository(SadrzajRepository sadrzajRepository){this.sadrzajRepository=sadrzajRepository;}
+
 
     @Autowired
     public void setSlikaRepository(SlikaRepository slikaRepository) {
@@ -140,4 +146,25 @@ public class SadrzajController {
         return new ResponseEntity<>(sadrzajService.getAll(), HttpStatus.OK);
 
     }
+
+
+    @CrossOrigin(origins = "http://localhost:4200")
+    @GetMapping(value="/getReklamaById")
+    public ResponseEntity<SadrzajjDTO> getAll(@RequestBody IdDTO idDTO){
+
+        Sadrzaj sadrzaj=this.sadrzajRepository.getOne(idDTO.getId());
+        Set<Slika> slikas= sadrzaj.getSlike();
+        Set<SlikaDTO> slikas1 = new HashSet<>();
+
+        for (Slika slika:slikas){
+            SlikaDTO slikaDTO= new SlikaDTO(slika.getId(),slika.getName(),slika.getUrl(),slika.getSize());
+            slikas1.add(slikaDTO);
+        }
+
+        SadrzajjDTO sadrzajjDTO= new SadrzajjDTO(sadrzaj.getId(),slikas1);
+
+        return new ResponseEntity<>(sadrzajjDTO, HttpStatus.OK);
+
+    }
+
 }

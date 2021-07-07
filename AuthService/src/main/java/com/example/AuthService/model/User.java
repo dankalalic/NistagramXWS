@@ -32,6 +32,9 @@ public class User implements UserDetails {
     @Column
     private String role;
 
+    @Column
+    private Integer age;
+
     @Column(name = "enabled")
     private boolean enabled;
 
@@ -49,7 +52,7 @@ public class User implements UserDetails {
 
     public User() {}
 
-    public User(Integer id, String username, String password, String role, boolean enabled, Integer flag, Timestamp lastPasswordResetDate, List<Authority> authorities) {
+    public User(Integer id, String username, String password, String role, boolean enabled, Integer flag, Timestamp lastPasswordResetDate, List<Authority> authorities, Integer age) {
         this.id = id;
         this.username = username;
         this.password = password;
@@ -58,9 +61,18 @@ public class User implements UserDetails {
         this.flag = flag;
         this.lastPasswordResetDate = lastPasswordResetDate;
         this.authorities = authorities;
+        this.age=age;
     }
 
     //Settes and getters
+
+    public Integer getAge() {
+        return age;
+    }
+
+    public void setAge(Integer age) {
+        this.age = age;
+    }
 
     public Integer getId() { return id;}
 

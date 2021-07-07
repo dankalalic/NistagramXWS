@@ -9,24 +9,32 @@ import java.time.LocalDateTime;
 
 @Entity
 @DiscriminatorValue("jednokratna")
-public class JednokratnaKampanja extends Kampanja{
+public class JednokratnaKampanja extends Kampanja {
 
     //promenite ako smeta ne znam kako treba
     @Column
-    private LocalDateTime vremePrikazivanja;
+    private LocalDateTime pocetakPrikazivanja;
 
-    public JednokratnaKampanja(LocalDateTime vremePrikazivanja) {
-        this.vremePrikazivanja = vremePrikazivanja;
+    @Column
+    private LocalDateTime krajPrikazivanja;
+
+
+
+
+
+    public void setPocetakPrikazivanja(LocalDateTime pocetakPrikazivanja) {
+        this.pocetakPrikazivanja = pocetakPrikazivanja;
     }
 
-    public JednokratnaKampanja() {
+    public void setKrajPrikazivanja(LocalDateTime krajPrikazivanja) {
+        this.krajPrikazivanja = krajPrikazivanja;
     }
 
-    public LocalDateTime getVremePrikazivanja() {
-        return vremePrikazivanja;
+    public LocalDateTime getPocetakPrikazivanja() {
+        return pocetakPrikazivanja;
     }
 
-    public void setVremePrikazivanja(LocalDateTime vremePrikazivanja) {
-        this.vremePrikazivanja = vremePrikazivanja;
+    public LocalDateTime getKrajPrikazivanja() {
+        return krajPrikazivanja;
     }
 }

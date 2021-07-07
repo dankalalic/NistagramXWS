@@ -1,23 +1,28 @@
 package com.example.AuthService.controller;
 
 
+import com.example.AuthService.model.TargetGroupDTO;
 import com.example.AuthService.model.User;
+import com.example.AuthService.repository.UserRepository;
 import com.example.AuthService.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/users")
 public class UserController {
 
     private UserService userService;
+
+    private UserRepository userRepository;
+
+    @Autowired
+    public void setUserRepository(UserRepository userRepository){
+        this.userRepository=userRepository;
+    }
 
     @Autowired
     public void setUserService(UserService userService) {
@@ -30,6 +35,22 @@ public class UserController {
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         return new ResponseEntity<>(user, HttpStatus.OK);
     }*/
+
+
+    @PostMapping(value="/targetAge",consumes = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Boolean> doFollow(@RequestBody TargetGroupDTO targetGroupDTO) {
+        User user = userRepository.getOne(targetGroupDTO.getId());
+
+        Boolean bool=false;
+
+        if ((user.getAge()>=targetGroupDTO.getPocetak())&&(user.getAge()<=targetGroupDTO.getKraj())){
+            bool=true;
+        }
+
+
+        return new ResponseEntity<>(bool,HttpStatus.OK);
+
+    }
 
 
 }

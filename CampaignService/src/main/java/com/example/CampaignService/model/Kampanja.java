@@ -25,6 +25,8 @@ public class Kampanja {
     @OneToMany(mappedBy = "kampanja", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Set<Reklama> reklame;
 
+
+
     public Kampanja(Integer id) {
         this.id = id;
     }
