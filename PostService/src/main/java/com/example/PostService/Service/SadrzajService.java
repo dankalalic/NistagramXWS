@@ -73,7 +73,12 @@ public class SadrzajService {
     public List<Sadrzaj> findByTag(String tag) {
         Tagovi tagovi = tagRepository.findByNaziv(tag);
         List<Sadrzaj> sadrzaji = new ArrayList<>();
-        sadrzaji.addAll(tagovi.getSadrzaj());
+        for (Sadrzaj s: tagovi.getSadrzaj()) {
+            if (s.getUklonjeno().equals(false)){
+                sadrzaji.add(s);
+            }
+        }
+        //sadrzaji.addAll(tagovi.getSadrzaj());
 
         return sadrzaji;
     }
@@ -81,6 +86,13 @@ public class SadrzajService {
     public List<Sadrzaj> findByProfil(String username) {
         RegistrovaniKorisnik registrovaniKorisnik = registrovaniKorisnikRepository.findOneByUsername(username);
         List<Sadrzaj> sadrzajs = new ArrayList<>();
+        List<Post> sadrzajKorisnika = postRepository.findByKreator(registrovaniKorisnik);
+
+        for (Sadrzaj s: sadrzajKorisnika) {
+            if (s.getUklonjeno().equals(false)){
+                sadrzajs.add(s);
+            }
+        }
 
         /*Boolean isPrivate =
                 new RestTemplate().postForObject(
@@ -90,7 +102,8 @@ public class SadrzajService {
         } else {
             System.out.println("Profil je privatan!");
         }*/
-        sadrzajs.addAll(postRepository.findByKreator(registrovaniKorisnik));
+
+        //sadrzajs.addAll(postRepository.findByKreator(registrovaniKorisnik));
         //dodaj i reklame kad
         return sadrzajs;
     }

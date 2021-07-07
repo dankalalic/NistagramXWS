@@ -1,0 +1,12 @@
+<app-navbaradmin></app-navbaradmin>
+<div class="container row">
+  <div class="col-md-6">
+    <div class="col-75">
+      <label for="username">Username</label>
+      <input type="username" [(ngModel)]="username" name="username" id="username"/>
+    </div>
+  </div>
+  <div>
+    <app-button text="Registruj agenta" color="blue" type="button" (btnClick)="registrujAgenta()"></app-button>
+  </div>
+</div>

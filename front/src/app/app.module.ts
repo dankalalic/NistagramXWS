@@ -27,6 +27,7 @@ import { NeprikladansadrzajComponent } from './components/neprikladansadrzaj/nep
 import { ContentadminComponent } from './components/contentadmin/contentadmin.component';
 import { RegistracijaAgentaComponent } from './components/registracija-agenta/registracija-agenta.component';
 import { PregledZahtevaZaAgenteComponent } from './components/pregled-zahteva-za-agente/pregled-zahteva-za-agente.component';
+import { AdminAddAgentComponent } from './components/admin-add-agent/admin-add-agent.component';
 
 @NgModule({
   declarations: [
@@ -48,7 +49,8 @@ import { PregledZahtevaZaAgenteComponent } from './components/pregled-zahteva-za
     NeprikladansadrzajComponent,
     ContentadminComponent,
     RegistracijaAgentaComponent,
-    PregledZahtevaZaAgenteComponent
+    PregledZahtevaZaAgenteComponent,
+    AdminAddAgentComponent
   ],
   imports: [
     BrowserModule,

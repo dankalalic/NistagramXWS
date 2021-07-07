@@ -17,6 +17,7 @@ import {NavbaradminComponent} from "./components/navbaradmin/navbaradmin.compone
 import {NeprikladansadrzajComponent} from "./components/neprikladansadrzaj/neprikladansadrzaj.component";
 import {RegistracijaAgentaComponent} from "./components/registracija-agenta/registracija-agenta.component";
 import {PregledZahtevaZaAgenteComponent} from "./components/pregled-zahteva-za-agente/pregled-zahteva-za-agente.component";
+import {AdminAddAgentComponent} from "./components/admin-add-agent/admin-add-agent.component";
 
 
 const routes: Routes = [
@@ -34,7 +35,8 @@ const routes: Routes = [
   {path: 'navbaradmin', component: NavbaradminComponent},
   {path: 'neprikladansadrzaj', component:NeprikladansadrzajComponent},
   {path: 'regAgent', component:RegistracijaAgentaComponent},
-  {path: 'zahteviZaAgente', component:PregledZahtevaZaAgenteComponent}
+  {path: 'zahteviZaAgente', component:PregledZahtevaZaAgenteComponent},
+  {path: 'dodajAgenta', component:AdminAddAgentComponent}
 ];
 
 @NgModule({

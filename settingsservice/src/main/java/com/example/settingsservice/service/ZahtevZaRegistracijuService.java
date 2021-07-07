@@ -76,8 +76,8 @@ public class ZahtevZaRegistracijuService {
         RegisteredUser user = registeredUserRepository.findOneById(idOnlyDTO.getId());
 
         user.setEnabled(false);
-        user.seteMail(user.geteMail()+'1');
-        user.setUsername(user.getUsername()+'1');
+        user.seteMail(user.geteMail());
+        user.setUsername(user.getUsername());
         registeredUserRepository.save(user);
 
         Agent u = new Agent();
@@ -124,4 +124,39 @@ public class ZahtevZaRegistracijuService {
 
 
     }
+
+
+    public StringDTO registrujAgentaAdmin(StringDTO stringDTO){
+        RegisteredUser user = registeredUserRepository.findByUsername(stringDTO.getString());
+
+        user.setEnabled(false);
+        user.seteMail(user.geteMail());
+        user.setUsername(user.getUsername());
+        registeredUserRepository.save(user);
+
+        Agent u = new Agent();
+
+        u.setUsername(user.getUsername());
+        u.setIme(user.getIme());
+        u.setPrezime(user.getPrezime());
+        u.seteMail(user.geteMail());
+        u.setTelefon(user.getTelefon());
+        u.setPol(user.getPol());
+        u.setDatumrodj(user.getDatumrodj());
+        u.setBiografija(user.getBiografija());
+        u.setWebsajt(user.getWebsajt());
+        u.setEnabled(true);
+        u.setLozinka(user.getLozinka());
+        u.setDatumrodj(user.getDatumrodj());
+
+        this.agentRepository.save(u);
+
+        String s = "Uspesno ste registrovali admina";
+        StringDTO stringDTO1 = new StringDTO(s);
+        return stringDTO1;
+
+    }
+
+
+
 }

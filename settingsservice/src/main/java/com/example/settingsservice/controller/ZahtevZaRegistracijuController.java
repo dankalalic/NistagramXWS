@@ -53,4 +53,11 @@ public class ZahtevZaRegistracijuController {
     }
 
 
+    @CrossOrigin(origins = "http://localhost:4200")
+    @PostMapping("/registrujAgentaAdmin")
+    public ResponseEntity<StringDTO> registrujAgentaAdmin(@RequestBody StringDTO stringDTO, @RequestHeader(value="Authorization") String token) {
+        Integer userId = tokenUtils.getIdFromToken(token);
+        return new ResponseEntity<>( zahtevZaRegistracijuService.registrujAgentaAdmin(stringDTO), HttpStatus.OK);
+    }
+
 }
