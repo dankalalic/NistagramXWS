@@ -1,12 +1,15 @@
 package com.example.CampaignService.controller;
 
 import com.example.CampaignService.TokenUtils;
+import com.example.CampaignService.model.IdDTO;
 import com.example.CampaignService.model.JednokratnaDTO;
 import com.example.CampaignService.model.JednokratnaKampanja;
 import com.example.CampaignService.model.KampanjaReturnDTO;
 import com.example.CampaignService.repository.AgentRepository;
 import com.example.CampaignService.service.JednokratnaKampanjaService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -27,15 +30,27 @@ public class JednokratnaKampanjaController {
 
     @CrossOrigin(origins = "http://localhost:4200")
     @PostMapping("/create")
-    public JednokratnaKampanja create(@RequestBody JednokratnaDTO jednokratnaDTO, @RequestHeader(value="Authorization") String token) {
+    public ResponseEntity<JednokratnaKampanja> create(@RequestBody JednokratnaDTO jednokratnaDTO, @RequestHeader(value="Authorization") String token) {
         Integer userId = tokenUtils.getIdFromToken(token);
-        return jednokratnaKampanjaService.saveKampanja(jednokratnaDTO, userId);
+        return new ResponseEntity<>(jednokratnaKampanjaService.saveKampanja(jednokratnaDTO, userId), HttpStatus.OK);
     }
 
     @CrossOrigin(origins = "http://localhost:4200")
     @GetMapping("/getAll")
-    public List<KampanjaReturnDTO> getAll(@RequestHeader(value="Authorization") String token) {
+    public ResponseEntity<List<KampanjaReturnDTO>> getAll(@RequestHeader(value="Authorization") String token) {
         Integer userId = tokenUtils.getIdFromToken(token);
-        return jednokratnaKampanjaService.getAllByAgent(agentRepository.findOneById(userId));
+        return new ResponseEntity<>(jednokratnaKampanjaService.getAllByAgent(agentRepository.findOneById(userId)), HttpStatus.OK);
+    }
+
+    @CrossOrigin(origins = "http://localhost:4200")
+    @PostMapping("/change")
+    public ResponseEntity<JednokratnaKampanja> changeKampanja(@RequestBody JednokratnaDTO jednokratnaDTO) {
+        return new ResponseEntity<>(jednokratnaKampanjaService.changeKampanja(jednokratnaDTO), HttpStatus.OK);
+    }
+
+    @CrossOrigin(origins = "http://localhost:4200")
+    @PostMapping("/delete")
+    public void deleteKampanja(@RequestBody IdDTO idDTO) {
+        jednokratnaKampanjaService.deleteKampanja(idDTO);
     }
 }

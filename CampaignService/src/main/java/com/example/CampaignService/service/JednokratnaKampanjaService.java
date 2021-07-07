@@ -104,6 +104,7 @@ public class JednokratnaKampanjaService {
         agent.setKampanje(kampanjas);
       //  agentRepository.save(agent);
 
+
         kampanja=jednokratnaKampanjaRepository.save(kampanja);
 
         return kampanja;
@@ -143,6 +144,7 @@ public class JednokratnaKampanjaService {
             kampanjaReturnDTO1.setKrajPrikazivanja(kampanja.getKrajPrikazivanja());
             kampanjaReturnDTO1.setLajkovali(kampanjaReturnDTO.getLajkovali());
             kampanjaReturnDTO1.setDislajkovali(kampanjaReturnDTO.getDislajkovali());
+            kampanjaReturnDTO1.setId(kampanja.getId());
 
             kampanjaReturnDTOS.add(kampanjaReturnDTO1);
             start += numOfReklamasPerKampanjaList.get(counter);
@@ -150,6 +152,29 @@ public class JednokratnaKampanjaService {
         }
 
         return kampanjaReturnDTOS;
+    }
+
+    public JednokratnaKampanja changeKampanja(JednokratnaDTO jednokratnaDTO) {
+        JednokratnaKampanja kampanja = jednokratnaKampanjaRepository.findOneById(jednokratnaDTO.getId());
+        CiljnaGrupa ciljnaGrupa = new CiljnaGrupa();
+        if (ciljnaGrupaRepository.findByPolAndGodinePocetkaAndGodineKraja(jednokratnaDTO.getPol(), jednokratnaDTO.getGodinePocetka(), jednokratnaDTO.getGodineKraja()) == null) {
+            ciljnaGrupa.setPol(jednokratnaDTO.getPol());
+            ciljnaGrupa.setGodinePocetka(jednokratnaDTO.getGodinePocetka());
+            ciljnaGrupa.setGodineKraja(jednokratnaDTO.getGodineKraja());
+            ciljnaGrupaRepository.save(ciljnaGrupa);
+        } else {
+            ciljnaGrupa = ciljnaGrupaRepository.findByPolAndGodinePocetkaAndGodineKraja(jednokratnaDTO.getPol(), jednokratnaDTO.getGodinePocetka(), jednokratnaDTO.getGodineKraja());
+        }
+        kampanja.setCiljnaGrupa(ciljnaGrupa);
+        kampanja.setPocetakPrikazivanja(jednokratnaDTO.getPocetakPrikazivanja());
+        kampanja.setKrajPrikazivanja(jednokratnaDTO.getKrajPrikazivanja());
+
+        return jednokratnaKampanjaRepository.save(kampanja);
 
     }
+
+    public void deleteKampanja(IdDTO idDTO) {
+        jednokratnaKampanjaRepository.deleteById(idDTO.getId());
+    }
+
 }

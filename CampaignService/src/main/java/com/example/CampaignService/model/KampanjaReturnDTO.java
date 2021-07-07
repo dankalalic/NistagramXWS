@@ -5,6 +5,7 @@ import java.util.Date;
 import java.util.List;
 
 public class KampanjaReturnDTO {
+    private Integer id;
     private List<ReklamaReturnDTO> reklame;
     private CiljnaGrupa ciljnaGrupa;
     private LocalDateTime pocetakPrikazivanja;
@@ -30,6 +31,14 @@ public class KampanjaReturnDTO {
     }
 
     public KampanjaReturnDTO() {
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public List<ReklamaReturnDTO> getReklame() {

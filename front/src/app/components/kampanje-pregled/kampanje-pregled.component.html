@@ -33,13 +33,15 @@
           <div>Kraj prikazivanja: {{kampanja['krajPrikazivanja']}}</div>
         </div>
 
-        <!--<app-button type="button" text="Izmeni" (btnClick)="jednokratnaIzmeni(kampanja)"></app-button>-->
       </div>
 
       <div *ngIf="jednokratna==false">
-
+        <div>Pocetak prikazivanja: {{kampanja['pocetakPrikazivanja1']}}</div>
+        <div>Kraj prikazivanja: {{kampanja['krajPrikazivanja1']}}</div>
+        <div>Potreban broj prikazivanja: {{kampanja['potrebanBrojPrikazivanja']}}</div>
       </div>
-
+      <app-button type="button" text="Izmeni" (btnClick)="navigateWithState(kampanja)"></app-button>
+      <app-button type="button" text="Obrisi" (btnClick)="delete(kampanja)"></app-button>
     </li>
   </div>
 </ul>

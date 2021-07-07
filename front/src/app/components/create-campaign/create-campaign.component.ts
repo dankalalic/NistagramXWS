@@ -35,6 +35,9 @@ export class CreateCampaignComponent implements OnInit {
 
   ngOnInit(): void {
     this.getByAgent();
+    if (sessionStorage.getItem("role") != "agent") {
+      this.router.navigate(['error']);
+    }
   }
 
   sanitize(url:string){
@@ -45,6 +48,7 @@ export class CreateCampaignComponent implements OnInit {
 
     if(this.jednokratna==true) {
       const kampanja: JednokratnaKampanja = {
+        id : null,
         pol: this.pol,
         godinePocetka: this.godPocetka,
         godineKraja: this.godKraja,
@@ -59,6 +63,7 @@ export class CreateCampaignComponent implements OnInit {
 
     } else if(this.jednokratna==false) {
       const kampanja: Visekratna = {
+        id : null,
         pol: this.pol,
         godinePocetka: this.godPocetka,
         godineKraja: this.godKraja,
@@ -99,24 +104,22 @@ export class CreateCampaignComponent implements OnInit {
   btnCreateJednokratna(kampanja : JednokratnaKampanja) {
     this.campaignService.create(kampanja).subscribe(result => {
       console.log('success');
+    }, err => {
+      this.router.navigate(['/error']);
     })
   }
 
   btnCreateVisekratna(kampanja : Visekratna) {
     this.campaignService.createVisekatna(kampanja).subscribe(result => {
       console.log('success');
+    }, err => {
+      this.router.navigate(['/error']);
     })
   }
 
   getByAgent() {
     this.campaignService.getByAgent().subscribe(result => {
       this.proizvodi=result;
-      //for (var i = 0; i < result.length; i++) {
-        //let slika : Slika = new Slika(result[i].slika.name, result[i].slika.url, result[i].slika.size);
-        //this.slike.push(slika);
-        //console.log(slika);
-
-      //}
       console.log('g',result)
     }, err => {
       this.router.navigate(['/error']);

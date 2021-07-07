@@ -1,9 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import {DomSanitizer} from "@angular/platform-browser";
 import {CampaignService} from "../../services/campaign.service";
-import {NavigationExtras, Router} from "@angular/router";
+import {ActivatedRoute, NavigationExtras, Router} from "@angular/router";
 import {JednokratnaKampanja} from "../../model/jednokratna-kampanja";
 import {Visekratna} from "../../model/visekratna";
+import {map} from "rxjs/operators";
+import {Observable} from "rxjs";
+import {Id} from "../../model/id";
 
 @Component({
   selector: 'app-kampanje-pregled',
@@ -14,7 +17,8 @@ export class KampanjePregledComponent implements OnInit {
 
   jednokratna : any;
   kampanje : any = [];
-  constructor(private sanitizer:DomSanitizer, private campaignService : CampaignService, private router: Router) { }
+
+  constructor(public activatedRoute: ActivatedRoute, private sanitizer:DomSanitizer, private campaignService : CampaignService, private router: Router) { }
 
   ngOnInit(): void {
   }
@@ -38,6 +42,8 @@ export class KampanjePregledComponent implements OnInit {
     this.campaignService.getJednokratne().subscribe(result => {
       this.kampanje=result;
       console.log('success', result);
+    }, err => {
+      this.router.navigate(['/error']);
     })
   }
 
@@ -45,19 +51,32 @@ export class KampanjePregledComponent implements OnInit {
     this.campaignService.getVisekratne().subscribe(result => {
       this.kampanje=result;
       console.log('success', result);
+    }, err => {
+      this.router.navigate(['/error']);
     })
   }
 
+  navigateWithState(kampanja : any) {
+    this.router.navigateByUrl('/changeCampaign', { state: { kampanja: kampanja, jednokratna: this.jednokratna } });
+  }
 
+  delete(kampanja: any) {
+    const id : Id = {
+      id : kampanja.id
+    }
+    if (this.jednokratna) {
+      this.campaignService.deleteJednokratna(id).subscribe(result => {
+        console.log("success");
+      }, err => {
+        this.router.navigate(['/error']);
+      })
+    } else {
+      this.campaignService.deleteVisekratna(id).subscribe(result => {
+        console.log("success");
+      }, err => {
+        this.router.navigate(['/error']);
+      })
+    }
+  }
 
-  /*jednokratnaIzmeni(kampanja : JednokratnaKampanja) {
-    const navigationExtras: NavigationExtras = {
-      jednokratnaKampanja : JednokratnaKampanja {
-        kampanja: kampanja,
-        jednokratna: this.jednokratna
-      }
-    };
-    this.router.navigate(['/changeCampaign'])
-
-  }*/
 }

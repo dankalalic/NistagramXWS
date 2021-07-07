@@ -1,38 +1,42 @@
-<!--<div class="polaroid">
-  <ul style="list-style-type: none">
-    <li *ngFor="let slika of reklama['slike']" style="display: inline;">
-      <div class="column1">
-        <img alt="slika" style="width : 40%; margin-right: 20px" [src]="sanitize('data:image/jpg;base64,' + slika.url)"/>
-      </div>
-    </li>
-  </ul>
+<div class="polaroid">
+    <ul style="list-style-type: none">
+      <li *ngFor="let reklama of kampanja['reklame']">
+        <div *ngFor="let slika of reklama['slike']" style="display: inline;">
+          <div class="column1">
+            <img alt="slika" style="width : 40%; margin-right: 20px" [src]="sanitize('data:image/jpg;base64,' + slika.url)"/>
+          </div>
+        </div>
+      </li>
+    </ul>
 </div>
-
-<div class="container1">
-  <div>Ciljna grupa</div>
-  <label for="pol">Pol</label>
-  <input id="pol" type="text" value="{{kampanja['ciljnaGrupa']['pol']}}"/>
-  <label for="godinePocetka">Godine pocetka</label>
-  <input id="godinePocetka" type="text" value="{{kampanja['ciljnaGrupa']['godinePocetka']}}"/>
-  <label for="godineKraja">Godine kraja</label>
-  <input id="godineKraja" type="text" value="{{kampanja['ciljnaGrupa']['godineKraja']}}"/>
-</div>
-<div *ngIf="jednokratna==true">
+<form (ngSubmit)="onSubmit()">
   <div class="container1">
-    <label for="pocetakPrikazivanja">Pocetak prikazivanja</label>
-    <input id="pocetakPrikazivanja" type="text" value="{{kampanja['ciljnaGrupa']['pol']}}"/>
-    <label for="krajPrikazivanja">Kraj prikazivanja</label>
-    <input id="krajPrikazivanja" type="text" value="{{kampanja['ciljnaGrupa']['pol']}}"/>
+    <div>Ciljna grupa</div>
+    <label for="pol">Pol</label>
+    <input id="pol" name="pol" type="text" [ngModel]="pol" (change)="onChangePol($event)"/>
+    <label for="godinePocetka">Godine pocetka</label>
+    <input id="godinePocetka" name="godinePocetka" type="number" [ngModel]="godinePocetka" (change)="onChangeGodPocetka($event)"/>
+    <label for="godineKraja">Godine kraja</label>
+    <input id="godineKraja" name="godineKraja" type="number" [ngModel]="godineKraja" (change)="onChangeGodKraja($event)"/>
+  </div>
+  <div *ngIf="jednokratna==true">
+    <div class="container1">
+      <label for="pocetakPrikazivanja">Pocetak prikazivanja</label>
+      <input id="pocetakPrikazivanja" name="pocetakPrikazivanja" type="datetime-local" [ngModel]="pocetakPrikazivanja" (change)="onChangePocetakPrikaz($event)"/>
+      <label for="krajPrikazivanja">Kraj prikazivanja</label>
+      <input id="krajPrikazivanja" name="krajPrikazivanja" type="datetime-local" [ngModel]="krajPrikazivanja" (change)="onChangeKrajPrikaz($event)"/>
+    </div>
   </div>
 
-  <app-button type="button" text="Izmeni"></app-button>
-</div>
-
-<div *ngIf="jednokratna==false">
-
-</div>
--->
-
-
-
-
+  <div *ngIf="jednokratna==false">
+    <div class="container1">
+      <label for="pocetakPrikazivanja1">Pocetak prikazivanja</label>
+      <input id="pocetakPrikazivanja1" name="pocetakPrikazivanja1" type="date" [ngModel]="pocetakPrikazivanja1" (change)="onChangePocetakPrikaz1($event)"/>
+      <label for="krajPrikazivanja1">Kraj prikazivanja</label>
+      <input id="krajPrikazivanja1" name="krajPrikazivanja1" type="date" [ngModel]="krajPrikazivanja1" (change)="onChangeKrajPrikaz1($event)"/>
+      <label for="potrebanBrojPrikaza">Potreban broj prikaza</label>
+      <input id="potrebanBrojPrikaza" name="potrebanBrojPrikaza" type="number" [ngModel]="potrebanBrojPrikaza" (change)="onChangePotrebanBrojPrikaza($event)"/>
+    </div>
+  </div>
+  <app-button type="submit" text="Sacuvaj" color="green"></app-button>
+</form>
