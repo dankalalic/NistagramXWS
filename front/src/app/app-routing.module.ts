@@ -13,6 +13,9 @@ import {LajkovanoComponent} from "./components/lajkovano/lajkovano.component";
 import {DislajkovanoComponent} from "./components/dislajkovano/dislajkovano.component";
 import {SearchChoiceComponent} from "./components/search-choice/search-choice.component";
 import {ErrorComponent} from "./components/error/error.component";
+import {CreateCampaignComponent} from "./components/create-campaign/create-campaign.component";
+import {KampanjePregledComponent} from "./components/kampanje-pregled/kampanje-pregled.component";
+import {CampaignChangeComponent} from "./components/campaign-change/campaign-change.component";
 
 
 const routes: Routes = [
@@ -26,7 +29,10 @@ const routes: Routes = [
   {path: 'dislajkovano', component: DislajkovanoComponent},
   { path: 'search', component: SearchChoiceComponent},
   { path: 'error', component : ErrorComponent},
-  { path: 'post', component: PostComponent }
+  { path: 'post', component: PostComponent },
+  { path: 'createCampaign', component: CreateCampaignComponent},
+  { path: 'kampanjePregled', component: KampanjePregledComponent},
+  { path: 'changeCampaign', component: CampaignChangeComponent}
 ];
 
 @NgModule({

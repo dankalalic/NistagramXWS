@@ -20,7 +20,6 @@ export class LoginFormComponent implements OnInit {
   ngOnInit(): void {
   }
 
-
   onSubmit() {
 
     const user : UserLogin = {
@@ -39,11 +38,13 @@ export class LoginFormComponent implements OnInit {
     {
       sessionStorage.setItem('token', result.accessToken);
       sessionStorage.setItem('role', result.role);
-      if (result.role == 'user') {
+      if (result.role == 'user' || result.role == 'agent') {
         this.router.navigate(['/newsfeed']);
       } else if (result.role == 'admin') {
 
-      }
+      } /*else if (result.role == 'agent') {
+        this.router.navigate(['/createCampaign']);
+      }*/
     }, err => {
       this.router.navigate(['/error']);
     })

@@ -1,5 +1,7 @@
 package com.example.CampaignService.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
@@ -15,9 +17,11 @@ public class VisekratnaKampanja extends Kampanja{
     @Column
     private Date krajPrikazivanja;
 
+    @JsonFormat(pattern="yyyy-MM-dd'T'HH")
     @Column
     private Integer potrebanBrojPrikazivanja;
 
+    @JsonFormat(pattern="yyyy-MM-dd'T'HH")
     @Column
     private Integer trenutanBrojPrikazivanja;
 

@@ -1,0 +1,48 @@
+<select id="tipKampanje" name="tipKampanje" (change)="chooseTipKampanje($event)">
+  <option disabled selected>Odaberite tip kampanje</option>
+  <option>Jednokratna</option>
+  <option>Visekratna</option>
+</select>
+
+<ul style="list-style-type: none">
+  <div class="polaroid">
+    <li *ngFor="let kampanja of kampanje">
+      <div class="row1">
+        <ul style="list-style-type: none">
+          <li *ngFor="let reklama of kampanja['reklame']">
+            <div *ngFor="let slika of reklama['slike']" style="display: inline;">
+              <div class="column1">
+                <img alt="slika" style="width : 40%; margin-right: 20px" [src]="sanitize('data:image/jpg;base64,' + slika.url)"/>
+              </div>
+            </div>
+          </li>
+        </ul>
+        <!--<div class="container1">
+          <div>{{kampanja['lokacija']['naziv']}}</div>
+        </div>-->
+    </div>
+
+    <div class="container1">
+        <div>Ciljna grupa</div>
+        <div>Pol: {{kampanja['ciljnaGrupa']['pol']}}</div>
+        <div>Raspon godina: {{kampanja['ciljnaGrupa']['godinePocetka']}} - {{kampanja['ciljnaGrupa']['godineKraja']}}</div>
+      </div>
+      <div *ngIf="jednokratna==true">
+        <div class="container1">
+          <div>Pocetak prikazivanja: {{kampanja['pocetakPrikazivanja']}}</div>
+          <div>Kraj prikazivanja: {{kampanja['krajPrikazivanja']}}</div>
+        </div>
+
+        <!--<app-button type="button" text="Izmeni" (btnClick)="jednokratnaIzmeni(kampanja)"></app-button>-->
+      </div>
+
+      <div *ngIf="jednokratna==false">
+
+      </div>
+
+    </li>
+  </div>
+</ul>
+
+
+

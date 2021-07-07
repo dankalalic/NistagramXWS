@@ -13,4 +13,8 @@ public class IdDTO {
 
     public IdDTO() {
     }
+
+    public IdDTO(Integer id) {
+        this.id = id;
+    }
 }

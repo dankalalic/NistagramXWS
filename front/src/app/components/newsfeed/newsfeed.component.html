@@ -1,2 +1,7 @@
-<app-navbar></app-navbar>
+<div *ngIf="isAgent">
+  <app-navbar-agent></app-navbar-agent>
+</div>
+<div *ngIf="!isAgent">
+  <app-navbar></app-navbar>
+</div>
 <app-content [contents]="contents"></app-content>

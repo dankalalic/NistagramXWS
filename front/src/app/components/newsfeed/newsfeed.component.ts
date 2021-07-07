@@ -11,12 +11,15 @@ import {StringDTO} from "../../model/stringDTO";
 })
 export class NewsfeedComponent implements OnInit {
 
+  isAgent : any;
   public contents : any = [];
 
   constructor(private contentService : ContentService, private sanitizer:DomSanitizer) {
   }
 
   ngOnInit(): void {
+
+    this.isAgent = sessionStorage.getItem('role') != 'user';
 
     this.contentService.getNewsfeed().subscribe(result =>
     {

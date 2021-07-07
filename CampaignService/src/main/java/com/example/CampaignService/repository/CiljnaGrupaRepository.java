@@ -4,4 +4,6 @@ import com.example.CampaignService.model.CiljnaGrupa;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface CiljnaGrupaRepository extends JpaRepository<CiljnaGrupa, Integer> {
+
+    CiljnaGrupa findByPolAndGodinePocetkaAndGodineKraja(String pol, Integer godinePocetka, Integer godineKraja);
 }
