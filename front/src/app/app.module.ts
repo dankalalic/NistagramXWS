@@ -33,6 +33,9 @@ import { RegistracijaAgentaComponent } from './components/registracija-agenta/re
 import { PregledZahtevaZaAgenteComponent } from './components/pregled-zahteva-za-agente/pregled-zahteva-za-agente.component';
 import { AdminAddAgentComponent } from './components/admin-add-agent/admin-add-agent.component';
 import { NavbaradminComponent } from './components/navbaradmin/navbaradmin.component';
+import { NavbarNotloggedComponent } from './components/navbar-notlogged/navbar-notlogged.component';
+import { RegistrationComponent } from './components/registration/registration.component';
+import { ProfileChangeComponent } from './components/profile-change/profile-change.component';
 
 @NgModule({
   declarations: [
@@ -60,7 +63,10 @@ import { NavbaradminComponent } from './components/navbaradmin/navbaradmin.compo
     ContentadminComponent,
     RegistracijaAgentaComponent,
     PregledZahtevaZaAgenteComponent,
-    AdminAddAgentComponent
+    AdminAddAgentComponent,
+    NavbarNotloggedComponent,
+    RegistrationComponent,
+    ProfileChangeComponent
   ],
   imports: [
     BrowserModule,

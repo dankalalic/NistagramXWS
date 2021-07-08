@@ -45,6 +45,7 @@ public class ReklamaController {
 
             for (ReklamaDTO reklamaDTO : reklamaListDTO.getReklamaDTOS()) {
                 Reklama reklama = new Reklama();
+                reklama.setReklama(true);
 
                 reklama.setKreator(agentRepository.findOneById(reklamaListDTO.getAgentId()));
 

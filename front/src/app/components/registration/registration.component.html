@@ -1,0 +1,82 @@
+<form (ngSubmit)="onSubmit()" >
+  <div class="container">
+    <div class="row">
+      <div class="col-25">
+        <label for="ime">Ime</label>
+      </div>
+      <div class="col-75">
+        <input type="text" [(ngModel)]="ime" name="ime" id="ime"/>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-25">
+        <label for="prezime" >Prezime</label>
+      </div>
+      <div class="col-75">
+        <input type="text" [(ngModel)]="prezime" name="prezime" id="prezime"/>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-25">
+        <label for="username">Username</label>
+      </div>
+      <div class="col-75">
+        <input type="text" [(ngModel)]="username" name="username" id="username"/>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-25">
+        <label for="password" >Lozinka</label>
+      </div>
+      <div class="col-75">
+        <input type="password" [(ngModel)]="password" name="password" id="password"/>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-25">
+        <label for="email">Email</label>
+      </div>
+      <div class="col-75">
+        <input type="text" [(ngModel)]="email" name="email" id="email"/>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-25">
+        <label for="telefon" >Telefon</label>
+      </div>
+      <div class="col-75">
+        <input type="text" [(ngModel)]="telefon" name="telefon" id="telefon"/>
+      </div>
+    </div>
+    <select id="pol" name="pol">
+      <option disabled selected>Pol</option>
+      <option>Zenski</option>
+      <option>Muski</option>
+    </select>
+    <div class="row">
+      <div class="col-25">
+        <label for="datum">Datum rodjenja</label>
+      </div>
+      <div class="col-75">
+        <input type="date" [(ngModel)]="datum" name="datum" id="datum"/>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-25">
+        <label for="biografija" >Biografija</label>
+      </div>
+      <div class="col-75">
+        <input type="text" [(ngModel)]="biografija" name="biografija" id="biografija"/>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-25">
+        <label for="websajt" >Websajt</label>
+      </div>
+      <div class="col-75">
+        <input type="text" [(ngModel)]="websajt" name="websajt" id="websajt"/>
+      </div>
+    </div>
+    <app-button text="Registruj se" color="green" type="submit"></app-button>
+  </div>
+</form>

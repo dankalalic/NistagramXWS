@@ -1,7 +1,10 @@
-<div *ngIf="isAgent">
+<div *ngIf="isAgent && isLogged">
   <app-navbar-agent></app-navbar-agent>
 </div>
-<div *ngIf="!isAgent">
+<div *ngIf="!isAgent && isLogged">
   <app-navbar></app-navbar>
+</div>
+<div *ngIf="!isLogged">
+  <app-navbar-notlogged></app-navbar-notlogged>
 </div>
 <app-content [contents]="contents"></app-content>

@@ -29,6 +29,9 @@ public abstract class Sadrzaj {
     @Column
     private Boolean uklonjeno;
 
+    @Column
+    private Boolean isReklama;
+
     @ManyToMany(mappedBy = "sadrzajlajkovani")
     private Set<RegistrovaniKorisnik> lajkovali = new HashSet<RegistrovaniKorisnik>();
 
@@ -55,6 +58,14 @@ public abstract class Sadrzaj {
         this.lokacija = lokacija;
         this.slike = slike;
         this.tagovi = tagovi;
+    }
+
+    public Boolean getReklama() {
+        return isReklama;
+    }
+
+    public void setReklama(Boolean reklama) {
+        isReklama = reklama;
     }
 
     public Integer getId() {
@@ -120,4 +131,6 @@ public abstract class Sadrzaj {
     public void setUklonjeno(Boolean uklonjeno) {
         this.uklonjeno = uklonjeno;
     }
+
+
 }

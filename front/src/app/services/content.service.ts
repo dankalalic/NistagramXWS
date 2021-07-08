@@ -29,15 +29,15 @@ export class ContentService {
   private likeUrl : string;
   private dislikeUrl : string;
   private kampanjaUrl : string;
-
-  //private token : string | null;
+  private newsfeedUrlNotLogged : string;
 
   constructor(private http: HttpClient, private authService : AuthService) {
-    //this.token = sessionStorage.getItem("token");
     this.newsfeedUrl = 'http://localhost:8083/sadrzaj/getAll';
     this.likeUrl = 'http://localhost:8083/sadrzaj/like';
     this.dislikeUrl = 'http://localhost:8083/sadrzaj/dislike';
     this.kampanjaUrl = 'http://localhost:8085/reklamice/getAllKampanje';
+    this.newsfeedUrlNotLogged = 'http://localhost:8083/sadrzaj/getAllNotLogged';
+
   }
 
   getNewsfeed() {
@@ -54,6 +54,10 @@ export class ContentService {
 
   dislike(id : Id) {
     return this.http.post<any>(this.dislikeUrl, id, options);
+  }
+
+  getNewsfeedNotLogged() {
+    return this.http.get<any>(this.newsfeedUrlNotLogged, options);
   }
 
 }

@@ -30,7 +30,6 @@ export class ContentComponent implements OnInit {
 
     console.log('okk');
     const id1 : Id = { id : id};
-    //this.router.navigate(['newsfeed']);
     this.postService.report(id1).subscribe(result =>
       {
         console.log(result);
@@ -39,7 +38,6 @@ export class ContentComponent implements OnInit {
     );
 
   }
-
 
   like(id : number) {
     console.log(id);

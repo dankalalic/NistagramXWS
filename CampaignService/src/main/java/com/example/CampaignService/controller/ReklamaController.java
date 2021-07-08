@@ -53,7 +53,7 @@ public class ReklamaController {
 
     @CrossOrigin(origins = "http://localhost:4200")
     @GetMapping(value="/getAllKampanje")
-    public ResponseEntity<Set<SadrzajjDTO>> getAll(@RequestHeader(value="Authorization") String token) throws Exception {
+    public Set<SadrzajjDTO> getAll(@RequestHeader(value="Authorization") String token) throws Exception {
 
         String role = tokenUtils.getRoleFromToken(token);
         if (role.equals("agent") || role.equals("user")) {
@@ -140,7 +140,7 @@ public class ReklamaController {
                 }
 
             }
-            return new ResponseEntity<Set<SadrzajjDTO>>(sadrzajjDTOS, HttpStatus.OK);
+            return sadrzajjDTOS;
         } else {
             throw new Exception("Zabranjeno");
         }

@@ -50,18 +50,17 @@ public class SadrzajController {
     public ResponseEntity<List<Sadrzaj>> findByLokacija(@RequestBody StringDTO stringDTO, @RequestHeader(value="Authorization") String token) throws Exception {
         String role = tokenUtils.getRoleFromToken(token);
         if (role.equals("agent") || role.equals("user")) {
-            return new ResponseEntity<>(sadrzajService.findByLokacija(stringDTO.getString()), HttpStatus.OK);
+            return new ResponseEntity<>(sadrzajService.findByLokacija(stringDTO.getString(), token), HttpStatus.OK);
         } else {
             throw new Exception("Zabranjeno");
         }
-
     }
     @CrossOrigin(origins = "http://localhost:4200")
     @PostMapping("/findByTag")
     public ResponseEntity<List<Sadrzaj>> findByTag(@RequestBody StringDTO stringDTO, @RequestHeader(value="Authorization") String token) throws Exception {
         String role = tokenUtils.getRoleFromToken(token);
         if (role.equals("agent") || role.equals("user")) {
-            return new ResponseEntity<>(sadrzajService.findByTag(stringDTO.getString()), HttpStatus.OK);
+            return new ResponseEntity<>(sadrzajService.findByTag(stringDTO.getString(), token), HttpStatus.OK);
         } else {
             throw new Exception("Zabranjeno");
         }
@@ -73,10 +72,27 @@ public class SadrzajController {
     public ResponseEntity<List<Sadrzaj>> findByProfil(@RequestBody StringDTO stringDTO, @RequestHeader(value="Authorization") String token) throws Exception {
         String role = tokenUtils.getRoleFromToken(token);
         if (role.equals("agent") || role.equals("user")) {
-            return new ResponseEntity<>(sadrzajService.findByProfil(stringDTO.getString()), HttpStatus.OK);
+            return new ResponseEntity<>(sadrzajService.findByProfil(stringDTO.getString(), token), HttpStatus.OK);
         } else {
             throw new Exception("Zabranjeno");
         }
+    }
+
+    @CrossOrigin(origins = "http://localhost:4200")
+    @PostMapping("/findByLokacijaNotLogged")
+    public ResponseEntity<List<Sadrzaj>> findByLokacijaNotLogged(@RequestBody StringDTO stringDTO) {
+        return new ResponseEntity<>(sadrzajService.findByLokacijaNotLogged(stringDTO.getString()), HttpStatus.OK);
+    }
+    @CrossOrigin(origins = "http://localhost:4200")
+    @PostMapping("/findByTagNotLogged")
+    public ResponseEntity<List<Sadrzaj>> findByTagNotLogged(@RequestBody StringDTO stringDTO) throws Exception {
+        return new ResponseEntity<>(sadrzajService.findByTagNotLogged(stringDTO.getString()), HttpStatus.OK);
+    }
+
+    @CrossOrigin(origins = "http://localhost:4200")
+    @PostMapping("/findByProfilNotLogged")
+    public ResponseEntity<List<Sadrzaj>> findByProfilNotLogged(@RequestBody StringDTO stringDTO) {
+        return new ResponseEntity<>(sadrzajService.findByProfilNotLogged(stringDTO.getString()), HttpStatus.OK);
     }
 
     @PostMapping("/like")
@@ -175,8 +191,14 @@ public class SadrzajController {
 
     @CrossOrigin(origins = "http://localhost:4200")
     @GetMapping(value="/getAll")
-    public ResponseEntity<List<Sadrzaj>> getAll(){
-        return new ResponseEntity<>(sadrzajService.getAll(), HttpStatus.OK);
+    public ResponseEntity<List<Sadrzaj>> getAll( @RequestHeader(value="Authorization") String token){
+        return new ResponseEntity<>(sadrzajService.getAll(token), HttpStatus.OK);
+    }
+
+    @CrossOrigin(origins = "http://localhost:4200")
+    @GetMapping(value="/getAllNotLogged")
+    public ResponseEntity<List<Sadrzaj>> getAllNotLogged(){
+        return new ResponseEntity<>(sadrzajService.getAllNotLogged(), HttpStatus.OK);
     }
 
     @CrossOrigin(origins = "http://localhost:4200")

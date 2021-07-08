@@ -14,6 +14,7 @@ export class NavbarComponent implements OnInit {
 
   logout() {
     sessionStorage.setItem('token', '');
+    sessionStorage.setItem('role', '');
   }
 
 }

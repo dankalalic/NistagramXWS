@@ -16,7 +16,7 @@ public class User {
     private Integer id;
 
     @Column
-    private Boolean isPrivate;
+    private Boolean isprivate;
 
 
     @JsonIgnore
@@ -35,11 +35,11 @@ public class User {
 
 
     public Boolean getPrivate() {
-        return isPrivate;
+        return isprivate;
     }
 
     public void setPrivate(Boolean aPrivate) {
-        isPrivate = aPrivate;
+        isprivate = aPrivate;
     }
 
     public Set<User> getFollowers() {

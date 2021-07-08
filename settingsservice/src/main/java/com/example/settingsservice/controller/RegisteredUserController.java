@@ -26,6 +26,7 @@ public class RegisteredUserController {
     @Autowired
     private TokenUtils tokenUtils;
 
+    @CrossOrigin(origins = "http://localhost:4200")
     @PostMapping(value="/changeRegisteredUserInfo", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     //@PreAuthorize("hasRole('REGISTEREDUSER')")
     public ResponseEntity<RegisteredUser> changeRegisteredUserInfo(@RequestBody UserChangeDTO userDTO, @RequestHeader(value="Authorization") String token) {

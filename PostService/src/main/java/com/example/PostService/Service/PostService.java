@@ -56,6 +56,7 @@ public class PostService {
         sadrzaj.setTagovi(tagoviRepository.findAllByNaziv(sadrzajDTO.getTag()));
         sadrzaj.setUklonjeno(false);
         sadrzaj.setBrojreportova(0);
+        sadrzaj.setReklama(false);
         Set<Slika> slike1 = new HashSet<>();
         for (Integer slika : sadrzajDTO.getSlike()) {
             Slika slika1 = slikaRepository.findOneById(slika);

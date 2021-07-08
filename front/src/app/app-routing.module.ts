@@ -24,6 +24,8 @@ import {NeprikladansadrzajComponent} from "./components/neprikladansadrzaj/nepri
 import {RegistracijaAgentaComponent} from "./components/registracija-agenta/registracija-agenta.component";
 import {PregledZahtevaZaAgenteComponent} from "./components/pregled-zahteva-za-agente/pregled-zahteva-za-agente.component";
 import {AdminAddAgentComponent} from "./components/admin-add-agent/admin-add-agent.component";
+import {RegistrationComponent} from "./components/registration/registration.component";
+import {ProfileChangeComponent} from "./components/profile-change/profile-change.component";
 
 
 const routes: Routes = [
@@ -42,12 +44,13 @@ const routes: Routes = [
   { path: 'kampanjePregled', component: KampanjePregledComponent},
   { path: 'changeCampaign', component: CampaignChangeComponent},
   { path: 'createProizvod', component: ProizvodComponent},
-
   {path: 'navbaradmin', component: NavbaradminComponent},
   {path: 'neprikladansadrzaj', component:NeprikladansadrzajComponent},
   {path: 'regAgent', component:RegistracijaAgentaComponent},
   {path: 'zahteviZaAgente', component:PregledZahtevaZaAgenteComponent},
-  {path: 'dodajAgenta', component:AdminAddAgentComponent}
+  {path: 'dodajAgenta', component:AdminAddAgentComponent},
+  { path: 'registration', component: RegistrationComponent},
+  {path: 'profileChange', component: ProfileChangeComponent}
 ];
 
 @NgModule({

@@ -3,6 +3,7 @@ package com.example.PostService.Service;
 import com.example.PostService.Model.RegistrovaniKorisnik;
 import com.example.PostService.Model.Sadrzaj;
 import com.example.PostService.Repository.SadrzajRepository;
+import org.apache.catalina.realm.UserDatabaseRealm;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.example.PostService.Model.Lokacija;
@@ -68,49 +69,175 @@ public class SadrzajService {
     @Autowired
     private RestTemplate restTemplate;
 
-    public List<Sadrzaj> findByLokacija(String lokacija) {
+    @Autowired
+    private  ReklamaRepository reklamaRepository;
+
+    @Autowired
+    private AgentRepository agentRepository;
+
+    public List<Sadrzaj> findByLokacija(String lokacija, String token) {
         Lokacija lokacija1 = lokacijaRepository.findByNaziv(lokacija);
-        return sadrzajRepository.findByLokacija(lokacija1);
-    }
-
-    public List<Sadrzaj> findByTag(String tag) {
-        Tagovi tagovi = tagRepository.findByNaziv(tag);
-        List<Sadrzaj> sadrzaji = new ArrayList<>();
-        for (Sadrzaj s: tagovi.getSadrzaj()) {
-            if (s.getUklonjeno().equals(false)){
-                sadrzaji.add(s);
-            }
-        }
-        //sadrzaji.addAll(tagovi.getSadrzaj());
-
-        return sadrzaji;
-    }
-
-    public List<Sadrzaj> findByProfil(String username) {
-        RegistrovaniKorisnik registrovaniKorisnik = registrovaniKorisnikRepository.findOneByUsername(username);
+        List<Post> posts = postRepository.findByLokacija(lokacija1);
+        List<Reklama> reklamas = reklamaRepository.findByLokacija(lokacija1);
         List<Sadrzaj> sadrzajs = new ArrayList<>();
-        List<Post> sadrzajKorisnika = postRepository.findByKreator(registrovaniKorisnik);
 
-        for (Sadrzaj s: sadrzajKorisnika) {
-            if (s.getUklonjeno().equals(false)){
-                sadrzajs.add(s);
+        StringDTO stringDTO = new StringDTO(token);
+        ListIntegerWrapper following= restTemplate.postForObject("http://followerservice/follower/getFollowing", stringDTO, ListIntegerWrapper.class);
+        ListIntegerWrapper publics = restTemplate.postForObject("http://followerservice/follower/getPublic",new IdDTO(2), ListIntegerWrapper.class);
+
+        for (Post post : posts) {
+            if (following.getIntegerList().contains(post.getKreator().getId()) || publics.getIntegerList().contains(post.getKreator().getId())) {
+                sadrzajs.add(post);
             }
         }
 
-        String url="http://followerservice/follower/isPrivate";
+        for (Reklama reklama : reklamas) {
+            if (following.getIntegerList().contains(reklama.getKreator().getId()) || publics.getIntegerList().contains(reklama.getKreator().getId())) {
+                sadrzajs.add(reklama);
+            }
+        }
 
-        /*IdDTO idDTO = new IdDTO(registrovaniKorisnik.getId());
-        Boolean isPrivate= restTemplate.postForObject(url,idDTO,Boolean.class);
+        sadrzajs.removeIf(s -> s.getUklonjeno().equals(true));
 
-        if (isPrivate) {
-            if (registrovaniKorisnik instanceof RegistrovaniKorisnik)
-                sadrzajs = postRepository.findByKreator(registrovaniKorisnik);
-        } else {
-            System.out.println("Profil je privatan!");
-        }*/
+        return sadrzajs;
+    }
 
-        //sadrzajs.addAll(postRepository.findByKreator(registrovaniKorisnik));
-        //dodaj i reklame kad
+    public List<Sadrzaj> findByTag(String tag, String token) {
+        Tagovi tagovi = tagRepository.findByNaziv(tag);
+
+        List<Post> posts = postRepository.findByTagovi(tagovi);
+        List<Reklama> reklamas = reklamaRepository.findByTagovi(tagovi);
+        List<Sadrzaj> sadrzajs = new ArrayList<>();
+
+        StringDTO stringDTO = new StringDTO(token);
+        ListIntegerWrapper following= restTemplate.postForObject("http://followerservice/follower/getFollowing", stringDTO, ListIntegerWrapper.class);
+        ListIntegerWrapper publics = restTemplate.postForObject("http://followerservice/follower/getPublic",new IdDTO(2), ListIntegerWrapper.class);
+
+        for (Post post : posts) {
+            if (following.getIntegerList().contains(post.getKreator().getId()) || publics.getIntegerList().contains(post.getKreator().getId())) {
+                sadrzajs.add(post);
+            }
+        }
+
+        for (Reklama reklama : reklamas) {
+            if (following.getIntegerList().contains(reklama.getKreator().getId()) || publics.getIntegerList().contains(reklama.getKreator().getId())) {
+                sadrzajs.add(reklama);
+            }
+        }
+
+        sadrzajs.removeIf(s -> s.getUklonjeno().equals(true));
+
+        return sadrzajs;
+    }
+
+    public List<Sadrzaj> findByProfil(String username, String token) {
+        RegistrovaniKorisnik registrovaniKorisnik = registrovaniKorisnikRepository.findOneByUsername(username);
+        List<Reklama> reklamas = new ArrayList<>();
+        List<Post> posts = postRepository.findByKreator(registrovaniKorisnik);
+        if (registrovaniKorisnik instanceof Agent) {
+            Agent agent = agentRepository.findByUsername(username);
+            reklamas = reklamaRepository.findByKreator(agent);
+        }
+        List<Sadrzaj> sadrzajs = new ArrayList<>();
+
+        StringDTO stringDTO = new StringDTO(token);
+        ListIntegerWrapper following= restTemplate.postForObject("http://followerservice/follower/getFollowing", stringDTO, ListIntegerWrapper.class);
+        ListIntegerWrapper publics = restTemplate.postForObject("http://followerservice/follower/getPublic",new IdDTO(2), ListIntegerWrapper.class);
+
+        for (Post post : posts) {
+            if (following.getIntegerList().contains(post.getKreator().getId()) || publics.getIntegerList().contains(post.getKreator().getId())) {
+                sadrzajs.add(post);
+            }
+        }
+
+        for (Reklama reklama : reklamas) {
+            if (following.getIntegerList().contains(reklama.getKreator().getId()) || publics.getIntegerList().contains(reklama.getKreator().getId())) {
+                sadrzajs.add(reklama);
+            }
+        }
+
+        sadrzajs.removeIf(s -> s.getUklonjeno().equals(true));
+
+        return sadrzajs;
+    }
+
+    public List<Sadrzaj> findByLokacijaNotLogged(String lokacija) {
+        Lokacija lokacija1 = lokacijaRepository.findByNaziv(lokacija);
+        List<Post> posts = postRepository.findByLokacija(lokacija1);
+        List<Reklama> reklamas = reklamaRepository.findByLokacija(lokacija1);
+        List<Sadrzaj> sadrzajs = new ArrayList<>();
+
+        ListIntegerWrapper publics = restTemplate.postForObject("http://followerservice/follower/getPublic",new IdDTO(2), ListIntegerWrapper.class);
+
+        for (Post post : posts) {
+            if (publics.getIntegerList().contains(post.getKreator().getId())) {
+                sadrzajs.add(post);
+            }
+        }
+
+        for (Reklama reklama : reklamas) {
+            if (publics.getIntegerList().contains(reklama.getKreator().getId())) {
+                sadrzajs.add(reklama);
+            }
+        }
+
+        sadrzajs.removeIf(s -> s.getUklonjeno().equals(true));
+
+        return sadrzajs;
+    }
+
+    public List<Sadrzaj> findByTagNotLogged(String tag) {
+        Tagovi tagovi = tagRepository.findByNaziv(tag);
+
+        List<Post> posts = postRepository.findByTagovi(tagovi);
+        List<Reklama> reklamas = reklamaRepository.findByTagovi(tagovi);
+        List<Sadrzaj> sadrzajs = new ArrayList<>();
+
+        ListIntegerWrapper publics = restTemplate.postForObject("http://followerservice/follower/getPublic",new IdDTO(2), ListIntegerWrapper.class);
+
+        for (Post post : posts) {
+            if (publics.getIntegerList().contains(post.getKreator().getId())) {
+                sadrzajs.add(post);
+            }
+        }
+
+        for (Reklama reklama : reklamas) {
+            if (publics.getIntegerList().contains(reklama.getKreator().getId())) {
+                sadrzajs.add(reklama);
+            }
+        }
+
+        sadrzajs.removeIf(s -> s.getUklonjeno().equals(true));
+
+        return sadrzajs;
+    }
+
+    public List<Sadrzaj> findByProfilNotLogged(String username) {
+        RegistrovaniKorisnik registrovaniKorisnik = registrovaniKorisnikRepository.findOneByUsername(username);
+        List<Reklama> reklamas = new ArrayList<>();
+        List<Post> posts = postRepository.findByKreator(registrovaniKorisnik);
+        if (registrovaniKorisnik instanceof Agent) {
+            Agent agent = agentRepository.findByUsername(username);
+            reklamas = reklamaRepository.findByKreator(agent);
+        }
+        List<Sadrzaj> sadrzajs = new ArrayList<>();
+
+        ListIntegerWrapper publics = restTemplate.postForObject("http://followerservice/follower/getPublic",new IdDTO(2), ListIntegerWrapper.class);
+
+        for (Post post : posts) {
+            if (publics.getIntegerList().contains(post.getKreator().getId())) {
+                sadrzajs.add(post);
+            }
+        }
+
+        for (Reklama reklama : reklamas) {
+            if (publics.getIntegerList().contains(reklama.getKreator().getId())) {
+                sadrzajs.add(reklama);
+            }
+        }
+
+        sadrzajs.removeIf(s -> s.getUklonjeno().equals(true));
+
         return sadrzajs;
     }
 
@@ -239,16 +366,47 @@ public class SadrzajService {
 
     }
 
-    public List<Sadrzaj> getAll() {
-        List<Sadrzaj> sadrzajs = sadrzajRepository.findByUklonjeno(false);
-        //dodaj reklame kasnije
-        /*for (Sadrzaj s : sadrzajs) {
-            if(s.getUklonjeno().equals(true)){
-                sadrzajs.remove(s);
+    public List<Sadrzaj> getAllNotLogged() {
+        List<Post> posts = postRepository.findAll();
+        List<Sadrzaj> sadrzajs = new ArrayList<>();
+
+        ListIntegerWrapper publics = restTemplate.postForObject("http://followerservice/follower/getPublic",new IdDTO(2), ListIntegerWrapper.class);
+
+        for (Post post : posts) {
+            if (publics.getIntegerList().contains(post.getKreator().getId())) {
+                sadrzajs.add(post);
+            }
+        }
+
+        sadrzajs.removeIf(s -> s.getUklonjeno().equals(true));
+
+        return sadrzajs;
+    }
+
+    public List<Sadrzaj> getAll(String token) {
+        List<Post> posts = postRepository.findAll();
+        //List<Reklama> reklamas = reklamaRepository.findAll();
+        List<Sadrzaj> sadrzajs = new ArrayList<>();
+
+        StringDTO stringDTO = new StringDTO(token);
+        ListIntegerWrapper following= restTemplate.postForObject("http://followerservice/follower/getFollowing", stringDTO, ListIntegerWrapper.class);
+        ListIntegerWrapper publics = restTemplate.postForObject("http://followerservice/follower/getPublic",new IdDTO(2), ListIntegerWrapper.class);
+
+        for (Post post : posts) {
+            if (following.getIntegerList().contains(post.getKreator().getId()) || publics.getIntegerList().contains(post.getKreator().getId())) {
+                sadrzajs.add(post);
+            }
+        }
+
+        /*for (Reklama reklama : reklamas) {
+            if (following.getIntegerList().contains(reklama.getKreator().getId()) || publics.getIntegerList().contains(reklama.getKreator().getId())) {
+                sadrzajs.add(reklama);
             }
         }*/
-        return sadrzajs;
 
+        sadrzajs.removeIf(s -> s.getUklonjeno().equals(true));
+
+        return sadrzajs;
     }
 
 
