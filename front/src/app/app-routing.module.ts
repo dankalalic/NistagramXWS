@@ -28,6 +28,7 @@ import {RegistrationComponent} from "./components/registration/registration.comp
 import {ProfileChangeComponent} from "./components/profile-change/profile-change.component";
 
 
+
 const routes: Routes = [
   { path: '', component: LoginFormComponent},
   { path: 'newsfeed', component: NewsfeedComponent},
