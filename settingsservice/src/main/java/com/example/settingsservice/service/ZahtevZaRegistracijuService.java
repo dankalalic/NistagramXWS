@@ -151,7 +151,7 @@ public class ZahtevZaRegistracijuService {
 
         this.agentRepository.save(u);
 
-        String s = "Uspesno ste registrovali admina";
+        String s = "Uspesno ste registrovali agenta";
         StringDTO stringDTO1 = new StringDTO(s);
         return stringDTO1;
 
