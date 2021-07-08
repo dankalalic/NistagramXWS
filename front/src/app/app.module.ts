@@ -36,6 +36,7 @@ import { NavbaradminComponent } from './components/navbaradmin/navbaradmin.compo
 import { NavbarNotloggedComponent } from './components/navbar-notlogged/navbar-notlogged.component';
 import { RegistrationComponent } from './components/registration/registration.component';
 import { ProfileChangeComponent } from './components/profile-change/profile-change.component';
+import { PorukaComponent } from './components/poruka/poruka.component';
 
 @NgModule({
   declarations: [
@@ -66,7 +67,8 @@ import { ProfileChangeComponent } from './components/profile-change/profile-chan
     AdminAddAgentComponent,
     NavbarNotloggedComponent,
     RegistrationComponent,
-    ProfileChangeComponent
+    ProfileChangeComponent,
+    PorukaComponent
   ],
   imports: [
     BrowserModule,

@@ -7,6 +7,7 @@ import {DomSanitizer} from '@angular/platform-browser';
 import {StringDTO} from "../../model/stringDTO";
 import {AuthService} from "../../services/auth.service";
 import {Router} from "@angular/router";
+import {porukaSadrzaj} from "../../model/porukaSadrzaj";
 
 @Component({
   selector: 'app-content',
@@ -16,10 +17,15 @@ import {Router} from "@angular/router";
 export class ContentComponent implements OnInit {
   @Input() contents! : [];
 
+  clicked!:boolean;
+
+  primalac!:number;
+
   constructor(private contentService : ContentService, private postService:PostService, private sanitizer:DomSanitizer, private router: Router) {
   }
 
   ngOnInit(): void {
+    this.clicked=false;
   }
 
   sanitize(url:string){
@@ -37,6 +43,10 @@ export class ContentComponent implements OnInit {
       }
     );
 
+  }
+
+  onChangePocetakPrikaz(event : any) {
+    this.primalac = event.target.value;
   }
 
   like(id : number) {
@@ -62,5 +72,23 @@ export class ContentComponent implements OnInit {
     })
   }
 
+  send(idPosaljioca : number,idPosta : number) {
+    const id1 : porukaSadrzaj = {
+      idPosaljioca:idPosaljioca,
+      idPrimaoca : this.primalac,
+      idPosta: idPosta
+    }
+    console.log(this.primalac)
+    this.contentService.send(id1).subscribe(result => {
+      console.log(result)
+    }, err => {
+      this.router.navigate(['/error']);
+    })
+  }
+
+  onChange(event:any){
+    this.clicked=!this.clicked;
+
+  }
 
 }
