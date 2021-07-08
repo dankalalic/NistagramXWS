@@ -12,7 +12,7 @@ public class Prodavnica {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_prodavnica")
     private Integer id;
 
-    @OneToMany(mappedBy = "prodavnica", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "prodavnica", fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
     private Set<Proizvod> proizvodi = new HashSet<>();
 
     @OneToOne(mappedBy = "prodavnica")

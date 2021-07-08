@@ -80,83 +80,94 @@ public class ProizvodController {
     @Autowired
     public SlikaRepository slikaRepository;
 
+    @CrossOrigin(origins = "http://localhost:4200")
     @PostMapping(value="/createproizvod",consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Proizvod> create(@RequestBody ProizvodDto proizvodDto,@RequestHeader(value="Authorization") String token) {
-        Integer userId = tokenUtils.getIdFromToken(token);
-        Proizvod proizvod=proizvodService.create(proizvodDto);
-        Agent agent =agentRepository.findOneById(userId);
-        Prodavnica prodavnica=agent.getProdavnica();
-        proizvod.setProdavnica(prodavnica);
-        proizvod.setAgent(agent);
-        proizvod.setNaziv(proizvodDto.getNaziv());
+    public ResponseEntity<Proizvod> create(@RequestBody ProizvodDto proizvodDto,@RequestHeader(value="Authorization") String token) throws Exception {
+        String role = tokenUtils.getRoleFromToken(token);
+        if (role.equals("agent")) {
+            Integer userId = tokenUtils.getIdFromToken(token);
+            Proizvod proizvod=proizvodService.create(proizvodDto);
+            Agent agent =agentRepository.findOneById(userId);
+            Prodavnica prodavnica=agent.getProdavnica();
+            proizvod.setProdavnica(prodavnica);
+            proizvod.setAgent(agent);
+            proizvod.setNaziv(proizvodDto.getNaziv());
 
-
-        Slika slika = slikaRepository.findOneById(proizvodDto.getSlika());
-        proizvod.setSlika(slika);
-        proizvod = proizvodRepository.save(proizvod);
-        slika.setProizvod(proizvod);
-        slikaRepository.save(slika);
-        return new ResponseEntity<>(proizvod, HttpStatus.OK);
+            Slika slika = slikaRepository.findOneById(proizvodDto.getSlika());
+            proizvod.setSlika(slika);
+            proizvod = proizvodRepository.save(proizvod);
+            slika.setProizvod(proizvod);
+            slikaRepository.save(slika);
+            return new ResponseEntity<>(proizvod, HttpStatus.OK);
+        } else {
+            throw new Exception("Zabranjeno");
+        }
     }
 
-
+    @CrossOrigin(origins = "http://localhost:4200")
     @PostMapping(value="/izmeniproizvod",consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Proizvod> izmena(@RequestBody ProizvodDto proizvodDto) {
-
-
-        Proizvod proizvod=proizvodService.IzmenaProizvoda(proizvodDto);
-
-
-        return new ResponseEntity<>(proizvod, HttpStatus.OK);
+    public ResponseEntity<Proizvod> izmena(@RequestBody ProizvodDto proizvodDto, @RequestHeader(value="Authorization") String token) throws Exception {
+        String role = tokenUtils.getRoleFromToken(token);
+        if (role.equals("agent")) {
+            Proizvod proizvod=proizvodService.IzmenaProizvoda(proizvodDto);
+            return new ResponseEntity<>(proizvod, HttpStatus.OK);
+        } else {
+            throw new Exception("Zabranjeno");
+        }
     }
 
+    @CrossOrigin(origins = "http://localhost:4200")
     @PostMapping(value="/izbrisiproizvod",consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Proizvod> izbaciproizvod(@RequestBody IdDTO idDTO) {
-
-
-        Proizvod proizvod=proizvodService.findById(idDTO.getId());
-        proizvodRepository.delete(proizvod);
-
-
-        return new ResponseEntity<>(proizvod, HttpStatus.OK);
+    public void izbaciproizvod(@RequestBody IdDTO idDTO, @RequestHeader(value="Authorization") String token) throws Exception {
+        String role = tokenUtils.getRoleFromToken(token);
+        if (role.equals("agent")) {
+            Proizvod proizvod=proizvodService.findById(idDTO.getId());
+            proizvodRepository.delete(proizvod);
+        } else {
+            throw new Exception("Zabranjeno");
+        }
     }
 
+    @CrossOrigin(origins = "http://localhost:4200")
     @PostMapping(value="/dobaviproizvode",consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Set<Proizvod>> dobaviproizvode(@RequestBody IdDTO idDTO) {
-
-        Prodavnica prodavnica=prodavnicaRepository.findOneById(idDTO.getId());
-        return new ResponseEntity<>(prodavnica.getProizvodi(), HttpStatus.OK);
+    public ResponseEntity<Set<Proizvod>> dobaviproizvode(@RequestBody IdDTO idDTO, @RequestHeader(value="Authorization") String token) throws Exception {
+        String role = tokenUtils.getRoleFromToken(token);
+        if (role.equals("agent") || role.equals("user")) {
+            Prodavnica prodavnica=prodavnicaRepository.findOneById(idDTO.getId());
+            return new ResponseEntity<>(prodavnica.getProizvodi(), HttpStatus.OK);
+        } else {
+            throw new Exception("Zabranjeno");
+        }
     }
 
+    @CrossOrigin(origins = "http://localhost:4200")
     @PostMapping(value="/dodajukorpu",consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Korpa> ubaciukorpu(@RequestBody PorudzbinaDTO idDTO, @RequestHeader(value="Authorization") String token) throws Exception {
+        String role = tokenUtils.getRoleFromToken(token);
+        if (role.equals("user")) {
+            Proizvod proizvod=proizvodService.findById(idDTO.getId());
+            if(proizvod.getRaspolozivoStanje()-idDTO.getKolicinazaporudzbinu()<0){
+                throw new Exception("prozivoda nema na stanju");
+            }
+            else {
+                proizvod.setRaspolozivoStanje(proizvod.getRaspolozivoStanje()- idDTO.getKolicinazaporudzbinu());
+            }
+            proizvod.setKolicinazaporudzbinu(idDTO.getKolicinazaporudzbinu());
+            Integer userId = tokenUtils.getIdFromToken(token);
+            RegistrovaniKorisnik registrovaniKorisnik=registrovaniKorisnikRepository.findOneById(userId);
+            Korpa korpa=new Korpa();
+            korpa.setRegistrovaniKorisnik(registrovaniKorisnik);
+            Set<Proizvod> proizvodi=new HashSet<>();
+            proizvodi.add(proizvod);
+            korpa.setProizvodi(proizvodi);
+            korpaRepository.save(korpa);
+            registrovaniKorisnik.setKorpa(korpa);
+            registrovaniKorisnikRepository.save(registrovaniKorisnik);
 
-        Proizvod proizvod=proizvodService.findById(idDTO.getId());
-
-        if(proizvod.getRaspolozivoStanje()-idDTO.getKolicinazaporudzbinu()<0){
-            throw new Exception("prozivoda nema na stanju");
+            return new ResponseEntity<>(korpa, HttpStatus.OK);
+        } else {
+            throw new Exception("Zabranjeno");
         }
-        else {
-
-            proizvod.setRaspolozivoStanje(proizvod.getRaspolozivoStanje()- idDTO.getKolicinazaporudzbinu());
-        }
-        proizvod.setKolicinazaporudzbinu(idDTO.getKolicinazaporudzbinu());
-        Integer userId = tokenUtils.getIdFromToken(token);
-        RegistrovaniKorisnik registrovaniKorisnik=registrovaniKorisnikRepository.findOneById(userId);
-        Korpa korpa=new Korpa();
-        korpa.setRegistrovaniKorisnik(registrovaniKorisnik);
-        Set<Proizvod> proizvodi=new HashSet<>();
-        proizvodi.add(proizvod);
-        korpa.setProizvodi(proizvodi);
-        korpaRepository.save(korpa);
-        registrovaniKorisnik.setKorpa(korpa);
-        registrovaniKorisnikRepository.save(registrovaniKorisnik);
-
-
-
-
-
-        return new ResponseEntity<>(korpa, HttpStatus.OK);
     }
 
     @CrossOrigin(origins = "http://localhost:4200")
@@ -171,9 +182,26 @@ public class ProizvodController {
         return slika.getId();
     }
 
+    @CrossOrigin(origins = "http://localhost:4200")
     @GetMapping(value="/getByAgent")
-    public List<Proizvod> getByAgent(@RequestHeader(value="Authorization") String token) {
-        Integer userId = tokenUtils.getIdFromToken(token);
-        return proizvodService.findByAgent(userId);
+    public List<Proizvod> getByAgent(@RequestHeader(value="Authorization") String token) throws Exception {
+        String role = tokenUtils.getRoleFromToken(token);
+        if (role.equals("agent")) {
+            Integer userId = tokenUtils.getIdFromToken(token);
+            return proizvodService.findByAgent(userId);
+        } else {
+            throw new Exception("Zabranjeno");
+        }
+    }
+
+    @CrossOrigin(origins = "http://localhost:4200")
+    @PostMapping(value="/getByAgentUser")
+    public List<Proizvod> getByAgentUser(@RequestBody IdDTO idDTO, @RequestHeader(value="Authorization") String token) throws Exception {
+        String role = tokenUtils.getRoleFromToken(token);
+        if (role.equals("user")) {
+            return proizvodService.findByAgent(idDTO.getId());
+        } else {
+            throw new Exception("Zabranjeno");
+        }
     }
 }

@@ -18,6 +18,7 @@ export class ProizvodComponent implements OnInit {
   constructor(private proizvodService : ProizvodService, private router: Router, private sanitizer:DomSanitizer,private postService:PostserviceService,private zahtevkreiranjeservice:ZahtevkreiranjeService) {
   }
 
+  //OVO MOZDA TREBA IZMENITI DA PISE && sessionStorage.getItem("role") != "user"
   ngOnInit(): void {
     if (sessionStorage.getItem("role") != "agent") {
       this.router.navigate(['error']);

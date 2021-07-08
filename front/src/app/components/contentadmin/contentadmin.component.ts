@@ -16,6 +16,9 @@ export class ContentadminComponent implements OnInit {
   constructor(private sanitizer:DomSanitizer, private router: Router, private postService:PostService, private authService:AuthService) { }
 
   ngOnInit(): void {
+    if (sessionStorage.getItem("role") != "admin") {
+      this.router.navigate(['error']);
+    }
   }
 
   sanitize(url:string){

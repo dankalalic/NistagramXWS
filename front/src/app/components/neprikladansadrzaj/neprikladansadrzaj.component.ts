@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {PostService} from "../../services/post.service";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-neprikladansadrzaj',
@@ -9,9 +10,12 @@ import {PostService} from "../../services/post.service";
 export class NeprikladansadrzajComponent implements OnInit {
 
   public admincontents : any = [];
-  constructor(private postService : PostService) { }
+  constructor(private postService : PostService, private router: Router) { }
 
   ngOnInit(): void {
+    if (sessionStorage.getItem("role") != "admin") {
+      this.router.navigate(['error']);
+    }
     this.postService.getNeprikladanSadrzaj().subscribe(result =>
     {
       //this.router.navigate(['/newsfeed']);
@@ -25,7 +29,7 @@ export class NeprikladansadrzajComponent implements OnInit {
       console.log('success', result);
 
     }, err => {
-      console.log('err', err);
+      this.router.navigate(['/error']);
     })
   }
 

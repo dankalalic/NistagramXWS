@@ -21,6 +21,9 @@
         </ul>
       </div>
     </div>
+    <!--<div *ngIf="content['isReklama']">-->
+      <app-button (btnClick)="navigate(content['kreator']['id'])"></app-button>
+    <!--</div>-->
     <app-button text="Like" color="green" type="button" (btnClick)="like(content['id'])"></app-button>
     <app-button text="Dislike" color="green" type="button" (btnClick)="dislike(content['id'])"></app-button>
     <app-button text="Neprikladan sadrzaj" color="red" type="button" (btnClick)="report(content['id'])"></app-button>

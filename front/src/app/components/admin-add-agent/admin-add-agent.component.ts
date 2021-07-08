@@ -4,6 +4,8 @@ import {StringDTO} from "../../model/stringDTO";
 import {VerificationUploadService} from "../../services/verification-upload.service";
 import {DomSanitizer} from "@angular/platform-browser";
 import {RegistracijaAgentaService} from "../../services/registracija-agenta.service";
+import {CampaignService} from "../../services/campaign.service";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-admin-add-agent',
@@ -12,9 +14,12 @@ import {RegistracijaAgentaService} from "../../services/registracija-agenta.serv
 })
 export class AdminAddAgentComponent implements OnInit {
 
-  constructor(private verificationService : VerificationUploadService, private sanitizer:DomSanitizer, private registracijaAgenta:RegistracijaAgentaService) { }
+  constructor(private verificationService : VerificationUploadService, private router: Router, private sanitizer:DomSanitizer, private registracijaAgenta:RegistracijaAgentaService) { }
 
   ngOnInit(): void {
+    if (sessionStorage.getItem("role") != "admin") {
+      this.router.navigate(['error']);
+    }
   }
 
   username!:string;
@@ -27,6 +32,8 @@ export class AdminAddAgentComponent implements OnInit {
     this.registracijaAgenta.registrujAgenta(string).subscribe(result =>{
       console.log(result);
       alert(result.string);
+    }, err => {
+      this.router.navigate(['/error']);
     })
 
   }

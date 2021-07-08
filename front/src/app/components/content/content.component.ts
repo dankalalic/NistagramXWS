@@ -62,5 +62,10 @@ export class ContentComponent implements OnInit {
     })
   }
 
+  navigate(id1 : number) {
+    console.log(id1)
+    this.router.navigate(['/sviproizvodi/'+id1])
+  }
+
 
 }

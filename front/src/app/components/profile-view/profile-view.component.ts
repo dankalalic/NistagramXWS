@@ -27,6 +27,9 @@ export class ProfileViewComponent implements OnInit {
   constructor(private authService : AuthService, private router: Router) { }
 
   ngOnInit(): void {
+    if (sessionStorage.getItem("role") != "agent" && sessionStorage.getItem("role") != "user") {
+      this.router.navigate(['error']);
+    }
     this.authService.profile().subscribe(result =>
     {
       console.log('success');

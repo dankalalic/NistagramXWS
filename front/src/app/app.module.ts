@@ -36,6 +36,9 @@ import { NavbaradminComponent } from './components/navbaradmin/navbaradmin.compo
 import { NavbarNotloggedComponent } from './components/navbar-notlogged/navbar-notlogged.component';
 import { RegistrationComponent } from './components/registration/registration.component';
 import { ProfileChangeComponent } from './components/profile-change/profile-change.component';
+import { PrikazproizvodaComponent } from './components/prikazproizvoda/prikazproizvoda.component';
+import { IzmenaProizvodaComponent } from './components/izmena-proizvoda/izmena-proizvoda.component';
+import { PrikazproizvodauserComponent } from './components/prikazproizvodauser/prikazproizvodauser.component';
 
 @NgModule({
   declarations: [
@@ -66,7 +69,10 @@ import { ProfileChangeComponent } from './components/profile-change/profile-chan
     AdminAddAgentComponent,
     NavbarNotloggedComponent,
     RegistrationComponent,
-    ProfileChangeComponent
+    ProfileChangeComponent,
+    PrikazproizvodaComponent,
+    IzmenaProizvodaComponent,
+    PrikazproizvodauserComponent
   ],
   imports: [
     BrowserModule,

@@ -30,6 +30,9 @@ export class ProfileChangeComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    if (sessionStorage.getItem("role") != "agent" && sessionStorage.getItem("role") != "user") {
+      this.router.navigate(['error']);
+    }
   }
 
   onSubmit() {

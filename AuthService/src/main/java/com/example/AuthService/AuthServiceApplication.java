@@ -21,4 +21,5 @@ public class AuthServiceApplication {
 	public RestTemplate restTemplate(RestTemplateBuilder builder) {
 		return builder.build();
 	}
+	
 }

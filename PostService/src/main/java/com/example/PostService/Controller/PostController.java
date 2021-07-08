@@ -62,20 +62,35 @@ public class PostController {
 
     @CrossOrigin(origins = "http://localhost:4200")
     @GetMapping(value="/pregledNeprikladnogSadrzaja")
-    public ResponseEntity<Set<SadrzajReturnDTO>> pregledNeprikladnogSadrzaja(){
-        return new ResponseEntity<>(postService.PregledNeprikladnogSadrzaja(), HttpStatus.OK);
+    public ResponseEntity<Set<SadrzajReturnDTO>> pregledNeprikladnogSadrzaja(@RequestHeader(value="Authorization") String token) throws Exception {
+        String role = tokenUtils.getRoleFromToken(token);
+        if (role.equals("admin")) {
+            return new ResponseEntity<>(postService.PregledNeprikladnogSadrzaja(), HttpStatus.OK);
+        } else {
+            throw new Exception("Zabranjeno");
+        }
     }
 
     @CrossOrigin(origins = "http://localhost:4200")
     @PostMapping(value="/ukloniSadrzaj", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<StringDTO> ukloniSadrzaj(@RequestBody IdDTO idDTO){
-        return new ResponseEntity<>(postService.ukloni(idDTO), HttpStatus.OK);
+    public ResponseEntity<StringDTO> ukloniSadrzaj(@RequestBody IdDTO idDTO, @RequestHeader(value="Authorization") String token) throws Exception {
+        String role = tokenUtils.getRoleFromToken(token);
+        if (role.equals("admin")) {
+            return new ResponseEntity<>(postService.ukloni(idDTO), HttpStatus.OK);
+        } else {
+            throw new Exception("Zabranjeno");
+        }
     }
 
 
     @PostMapping(value="/ugasiSvePostoveUsera", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Boolean> ugasiSvePostoveUsera(@RequestBody StringDTO stringDTO){
-        return new ResponseEntity<>(postService.ugasiSvePostoveUsera(stringDTO.getString()), HttpStatus.OK);
+    public ResponseEntity<Boolean> ugasiSvePostoveUsera(@RequestBody StringDTO stringDTO, @RequestHeader(value="Authorization") String token) throws Exception {
+        String role = tokenUtils.getRoleFromToken(token);
+        if (role.equals("admin")) {
+            return new ResponseEntity<>(postService.ugasiSvePostoveUsera(stringDTO.getString()), HttpStatus.OK);
+        } else {
+            throw new Exception("Zabranjeno");
+        }
     }
 
 }
