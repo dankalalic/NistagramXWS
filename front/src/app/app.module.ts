@@ -39,6 +39,7 @@ import { ProfileChangeComponent } from './components/profile-change/profile-chan
 import { PrikazproizvodaComponent } from './components/prikazproizvoda/prikazproizvoda.component';
 import { IzmenaProizvodaComponent } from './components/izmena-proizvoda/izmena-proizvoda.component';
 import { PrikazproizvodauserComponent } from './components/prikazproizvodauser/prikazproizvodauser.component';
+import { PorukaComponent } from './components/poruka/poruka.component';
 
 @NgModule({
   declarations: [
@@ -72,7 +73,8 @@ import { PrikazproizvodauserComponent } from './components/prikazproizvodauser/p
     ProfileChangeComponent,
     PrikazproizvodaComponent,
     IzmenaProizvodaComponent,
-    PrikazproizvodauserComponent
+    PrikazproizvodauserComponent,
+    PorukaComponent
   ],
   imports: [
     BrowserModule,

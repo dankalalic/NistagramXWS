@@ -27,6 +27,12 @@
     <app-button text="Like" color="green" type="button" (btnClick)="like(content['id'])"></app-button>
     <app-button text="Dislike" color="green" type="button" (btnClick)="dislike(content['id'])"></app-button>
     <app-button text="Neprikladan sadrzaj" color="red" type="button" (btnClick)="report(content['id'])"></app-button>
+    <app-button text="Posalji" color="blue" type="button" (btnClick)="onChange($event)" ></app-button>
+    <div *ngIf="clicked">
+
+      <input type="number" [(ngModel)]="primalac">
+      <button (click)="send(1,content['id'])"> Posalji sadrzaj </button>
+    </div>
   </li>
 </div>
 </ul>
