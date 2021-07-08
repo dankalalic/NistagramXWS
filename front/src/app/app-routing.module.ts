@@ -26,6 +26,7 @@ import {PregledZahtevaZaAgenteComponent} from "./components/pregled-zahteva-za-a
 import {AdminAddAgentComponent} from "./components/admin-add-agent/admin-add-agent.component";
 import {RegistrationComponent} from "./components/registration/registration.component";
 import {ProfileChangeComponent} from "./components/profile-change/profile-change.component";
+import {PrikazproizvodaComponent} from "./components/prikazproizvoda/prikazproizvoda.component";
 
 
 const routes: Routes = [
@@ -50,7 +51,9 @@ const routes: Routes = [
   {path: 'zahteviZaAgente', component:PregledZahtevaZaAgenteComponent},
   {path: 'dodajAgenta', component:AdminAddAgentComponent},
   { path: 'registration', component: RegistrationComponent},
-  {path: 'profileChange', component: ProfileChangeComponent}
+  {path: 'profileChange', component: ProfileChangeComponent},
+  {path: 'sviproizvodi', component: PrikazproizvodaComponent},
+
 ];
 
 @NgModule({

@@ -1,0 +1,17 @@
+<app-navbaradmin></app-navbaradmin>
+<ul style="list-style-type: none">
+  <div class="polaroid">
+    <li *ngFor="let zahtev of zahtevi">
+      <div class="container1">
+        <img alt="slika" style="width : 100%" [src]="sanitize('data:image/jpg;base64,' + zahtev['slika']['url'])"/>
+        <div>Ime: {{zahtev['naziv']}}</div>
+        <div>raspolozivo stanje: {{zahtev['raspolozivoStanje']}}</div>
+        <div>cena: {{zahtev['cena']}}</div>
+      </div>
+      <!--<app-button text="Disike" color="green" type="button" (btnClick)="dislike(contentadmin['id'])"></app-button>
+    -->
+      <!-- <app-button text="Prihvati" color="blue" type="button" (btnClick)="prihvati(zahtev['id'])"></app-button>
+       <app-button text="Odbij" color="blue" type="button" (btnClick)="odbij(zahtev['id'])"></app-button>-->
+     </li>
+   </div>
+ </ul>

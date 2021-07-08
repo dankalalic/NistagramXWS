@@ -20,10 +20,12 @@ export class ProizvodService {
 
   private newsfeedUrl : string;
   private uploadslike :string;
+  private proizvodi :string;
 
   constructor(private http: HttpClient) {
     this.newsfeedUrl = 'http://localhost:8088/proizvod/createproizvod';
     this.uploadslike='http://localhost:8088/proizvod/upload';
+    this.proizvodi='http://localhost:8088/proizvod/getByAgent';
   }
 
   createProizvod(proizvod:Proizvod) {
@@ -35,4 +37,10 @@ export class ProizvodService {
     console.log('g')
     return this.http.post<any>(this.uploadslike,  file, { observe: 'response' });
   }
+
+  getProizvodi(){
+    console.log('ok');
+    return this.http.get<any>(this.proizvodi, options);
+  }
+
 }
