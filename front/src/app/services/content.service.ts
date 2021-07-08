@@ -8,6 +8,8 @@ import {Id} from "../model/id";
 import {AuthService} from "./auth.service";
 import {Stringnull} from "../model/stringnull";
 import {StringDTO} from "../model/stringDTO";
+import {porukaSadrzaj} from "../model/porukaSadrzaj";
+import {tekstualnaPorukaSadrzaj} from "../model/tekstualnaPorukaSadrzaj";
 
 const token = (sessionStorage.getItem('token'));
 let token1 : string;
@@ -30,6 +32,8 @@ export class ContentService {
   private dislikeUrl : string;
   private kampanjaUrl : string;
   private newsfeedUrlNotLogged : string;
+  private sendUrl : string;
+  private sendTekstUrl : string;
 
   constructor(private http: HttpClient, private authService : AuthService) {
     this.newsfeedUrl = 'http://localhost:8083/sadrzaj/getAll';
@@ -37,6 +41,8 @@ export class ContentService {
     this.dislikeUrl = 'http://localhost:8083/sadrzaj/dislike';
     this.kampanjaUrl = 'http://localhost:8085/reklamice/getAllKampanje';
     this.newsfeedUrlNotLogged = 'http://localhost:8083/sadrzaj/getAllNotLogged';
+    this.sendUrl = 'http://localhost:8091/poruke/post';
+    this.sendTekstUrl = 'http://localhost:8091/poruke/tekstualna';
 
   }
 
@@ -54,6 +60,14 @@ export class ContentService {
 
   dislike(id : Id) {
     return this.http.post<any>(this.dislikeUrl, id, options);
+  }
+
+  send(id: porukaSadrzaj) {
+    return this.http.post<any>(this.sendUrl, id, options);
+  }
+
+  sendTekst(id: tekstualnaPorukaSadrzaj) {
+    return this.http.post<any>(this.sendTekstUrl, id, options);
   }
 
   getNewsfeedNotLogged() {

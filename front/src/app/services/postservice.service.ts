@@ -3,9 +3,15 @@ import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {Id} from "../model/id";
 import {Post} from "../model/post";
 
+const token = (sessionStorage.getItem('token'));
+let token1 : string;
+if (token != null) {token1 = token;} else {token1 = 'null';}
+console.log(token1)
 const options = {
   headers: new HttpHeaders({
     'Content-Type': 'application/json',
+    'Authorization': 'Bearer ' + token1,
+    'Access-Control-Allow-Origin':'*'
   }),
 };
 
