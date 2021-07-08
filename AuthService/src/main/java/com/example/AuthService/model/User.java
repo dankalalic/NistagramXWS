@@ -19,8 +19,6 @@ import static javax.persistence.DiscriminatorType.STRING;
 public class User implements UserDetails {
 
     @Id
-    @SequenceGenerator(name="seq_user", sequenceName = "seq_user", initialValue = 1, allocationSize = 1)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_user")
     private Integer id;
 
     @Column(nullable = false, unique = true)

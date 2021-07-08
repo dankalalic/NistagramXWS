@@ -145,4 +145,17 @@ public class FollowerController {
         }
     }
 
+    @PostMapping(value="/adduser",consumes = MediaType.APPLICATION_JSON_VALUE)
+    public Boolean addUser(@RequestBody IdDTO idDoubleDTO) {
+        User user = new User();
+        user.setId(idDoubleDTO.getId());
+        followerRepository.save(user);
+
+        return true;
+
+    }
+
+
+
+
 }

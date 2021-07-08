@@ -1,7 +1,10 @@
 package com.example.settingsservice.controller;
 
 import com.example.settingsservice.TokenUtils;
+import com.example.settingsservice.dto.IdDTO;
+import com.example.settingsservice.dto.RegistrovaniKorisnikDTO;
 import com.example.settingsservice.dto.UserChangeDTO;
+import com.example.settingsservice.dto.UserDTO;
 import com.example.settingsservice.model.*;
 import com.example.settingsservice.service.RegisteredUserService;
 import com.example.settingsservice.service.UserService;
@@ -11,7 +14,11 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
+
+import javax.persistence.Id;
+
 @CrossOrigin(origins = "http://localhost:4200")
 @RestController
 @RequestMapping("/registeredUsers")
@@ -22,6 +29,9 @@ public class RegisteredUserController {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private RestTemplate restTemplate;
 
     @Autowired
     private TokenUtils tokenUtils;
@@ -71,6 +81,20 @@ public class RegisteredUserController {
         }
 
         RegisteredUser registeredUser = this.registeredUserService.save(userRequest);
+        IdDTO userDTO =new IdDTO();
+        UserDTO userDTO2=new UserDTO();
+        RegistrovaniKorisnikDTO userDTO3=new RegistrovaniKorisnikDTO();
+        userDTO3.setId(registeredUser.getId());
+        userDTO3.setUsername(registeredUser.getUsername());
+
+        userDTO2.setUsername(registeredUser.getUsername());
+        userDTO2.setLozinka(registeredUser.getLozinka());
+        userDTO2.setId(registeredUser.getId());
+
+        userDTO.setId(registeredUser.getId());
+        Boolean bolean= restTemplate.postForObject("http://FollowerService/follower/adduser",userDTO,Boolean.class);
+        Boolean bolean2= restTemplate.postForObject("http://AuthService/users/adduser",userDTO2,Boolean.class);
+        Boolean bolean3=restTemplate.postForObject("http://PostService/registrovanikorisnik/adduser",userDTO3,Boolean.class);
         HttpHeaders headers = new HttpHeaders();
         headers.setLocation(ucBuilder.path("/api/user/{userId}").buildAndExpand(registeredUser.getId()).toUri());
         return new ResponseEntity<RegisteredUser>(registeredUser, HttpStatus.CREATED);

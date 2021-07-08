@@ -1,6 +1,7 @@
 package com.example.settingsservice.controller;
 
 import com.example.settingsservice.TokenUtils;
+import com.example.settingsservice.dto.IdDTO;
 import com.example.settingsservice.model.IdOnlyDTO;
 import com.example.settingsservice.model.StringDTO;
 import com.example.settingsservice.model.ZahteviReturnDTO;
@@ -10,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.RestTemplate;
 
 import java.util.Set;
 
@@ -20,6 +22,9 @@ public class ZahtevZaRegistracijuController {
 
     @Autowired
     private ZahtevZaRegistracijuService zahtevZaRegistracijuService;
+
+    @Autowired
+    private RestTemplate restTemplate;
 
     @Autowired
     public TokenUtils tokenUtils;
