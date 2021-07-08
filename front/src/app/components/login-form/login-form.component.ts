@@ -36,7 +36,6 @@ export class LoginFormComponent implements OnInit {
   btnLogin(user : UserLogin) {
     this.authService.login(user).subscribe(result =>
     {
-
       sessionStorage.setItem('token', result.accessToken);
       sessionStorage.setItem('role', result.role);
 

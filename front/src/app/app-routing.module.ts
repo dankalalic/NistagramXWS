@@ -27,6 +27,8 @@ import {AdminAddAgentComponent} from "./components/admin-add-agent/admin-add-age
 import {RegistrationComponent} from "./components/registration/registration.component";
 import {ProfileChangeComponent} from "./components/profile-change/profile-change.component";
 import {PrikazproizvodaComponent} from "./components/prikazproizvoda/prikazproizvoda.component";
+import {PrikazproizvodauserComponent} from "./components/prikazproizvodauser/prikazproizvodauser.component";
+import { PorukaComponent } from './components/poruka/poruka.component';
 
 
 const routes: Routes = [
@@ -53,8 +55,10 @@ const routes: Routes = [
   { path: 'registration', component: RegistrationComponent},
   {path: 'profileChange', component: ProfileChangeComponent},
   {path: 'sviproizvodi', component: PrikazproizvodaComponent},
-
+  {path: 'sviproizvodi/:id', component: PrikazproizvodauserComponent},
+  {path:'poruka', component:PorukaComponent}
 ];
+
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],

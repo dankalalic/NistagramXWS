@@ -12,10 +12,10 @@ public class Agent extends User{
     @Id
     private Integer id;
 
-    @OneToMany(mappedBy = "agent", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "agent", fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
     private Set<Kampanja> kampanje = new HashSet<>();
 
-    @OneToMany(mappedBy = "agent", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "agent", fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
     private Set<Proizvod> proizvodi = new HashSet<>();
 
     @JsonIgnore

@@ -191,8 +191,13 @@ public class SadrzajController {
 
     @CrossOrigin(origins = "http://localhost:4200")
     @GetMapping(value="/getAll")
-    public ResponseEntity<List<Sadrzaj>> getAll( @RequestHeader(value="Authorization") String token){
-        return new ResponseEntity<>(sadrzajService.getAll(token), HttpStatus.OK);
+    public ResponseEntity<List<Sadrzaj>> getAll( @RequestHeader(value="Authorization") String token) throws Exception {
+        String role = tokenUtils.getRoleFromToken(token);
+        if (role.equals("agent") || role.equals("user")) {
+            return new ResponseEntity<>(sadrzajService.getAll(token), HttpStatus.OK);
+        } else {
+            throw new Exception("Zabranjeno");
+        }
     }
 
     @CrossOrigin(origins = "http://localhost:4200")

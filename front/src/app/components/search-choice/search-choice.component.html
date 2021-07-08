@@ -12,10 +12,10 @@
   <p>Nema rezultata za {{search}}</p>
 </div>
 <div *ngIf="!empty">
-  <!--<div *ngIf="isForProfile">
-    <a >{{contents[0].kreator.username}}</a>
-    <app-button text="Blokiraj" color="green" type="button" (btnClick)="block(contents[0].kreator.username)"></app-button>
-  </div>-->
+  <div *ngIf="isForProfile">
+    <button >{{contents[0].kreator.username}}</button>
+
+  </div>
   <app-content [contents]="contents"></app-content>
 </div>
 <router-outlet></router-outlet>

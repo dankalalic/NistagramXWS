@@ -8,4 +8,4 @@ insert into ZAHTEVZAVERIFIKACIJU (id,  status, obradjen, admin_id) values (nextv
 insert into ZAHTEVZAVERIFIKACIJU (id,  status, obradjen, admin_id) values (nextval('seq_zahtevi_verifikacija'),  false, false,3);
 insert into ZAHTEVZAVERIFIKACIJU (id,  status, obradjen, admin_id) values (nextval('seq_zahtevi_verifikacija'),  false, false,3);
 
-insert into ZAHTEVZAREGISTRACIJU(id, registeredUser_id, admin_id, odobren) values (nextval('seq_zahtevi_registracija'), 1, 3, false);
+--insert into ZAHTEVZAREGISTRACIJU(id, registeredUser_id, admin_id, odobren) values (nextval('seq_zahtevi_registracija'), 1, 3, false);

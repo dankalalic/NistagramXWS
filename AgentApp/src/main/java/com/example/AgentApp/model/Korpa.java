@@ -16,7 +16,7 @@ public class Korpa {
     private Integer id;
 
 
-    @OneToMany(mappedBy = "korpa", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "korpa", fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
     private Set<Proizvod> proizvodi = new HashSet<>();
 
     @OneToOne(mappedBy = "korpa")

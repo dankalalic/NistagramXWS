@@ -17,13 +17,15 @@ export class SearchChoiceComponent implements OnInit {
   public search! : string;
   public empty! : boolean;
   public isForProfile : boolean = true;
+  isLogged : any;
 
   constructor(private searchService : SearchService, private router: Router) { }
 
   ngOnInit(): void {
-    if (sessionStorage.getItem("role") != "agent" && sessionStorage.getItem("role") != "user") {
-      this.router.navigate(['error']);
-    }
+    if(sessionStorage.getItem('role') == "user") {this.isLogged=true;}
+    else if (sessionStorage.getItem('role') == "agent") { this.isLogged=true;}
+    else {this.isLogged=false;}
+
     this.by = 'profile';
   }
 
@@ -35,12 +37,22 @@ export class SearchChoiceComponent implements OnInit {
     const search1 : StringDTO = {
       string : this.search
     }
-    if (this.by == 'profile') {
-      this.getByProfile(search1);
-    } else if (this.by == 'location') {
-      this.getByLocation(search1);
-    } else if (this.by == 'tags') {
-      this.getByTag(search1);
+    if(this.isLogged==true) {
+      if (this.by == 'profile') {
+        this.getByProfile(search1);
+      } else if (this.by == 'location') {
+        this.getByLocation(search1);
+      } else if (this.by == 'tags') {
+        this.getByTag(search1);
+      }
+    } else {
+      if (this.by == 'profile') {
+        this.getByProfileNotLogged(search1);
+      } else if (this.by == 'location') {
+        this.getByLocationNotLogged(search1);
+      } else if (this.by == 'tags') {
+        this.getByTagNotLogged(search1);
+      }
     }
   }
 
@@ -83,7 +95,42 @@ export class SearchChoiceComponent implements OnInit {
     this.search = '';
   }
 
-  block(username : string) {
+  getByProfileNotLogged(username : StringDTO) {
+    this.searchService.getByProfileNotLogged(username).subscribe(result => {
+      this.contents = result;
+      this.empty = this.contents.length == 0;
+      this.isForProfile = true;
+      //this.empty = !!this.contents.empty;
+      console.log('success', result);
 
+    }, err => {
+      this.router.navigate(['/error']);
+    })
+    this.search = '';
+  }
+
+  getByLocationNotLogged(naziv : StringDTO) {
+    this.searchService.getByLocationNotLogged(naziv).subscribe(result => {
+      this.contents = result;
+      this.empty = this.contents.length == 0;
+      this.isForProfile = false;
+      console.log('success', result);
+    }, err => {
+      this.router.navigate(['/error']);
+    })
+    this.search = '';
+  }
+
+  getByTagNotLogged(naziv : StringDTO) {
+    this.searchService.getByTagNotLogged(naziv).subscribe(result => {
+      this.contents = result;
+      this.empty = this.contents.length == 0;
+      this.isForProfile = false;
+      console.log('success', result);
+
+    }, err => {
+      this.router.navigate(['/error']);
+    })
+    this.search = '';
   }
 }

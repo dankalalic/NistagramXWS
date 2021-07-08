@@ -1,0 +1,15 @@
+<app-navbar></app-navbar>
+
+<ul style="list-style-type: none">
+  <div class="polaroid">
+    <li *ngFor="let zahtev of zahtevi">
+      <img alt="slika" style="width : 100%" [src]="sanitize('data:image/jpg;base64,' + zahtev['slika']['url'])"/>
+      <div class="container1">
+        <div>Ime: {{zahtev['naziv']}}</div>
+        <div>raspolozivo stanje: {{zahtev['raspolozivoStanje']}}</div>
+        <div>cena: {{zahtev['cena']}}</div>
+      </div>
+      <app-button text="Kupi" color="green" type="button" (btnClick)="kupi(zahtev['id'])"></app-button>
+    </li>
+  </div>
+</ul>

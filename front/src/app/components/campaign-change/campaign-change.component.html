@@ -19,6 +19,7 @@
     <label for="godineKraja">Godine kraja</label>
     <input id="godineKraja" name="godineKraja" type="number" [ngModel]="godineKraja" (change)="onChangeGodKraja($event)"/>
   </div>
+
   <div *ngIf="jednokratna==true">
     <div class="container1">
       <label for="pocetakPrikazivanja">Pocetak prikazivanja</label>

@@ -18,6 +18,9 @@ export class PregledZahtevaZaAgenteComponent implements OnInit {
   constructor(private sanitizer:DomSanitizer, private router: Router, private zahtev:RegistracijaAgentaService) { }
 
   ngOnInit(): void {
+    if (sessionStorage.getItem("role") != "admin") {
+      this.router.navigate(['error']);
+    }
     this.zahtev.getZahtevi().subscribe(result =>
     {
       //this.router.navigate(['/newsfeed']);
@@ -32,7 +35,7 @@ export class PregledZahtevaZaAgenteComponent implements OnInit {
       console.log('success', result);
 
     }, err => {
-      console.log('err', err);
+      this.router.navigate(['/error']);
     })
   }
 

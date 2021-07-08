@@ -3,12 +3,17 @@ package com.example.CampaignService.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
+import javax.xml.bind.annotation.*;
 import java.util.HashSet;
 import java.util.Set;
 
 @Entity
+@XmlAccessorType(XmlAccessType.FIELD)
+@XmlType(name = "Agent", namespace = "http://localhost:8085/agenti/getAll")
+@XmlRootElement(name = "Agent")
 public class Agent {
 
+    @XmlElement
     @Id
     private Integer id;
 

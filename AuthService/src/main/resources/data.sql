@@ -5,8 +5,9 @@ insert into USERS (id, username, password, role, enabled) values (3, 'admin',  '
 
 
 insert into AUTHORITY (name) values ('ROLE_USER');
+insert into AUTHORITY (name) values ('ROLE_AGENT');
 insert into AUTHORITY (name) values ('ROLE_ADMIN');
 
 INSERT INTO USER_AUTHORITY (user_id, authority_id) VALUES (1, 1);
-INSERT INTO USER_AUTHORITY (user_id, authority_id) VALUES (2, 1);
-INSERT INTO USER_AUTHORITY (user_id, authority_id) VALUES (3, 2);
+INSERT INTO USER_AUTHORITY (user_id, authority_id) VALUES (2, 2);
+INSERT INTO USER_AUTHORITY (user_id, authority_id) VALUES (3, 3);
