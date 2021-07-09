@@ -113,7 +113,23 @@ services:
     environment:
       - REGISTRY_HOST=eureka
     networks:
-      - nistagram-network 
+      - nistagram-network
+  messagesservice:
+    image: messagesservice
+    build:
+      context: ./messagesservice
+      dockerfile: Dockerfile
+    ports:
+      - "8091:8091"
+    tty: true
+    restart: on-failure
+    container_name: mesagesservice
+    depends_on:
+      - eureka
+    environment:
+      - REGISTRY_HOST=eureka
+    networks:
+      - nistagram-network  
 
 networks:
   nistagram-network:

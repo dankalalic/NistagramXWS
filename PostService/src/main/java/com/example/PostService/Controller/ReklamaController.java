@@ -34,9 +34,9 @@ public class ReklamaController {
 
     @CrossOrigin(origins = "http://localhost:8085")
     @PostMapping("/saveAll")
-    public ListIntegerWrapper saveAll (@RequestBody ReklamaListDTO reklamaListDTO, @RequestHeader(value="Authorization") String token) throws Exception {
-        String role = tokenUtils.getRoleFromToken(token);
-        if (role.equals("agent")) {
+    public ListIntegerWrapper saveAll (@RequestBody ReklamaListDTO reklamaListDTO) throws Exception {
+        //String role = tokenUtils.getRoleFromToken(token);
+        //if (role.equals("agent")) {
 
 
             List<Reklama> reklamas = new ArrayList<>();
@@ -71,20 +71,19 @@ public class ReklamaController {
             agentRepository.save(agent);
 
             return new ListIntegerWrapper(integers);
-        } else {
-            throw new Exception("Zabranjeno");
-        }
+        //} else {
+         //   throw new Exception("Zabranjeno");
+        //}
     }
 
     @CrossOrigin(origins = "http://localhost:8085")
     @PostMapping("/getAll")
-    public KampanjaReturnDTO getByIds (@RequestBody ListIntegerWrapper integers, @RequestHeader(value="Authorization") String token) throws Exception {
-        String role = tokenUtils.getRoleFromToken(token);
-        if (role.equals("agent")) {
-            Integer userId = tokenUtils.getIdFromToken(token);
+    public KampanjaReturnDTO getByIds (@RequestBody ListIntegerWrapper integers) throws Exception {
+        //String role = tokenUtils.getRoleFromToken(token);
+        //if (role.equals("agent")) {
             return reklamaService.getReklameById(integers.getIntegerList());
-        } else {
-            throw new Exception("Zabranjeno");
-        }
+        //} else {
+         //   throw new Exception("Zabranjeno");
+        //}
     }
 }

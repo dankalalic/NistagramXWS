@@ -26,12 +26,12 @@ public class UserController {
     @CrossOrigin(origins = "http://localhost:4200")
     @GetMapping(value="/changeProfile")
     public ResponseEntity<UserAndPrivacyDTO> getProfile(@RequestHeader(value="Authorization") String token) throws Exception {
-        String role = tokenUtils.getRoleFromToken(token);
-        if (role.equals("agent") || role.equals("user")) {
+        //String role = tokenUtils.getRoleFromToken(token);
+        //if (role.equals("agent") || role.equals("user")) {
             Integer id = tokenUtils.getIdFromToken(token);
             return new ResponseEntity<>(userService.getUserById(id), HttpStatus.OK);
-        } else {
-            throw new Exception("Zabranjeno");
-        }
+        //} else {
+         //   throw new Exception("Zabranjeno");
+        //}
     }
 }

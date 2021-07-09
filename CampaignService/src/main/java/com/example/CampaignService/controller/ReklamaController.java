@@ -55,8 +55,8 @@ public class ReklamaController {
     @GetMapping(value="/getAllKampanje")
     public Set<SadrzajjDTO> getAll(@RequestHeader(value="Authorization") String token) throws Exception {
 
-        String role = tokenUtils.getRoleFromToken(token);
-        if (role.equals("agent") || role.equals("user")) {
+        //String role = tokenUtils.getRoleFromToken(token);
+        //if (role.equals("agent") || role.equals("user")) {
 
             Integer userId = tokenUtils.getIdFromToken(token);
 
@@ -141,8 +141,8 @@ public class ReklamaController {
 
             }
             return sadrzajjDTOS;
-        } else {
-            throw new Exception("Zabranjeno");
-        }
+        //} else {
+        //    throw new Exception("Zabranjeno");
+        //}
     }
 }

@@ -29,8 +29,8 @@ public class ZahteviZaPracenjeController {
 
     @PostMapping(value="/primazahtev",consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Boolean> followSomeone(@RequestBody idDTO idDTO, @RequestHeader(value="Authorization") String token) throws Exception {
-        String role = tokenUtils.getRoleFromToken(token);
-        if (role.equals("agent") || role.equals("user")) {
+        //String role = tokenUtils.getRoleFromToken(token);
+        //if (role.equals("agent") || role.equals("user")) {
             RegisteredUser meuser= this.registeredUserRepository.findOneById(idDTO.getMyID());
             RegisteredUser someoneuser= this.registeredUserRepository.findOneById(idDTO.getSomeonesID());
 
@@ -41,9 +41,9 @@ public class ZahteviZaPracenjeController {
             zahteviZaPracenje=zahteviZaPracenjeService.save(zahteviZaPracenje);
 
             return new ResponseEntity<>(true, HttpStatus.OK);
-        } else {
-            throw new Exception("Zabranjeno");
-        }
+        //} else {
+        //    throw new Exception("Zabranjeno");
+        //}
     }
 
     @PostMapping(value="/proba")

@@ -389,11 +389,11 @@ public class SadrzajService {
         List<Sadrzaj> sadrzajs = new ArrayList<>();
 
         StringDTO stringDTO = new StringDTO(token);
-        ListIntegerWrapper following= restTemplate.postForObject("http://followerservice/follower/getFollowing", stringDTO, ListIntegerWrapper.class);
+        //ListIntegerWrapper following= restTemplate.postForObject("http://followerservice/follower/getFollowing", stringDTO, ListIntegerWrapper.class);
         ListIntegerWrapper publics = restTemplate.postForObject("http://followerservice/follower/getPublic",new IdDTO(2), ListIntegerWrapper.class);
 
         for (Post post : posts) {
-            if (following.getIntegerList().contains(post.getKreator().getId()) || publics.getIntegerList().contains(post.getKreator().getId())) {
+            if (publics.getIntegerList().contains(post.getKreator().getId())) {
                 sadrzajs.add(post);
             }
         }

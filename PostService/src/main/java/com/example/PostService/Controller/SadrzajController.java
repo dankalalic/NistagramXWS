@@ -48,34 +48,34 @@ public class SadrzajController {
     @CrossOrigin(origins = "http://localhost:4200")
     @PostMapping("/findByLokacija")
     public ResponseEntity<List<Sadrzaj>> findByLokacija(@RequestBody StringDTO stringDTO, @RequestHeader(value="Authorization") String token) throws Exception {
-        String role = tokenUtils.getRoleFromToken(token);
-        if (role.equals("agent") || role.equals("user")) {
+        //String role = tokenUtils.getRoleFromToken(token);
+        //if (role.equals("agent") || role.equals("user")) {
             return new ResponseEntity<>(sadrzajService.findByLokacija(stringDTO.getString(), token), HttpStatus.OK);
-        } else {
-            throw new Exception("Zabranjeno");
-        }
+        //} else {
+         //   throw new Exception("Zabranjeno");
+        //}
     }
     @CrossOrigin(origins = "http://localhost:4200")
     @PostMapping("/findByTag")
     public ResponseEntity<List<Sadrzaj>> findByTag(@RequestBody StringDTO stringDTO, @RequestHeader(value="Authorization") String token) throws Exception {
-        String role = tokenUtils.getRoleFromToken(token);
-        if (role.equals("agent") || role.equals("user")) {
+        //String role = tokenUtils.getRoleFromToken(token);
+        //if (role.equals("agent") || role.equals("user")) {
             return new ResponseEntity<>(sadrzajService.findByTag(stringDTO.getString(), token), HttpStatus.OK);
-        } else {
-            throw new Exception("Zabranjeno");
-        }
+        //} else {
+        //    throw new Exception("Zabranjeno");
+        //}
 
     }
 
     @CrossOrigin(origins = "http://localhost:4200")
     @PostMapping("/findByProfil")
     public ResponseEntity<List<Sadrzaj>> findByProfil(@RequestBody StringDTO stringDTO, @RequestHeader(value="Authorization") String token) throws Exception {
-        String role = tokenUtils.getRoleFromToken(token);
-        if (role.equals("agent") || role.equals("user")) {
+        //String role = tokenUtils.getRoleFromToken(token);
+        //if (role.equals("agent") || role.equals("user")) {
             return new ResponseEntity<>(sadrzajService.findByProfil(stringDTO.getString(), token), HttpStatus.OK);
-        } else {
-            throw new Exception("Zabranjeno");
-        }
+        //} else {
+        //    throw new Exception("Zabranjeno");
+        //}
     }
 
     @CrossOrigin(origins = "http://localhost:4200")
@@ -97,61 +97,61 @@ public class SadrzajController {
 
     @PostMapping("/like")
     public ResponseEntity<Sadrzaj> like(@RequestBody IdDTO idDTO, @RequestHeader(value="Authorization") String token) throws Exception {
-        String role = tokenUtils.getRoleFromToken(token);
-        if (role.equals("agent") || role.equals("user")) {
+        //String role = tokenUtils.getRoleFromToken(token);
+        //if (role.equals("agent") || role.equals("user")) {
             Integer userId = tokenUtils.getIdFromToken(token);
             return new ResponseEntity<>( sadrzajService.like(idDTO.getId(), userId), HttpStatus.OK);
-        } else {
-            throw new Exception("Zabranjeno");
-        }
+        //} else {
+        //    throw new Exception("Zabranjeno");
+        //}
     }
 
     @PostMapping("/dislike")
     public ResponseEntity<Sadrzaj> dislike(@RequestBody IdDTO idDTO, @RequestHeader(value="Authorization") String token) throws Exception {
-        String role = tokenUtils.getRoleFromToken(token);
-        if (role.equals("agent") || role.equals("user")) {
+        //String role = tokenUtils.getRoleFromToken(token);
+        //if (role.equals("agent") || role.equals("user")) {
             Integer userId = tokenUtils.getIdFromToken(token);
             return new ResponseEntity<>( sadrzajService.dislike(idDTO.getId(), userId), HttpStatus.OK);
-        } else {
-            throw new Exception("Zabranjeno");
-        }
+        //} else {
+        //    throw new Exception("Zabranjeno");
+        //}
     }
 
     @CrossOrigin(origins = "http://localhost:4200")
     @PostMapping("/neprikladanSadrzaj")
     public ResponseEntity<StringDTO> neprikladanSadrzaj(@RequestBody IdDTO idDTO, @RequestHeader(value="Authorization") String token) throws Exception {
-        String role = tokenUtils.getRoleFromToken(token);
-        if (role.equals("agent") || role.equals("user")) {
+        //String role = tokenUtils.getRoleFromToken(token);
+        //if (role.equals("agent") || role.equals("user")) {
             String s = sadrzajService.prijaviNeprikladanSadrzaj(idDTO);
             StringDTO ss = new StringDTO(s);
             return new ResponseEntity<>(ss, HttpStatus.OK);
-        } else {
-            throw new Exception("Zabranjeno");
-        }
+        //} else {
+        //    throw new Exception("Zabranjeno");
+        //}
     }
 
     @CrossOrigin(origins = "http://localhost:4200")
     @GetMapping("/sadrzajKorisnikLajkovao")
     public ResponseEntity<Set<SadrzajReturnDTO>> sadrzajKorisnikLajkovao(@RequestHeader(value="Authorization") String token) throws Exception {
-        String role = tokenUtils.getRoleFromToken(token);
-        if (role.equals("agent") || role.equals("user")) {
+        //String role = tokenUtils.getRoleFromToken(token);
+        //if (role.equals("agent") || role.equals("user")) {
             Integer userId = tokenUtils.getIdFromToken(token);
             return new ResponseEntity<>(sadrzajService.getsadrzajKorisnikLajkovao(userId), HttpStatus.OK);
-        } else {
-            throw new Exception("Zabranjeno");
-        }
+        //} else {
+        //    throw new Exception("Zabranjeno");
+        //}
     }
 
     @CrossOrigin(origins = "http://localhost:4200")
     @GetMapping("/sadrzajKorisnikDislajkovao")
     public ResponseEntity<Set<SadrzajReturnDTO>> sadrzajKorisnikDislajkovao(@RequestHeader(value="Authorization") String token) throws Exception {
-        String role = tokenUtils.getRoleFromToken(token);
-        if (role.equals("agent") || role.equals("user")) {
+        //String role = tokenUtils.getRoleFromToken(token);
+        //if (role.equals("agent") || role.equals("user")) {
             Integer userId = tokenUtils.getIdFromToken(token);
             return new ResponseEntity<>(sadrzajService.getsadrzajKorisnikDislajkovao(userId), HttpStatus.OK);
-        } else {
-            throw new Exception("Zabranjeno");
-        }
+        //} else {
+        //    throw new Exception("Zabranjeno");
+        //}
     }
 
     @CrossOrigin(origins = "http://localhost:4200")
@@ -181,23 +181,23 @@ public class SadrzajController {
     @CrossOrigin(origins = "http://localhost:4200")
     @PostMapping(value="/getpictures")
     public ResponseEntity<Set<SadrzajReturnDTO>> getRegistrovaniKorisnikPictures(@RequestBody IdDTO idDTO, @RequestHeader(value="Authorization") String token) throws Exception {
-        String role = tokenUtils.getRoleFromToken(token);
-        if (role.equals("agent") || role.equals("user")) {
+        //String role = tokenUtils.getRoleFromToken(token);
+        //if (role.equals("agent") || role.equals("user")) {
             return new ResponseEntity<>(sadrzajService.getPictures(idDTO.getId()), HttpStatus.OK);
-        } else {
-            throw new Exception("Zabranjeno");
-        }
+       // } else {
+       //     throw new Exception("Zabranjeno");
+       // }
     }
 
     @CrossOrigin(origins = "http://localhost:4200")
     @GetMapping(value="/getAll")
     public ResponseEntity<List<Sadrzaj>> getAll( @RequestHeader(value="Authorization") String token) throws Exception {
-        String role = tokenUtils.getRoleFromToken(token);
-        if (role.equals("agent") || role.equals("user")) {
+        //String role = tokenUtils.getRoleFromToken(token);
+        //if (role.equals("agent") || role.equals("user")) {
             return new ResponseEntity<>(sadrzajService.getAll(token), HttpStatus.OK);
-        } else {
-            throw new Exception("Zabranjeno");
-        }
+        //} else {
+        //    throw new Exception("Zabranjeno");
+        //}
     }
 
     @CrossOrigin(origins = "http://localhost:4200")
@@ -209,8 +209,8 @@ public class SadrzajController {
     @CrossOrigin(origins = "http://localhost:4200")
     @PostMapping(value="/getReklamaById")
     public ResponseEntity<SadrzajjDTO> getAll(@RequestBody IdDTO idDTO, @RequestHeader(value="Authorization") String token) throws Exception {
-        String role = tokenUtils.getRoleFromToken(token);
-        if (role.equals("agent") || role.equals("user")) {
+        //String role = tokenUtils.getRoleFromToken(token);
+        //if (role.equals("agent") || role.equals("user")) {
             Sadrzaj sadrzaj=this.sadrzajRepository.getOne(idDTO.getId());
             Set<Slika> slikas= sadrzaj.getSlike();
             Set<SlikaDTO> slikas1 = new HashSet<>();
@@ -223,9 +223,9 @@ public class SadrzajController {
             SadrzajjDTO sadrzajjDTO= new SadrzajjDTO(sadrzaj.getId(),slikas1);
 
             return new ResponseEntity<>(sadrzajjDTO, HttpStatus.OK);
-        } else {
-            throw new Exception("Zabranjeno");
-        }
+        //} else {
+        //    throw new Exception("Zabranjeno");
+        //}
 
     }
 

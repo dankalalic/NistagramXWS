@@ -186,12 +186,12 @@ public class ProizvodController {
     @GetMapping(value="/getByAgent")
     public List<Proizvod> getByAgent(@RequestHeader(value="Authorization") String token) throws Exception {
         String role = tokenUtils.getRoleFromToken(token);
-        if (role.equals("agent")) {
+        //if (role.equals("agent")) {
             Integer userId = tokenUtils.getIdFromToken(token);
             return proizvodService.findByAgent(userId);
-        } else {
-            throw new Exception("Zabranjeno");
-        }
+        //} else {
+         //   throw new Exception("Zabranjeno");
+        //}
     }
 
     @CrossOrigin(origins = "http://localhost:4200")

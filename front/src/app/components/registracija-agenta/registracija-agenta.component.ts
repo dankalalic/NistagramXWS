@@ -16,7 +16,7 @@ export class RegistracijaAgentaComponent implements OnInit {
   constructor(private verificationService : VerificationUploadService, private router: Router, private sanitizer:DomSanitizer, private registracijaAgenta:RegistracijaAgentaService) { }
 
   ngOnInit(): void {
-    if (sessionStorage.getItem("role") != "admin") {
+    if (sessionStorage.getItem("role") != "user") {
       this.router.navigate(['error']);
     }
   }

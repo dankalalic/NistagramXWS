@@ -49,8 +49,8 @@ public class FollowerController {
 
     @PostMapping(value="/follow",consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Boolean> followSomeone(@RequestBody IdDTO idDTO, @RequestHeader(value="Authorization") String token) throws Exception {
-        String role = tokenUtils.getRoleFromToken(token);
-        if (role.equals("agent") || role.equals("user")) {
+        //String role = tokenUtils.getRoleFromToken(token);
+        //if (role.equals("agent") || role.equals("user")) {
             Integer id = tokenUtils.getIdFromToken(token);
             Integer id2=idDTO.getId();
             User user= this.followerRepository.findOneById(id);
@@ -101,9 +101,9 @@ public class FollowerController {
            users.add(user3);
 
             return new ResponseEntity<>(bolean,HttpStatus.OK);
-        } else {
-            throw new Exception("Zabranjeno");
-        }
+        //} else {
+        //    throw new Exception("Zabranjeno");
+        //}
     }
 
     @GetMapping(value="/isPrivate",consumes = MediaType.APPLICATION_JSON_VALUE)
@@ -136,13 +136,13 @@ public class FollowerController {
     @CrossOrigin(origins="http://localhost:4200")
     @PostMapping(value = "/getFollowing")
     public ListIntegerWrapper getFollowing(@RequestBody StringDTO stringDTO) throws Exception {
-        String role = tokenUtils.getRoleFromToken(stringDTO.getString());
-        if (role.equals("agent") || role.equals("user")) {
+        //String role = tokenUtils.getRoleFromToken(stringDTO.getString());
+        //if (role.equals("agent") || role.equals("user")) {
             Integer id = tokenUtils.getIdFromToken(stringDTO.getString());
             return userService.getFollowing(id);
-        } else {
-            throw new Exception("Zabranjeno");
-        }
+       // } else {
+        //    throw new Exception("Zabranjeno");
+        //}
     }
 
 }

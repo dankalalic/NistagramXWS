@@ -27,61 +27,61 @@ public class ZahtevZaRegistracijuController {
     @CrossOrigin(origins = "http://localhost:4200")
     @PostMapping("/regAgent")
     public ResponseEntity<StringDTO> regAgent(@RequestBody regAgentDTO regAgentDTO, @RequestHeader(value="Authorization") String token) throws Exception {
-        String role = tokenUtils.getRoleFromToken(token);
-        if (role.equals("admin")) {
+        //String role = tokenUtils.getRoleFromToken(token);
+        //if (role.equals("admin")) {
             Integer userId = tokenUtils.getIdFromToken(token);
             return new ResponseEntity<>( zahtevZaRegistracijuService.regAgent(regAgentDTO, userId), HttpStatus.OK);
-        } else {
-            throw new Exception("Zabranjeno");
-        }
+        //} else {
+         //   throw new Exception("Zabranjeno");
+        //}
     }
     @CrossOrigin(origins = "http://localhost:4200")
     @GetMapping("/getZahteve")
     public ResponseEntity<Set<ZahteviReturnDTO>> getZahteve(@RequestHeader(value="Authorization") String token) throws Exception {
-        String role = tokenUtils.getRoleFromToken(token);
-        if (role.equals("admin")) {
+        //String role = tokenUtils.getRoleFromToken(token);
+        //if (role.equals("admin")) {
             Integer userId = tokenUtils.getIdFromToken(token);
             return new ResponseEntity<>( zahtevZaRegistracijuService.getZahteve(), HttpStatus.OK);
-        } else {
-            throw new Exception("Zabranjeno");
-        }
+        //} else {
+        //    throw new Exception("Zabranjeno");
+        //}
     }
 
     @CrossOrigin(origins = "http://localhost:4200")
     @PostMapping("/prihvati")
     public ResponseEntity<StringDTO> prihvati(@RequestBody IdOnlyDTO idOnlyDTO, @RequestHeader(value="Authorization") String token) throws Exception {
-        String role = tokenUtils.getRoleFromToken(token);
-        if (role.equals("admin")) {
+        //String role = tokenUtils.getRoleFromToken(token);
+        //if (role.equals("admin")) {
             Integer userId = tokenUtils.getIdFromToken(token);
             return new ResponseEntity<>( zahtevZaRegistracijuService.prihvati(idOnlyDTO, userId), HttpStatus.OK);
-        } else {
-            throw new Exception("Zabranjeno");
-        }
+        //} else {
+        //    throw new Exception("Zabranjeno");
+        //}
     }
 
     @CrossOrigin(origins = "http://localhost:4200")
     @PostMapping("/odbij")
     public ResponseEntity<StringDTO> odbij(@RequestBody IdOnlyDTO idOnlyDTO, @RequestHeader(value="Authorization") String token) throws Exception {
-        String role = tokenUtils.getRoleFromToken(token);
-        if (role.equals("admin")) {
+        //String role = tokenUtils.getRoleFromToken(token);
+        //if (role.equals("admin")) {
             Integer userId = tokenUtils.getIdFromToken(token);
             return new ResponseEntity<>( zahtevZaRegistracijuService.odbij(idOnlyDTO, userId), HttpStatus.OK);
-        } else {
-            throw new Exception("Zabranjeno");
-        }
+        //} else {
+        //    throw new Exception("Zabranjeno");
+        //}
     }
 
 
     @CrossOrigin(origins = "http://localhost:4200")
     @PostMapping("/registrujAgentaAdmin")
     public ResponseEntity<StringDTO> registrujAgentaAdmin(@RequestBody StringDTO stringDTO, @RequestHeader(value="Authorization") String token) throws Exception {
-        String role = tokenUtils.getRoleFromToken(token);
-        if (role.equals("admin")) {
+        //String role = tokenUtils.getRoleFromToken(token);
+        //if (role.equals("admin")) {
             Integer userId = tokenUtils.getIdFromToken(token);
             return new ResponseEntity<>( zahtevZaRegistracijuService.registrujAgentaAdmin(stringDTO), HttpStatus.OK);
-        } else {
-            throw new Exception("Zabranjeno");
-        }
+        //} else {
+        //    throw new Exception("Zabranjeno");
+        //}
     }
 
 }

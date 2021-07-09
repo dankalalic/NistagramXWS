@@ -30,14 +30,14 @@ public class RegisteredUserController {
     @PostMapping(value="/changeRegisteredUserInfo", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     //@PreAuthorize("hasRole('REGISTEREDUSER')")
     public ResponseEntity<RegisteredUser> changeRegisteredUserInfo(@RequestBody UserChangeDTO userDTO, @RequestHeader(value="Authorization") String token) throws Exception {
-        String role = tokenUtils.getRoleFromToken(token);
-        if (role.equals("agent") || role.equals("user")) {
+        //String role = tokenUtils.getRoleFromToken(token);
+        //if (role.equals("agent") || role.equals("user")) {
             Integer id = tokenUtils.getIdFromToken(token);
             RegisteredUser user = registeredUserService.changeRegisteredUserInfo(userDTO, id);
             return new ResponseEntity<>(user, HttpStatus.OK);
-        } else {
-            throw new Exception("Zabranjeno");
-        }
+        //} else {
+        //    throw new Exception("Zabranjeno");
+        //}
     }
 
     /*private RegisteredUserRepository registeredUserRepository;
@@ -61,14 +61,14 @@ public class RegisteredUserController {
     @CrossOrigin(origins = "http://localhost:4200")
     @PostMapping(value="/privacySettings")
     public ResponseEntity<RegisteredUser> privacyAndNotifSettings(@RequestBody privacyDTO privacyDTO, @RequestHeader(value="Authorization") String token) throws Exception {
-        String role = tokenUtils.getRoleFromToken(token);
-        if (role.equals("agent")|| role.equals("user")) {
+        //String role = tokenUtils.getRoleFromToken(token);
+        //if (role.equals("agent")|| role.equals("user")) {
             Integer id = tokenUtils.getIdFromToken(token);
             return new ResponseEntity<>(registeredUserService.privacyAndNotificationSettings(id, privacyDTO.getTaggable(), privacyDTO.getIsp(),
                     privacyDTO.getAcceptMsg(), privacyDTO.getAllowNotifs()), HttpStatus.OK);
-        } else {
-            throw new Exception("Zabranjeno");
-        }
+        //} else {
+        //    throw new Exception("Zabranjeno");
+        //}
     }
 
     @PostMapping(value="/signup", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
@@ -87,13 +87,13 @@ public class RegisteredUserController {
 
     @PostMapping(value="/block", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<RegisteredUser> block(@RequestBody IdOnlyDTO idDTO, @RequestHeader(value="Authorization") String token) throws Exception {
-        String role = tokenUtils.getRoleFromToken(token);
-        if (role.equals("agent") || role.equals("user")) {
+        //String role = tokenUtils.getRoleFromToken(token);
+        //if (role.equals("agent") || role.equals("user")) {
             Integer id = tokenUtils.getIdFromToken(token);
             return new ResponseEntity<>(registeredUserService.block(idDTO.getId(), id), HttpStatus.OK);
-        } else {
-            throw new Exception("Zabranjeno");
-        }
+        //} else {
+        //    throw new Exception("Zabranjeno");
+        //}
     }
 
 
